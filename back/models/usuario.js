@@ -1,12 +1,12 @@
 var mongoose = require("mongoose");
 var schema = mongoose.schema;
 
-var UsuarioSchema = schema({
-  nombre: { type: string, required: true },
-  apellido: { type: string, required: true },
-  email: { type: string, required: true, uniqued: true },
-  password: { type: string, required: true },
-  rol: { type: string, required: true },
+var UsuarioSchema = new mongoose.Schema({
+  nombre: { type: String, required: true },
+  apellido: { type: String, required: true },
+  email: { type: String, required: true, uniqued: true },
+  password: { type: String, required: true },
+  rol: { type: String, required: true },
 });
 
-module.exports = mongoose.model("usuario", UsuarioSchema);
+module.exports = mongoose.model("Usuario", UsuarioSchema);
