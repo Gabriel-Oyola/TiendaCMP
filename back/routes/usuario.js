@@ -8,5 +8,6 @@ api.post(
   "/admin_registro_usuarios",
   usuarioControllers.admin_registro_usuarios
 );
+api.post("/login_usuario", usuarioControllers.login_usuario);
 
 module.exports = api;
