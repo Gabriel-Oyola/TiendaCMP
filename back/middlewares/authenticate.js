@@ -1,6 +1,7 @@
 var jwt = require("jwt-simple");
 var moment = require("moment");
 var secret = "LlaveAcceso1";
+let cambio = "0";
 
 exports.decodeToken = function (req, res, next) {
   if (!req.headers.authorization) {
@@ -24,3 +25,5 @@ exports.decodeToken = function (req, res, next) {
   req.user = payload;
   next();
 };
+
+//Aqui se realizaran las authenticaciones de token que nos permite registrar usuarios
