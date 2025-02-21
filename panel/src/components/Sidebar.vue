@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-vertical fixed-start navbar-expand-md " id="sidebar">
+  <nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-light " id="sidebar">
       <div class="container-fluid">
     
         <!-- Toggler -->

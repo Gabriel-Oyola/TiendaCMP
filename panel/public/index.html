@@ -19,6 +19,17 @@
   <link rel="stylesheet" href="<%= BASE_URL%>assets/css/theme.bundle.css" id="stylesheetLight" />
   <link rel="stylesheet" href="<%= BASE_URL%>assets/css/theme-dark.bundle.css" id="stylesheetDark" />
 
+  <style>
+    @font-face {
+      font-family: "cerebrisans";
+      src: url(/panel/public/assets/fonts/cerebrisans/cerebrisans-regular.woff);
+    }
+
+    * {
+      font-family: "cerebrsans" !important;
+    }
+  </style>
+
   <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 
