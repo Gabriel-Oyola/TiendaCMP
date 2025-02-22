@@ -75,6 +75,9 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
   name: 'LoginApp',
  data(){
@@ -84,6 +87,9 @@ export default {
         msm_error: '' 
 
     }
+  },
+  created() {
+    console.log(this.$url);
     },
     methods:{
     validar(){
@@ -93,8 +99,31 @@ export default {
                 this.msm_error = 'Ingrese una contraseña'
             }
         else {
-            this.msm_error= ""
+          this.msm_error = ""
+            this.login()
         }
+      },
+      login() {
+        let data = {
+          email: this.email,
+          password: this.password
+        }
+        axios.post(this.$url + '/login_usuario', data, {
+          headers: {
+            'Content-Type' : 'application/json'
+          }
+        }).then((result)=> {
+          if(result.data.data == undefined){
+            this.msm_error = result.data.message; 
+          }
+          if(result.data.token){
+            localStorage.setItem('token', result.data.token);
+            localStorage.setItem('user', JSON.stringify(result.data.usuario))
+            this.$router.push({name:'about'})
+          }
+        }).catch((error)=> {
+          console.log(error)
+        })
         }
     }
 }
