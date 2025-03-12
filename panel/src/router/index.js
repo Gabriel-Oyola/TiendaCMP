@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginApp from "@/views/LoginApp.vue";
 import CreateColaboradorApp from "@/views/colaboradores/createColaboradorApp.vue";
+import IndexColaboradorApp from "@/views/colaboradores/indexColaboradorApp.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
     path: "/colaboradores/create",
     name: "create-colaborador",
     component: CreateColaboradorApp,
+  },
+  {
+    path: "/colaboradores/index",
+    name: "index-colaborador",
+    component: IndexColaboradorApp,
   },
 ];
 

@@ -3,6 +3,7 @@
     <div>
         <Sidebar />
         <div class="main-content">
+            
           
             <div class="container-fluid"> 
 
@@ -35,12 +36,11 @@
                                         <!-- Nav -->
                                         <ul class="nav nav-tabs nav-overflow header-tabs">
                                             <li class="nav-item">
-                                                <a href="account-general.html" class="nav-link active">
-                                                    Todos los colaboradores
-                                                </a>
+                                                <router-link to="/colaboradores/index" class="nav-link"> Todos los colaboradores</router-link>
+                                          
                                             </li>
                                             <li class="nav-item">
-                                                <a href="account-billing.html" class="nav-link">
+                                                <a class="nav-link active">
                                                     Nuevo colaborador
                                                 </a>
 
@@ -218,12 +218,7 @@ export default {
             }
             else{
                 this.create_colaborador()
-                this.$notify({
-                    group: 'foo',
-                    title: 'Exito',
-                    text: 'Colaborador registrado correctamente',
-                    type: 'success'
-                });
+             
             }
         },
 
@@ -235,6 +230,24 @@ export default {
                 }
             }).then((result => {
                 console.log(result)
+                if (result.data.data == undefined) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'ERROR',
+                        text: result.data.message,
+                        type: 'error'
+                    });
+                }
+                else {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'Exito',
+                        text: 'Colaborador registrado correctamente',
+                        type: 'success'
+                    });
+
+                    this.$router.push({name: 'index-colaborador'})
+                }
             })).catch((err) => {
                 console.log(err)
             })

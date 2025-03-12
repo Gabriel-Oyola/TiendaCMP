@@ -81,9 +81,9 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link " href="./widgets.html">
-              <i class="fe fe-grid"></i> Widgets
-            </a>
+
+            <router-link to="/colaboradores/index" class="nav-link"> <i
+                class="fe fe-user"></i>Colaboradores</router-link>
           </li>
 
 
@@ -119,17 +119,18 @@
             <a href="#" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <div class="avatar avatar-sm avatar-online">
-                <img src="/assets/img/avatar-1.jpg" class="avatar-img rounded-circle" alt="..." style="-webkit-mask-image: none;">
-                  </div>
-                </a>
-    
-                <!-- Menu -->
-                <div class=" dropdown-menu" aria-labelledby="sidebarIconCopy">
-                <a href="./profile-posts.html" class="dropdown-item">Profile</a>
-                <a href="./account-general.html" class="dropdown-item">Settings</a>
-                <hr class="dropdown-divider">
-                <a href="./sign-in.html" class="dropdown-item">Logout</a>
+                <img src="/assets/img/avatar-1.jpg" class="avatar-img rounded-circle" alt="..."
+                  style="-webkit-mask-image: none;">
               </div>
+            </a>
+
+            <!-- Menu -->
+            <div class=" dropdown-menu" aria-labelledby="sidebarIconCopy">
+              <a href="./profile-posts.html" class="dropdown-item">Profile</a>
+              <a href="./account-general.html" class="dropdown-item">Settings</a>
+              <hr class="dropdown-divider">
+              <a href="./sign-in.html" class="dropdown-item">Logout</a>
+            </div>
 
           </div>
 
