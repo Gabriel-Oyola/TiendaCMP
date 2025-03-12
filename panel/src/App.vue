@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-  <!--  <Sidebar /> -->
+    <!--  <Sidebar /> -->
+    <notifications group="foo" />
     <router-view />
   </div>
 </template>

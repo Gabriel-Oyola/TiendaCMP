@@ -54,7 +54,7 @@
                         </div>
 
                         <!-- Form -->
-                        <form>
+                      
 
 
 
@@ -70,7 +70,7 @@
                                         </label>
 
                                         <!-- Input -->
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" v-model="colaborador.nombre">
 
                                     </div>
 
@@ -86,7 +86,7 @@
                                         </label>
 
                                         <!-- Input -->
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" v-model="colaborador.apellido">
 
                                     </div>
 
@@ -107,7 +107,7 @@
                                         </small>
 
                                         <!-- Input -->
-                                        <input type="email" class="form-control">
+                                        <input type="email" class="form-control" v-model="colaborador.email">
 
                                     </div>
 
@@ -124,7 +124,8 @@
                                         </label>
 
                                         <!-- Input -->
-                                        <select name="" class="form-select" id="">
+                                        <select name="" class="form-select" id="" v-model="colaborador.rol">
+                                            <option value="" disabled selected>Seleccionar</option>
                                             <option value="Administrador">Administrador</option>
                                             <option value="Vendedor">Vendedor</option>
                                             <option value="Inventariado">Inventariado</option>
@@ -143,12 +144,12 @@
                             <hr class="my-5">
 
                             <!-- Button -->
-                            <button class="btn btn-primary">
-                                Save changes
+                            <button type="button" class="btn btn-primary" v-on:click="validar()">
+                                Crear colaborador
                             </button>
 
 
-                        </form>
+                        
 
                         <br><br>
 
@@ -164,12 +165,87 @@
 
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
+import axios from 'axios'
 
 export default {
     name: 'createColaboradorApp',
+
+    data() {
+        return {
+            colaborador: {
+                rol: '',
+            }
+        }
+    },
     components: {
         Sidebar, 
         TopNav
+    }, 
+
+    methods: {
+        validar() {
+            if (!this.colaborador.nombre) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el nombre completo',
+                    type: 'error'
+                });
+            }
+            else if (!this.colaborador.apellido) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el apellido',
+                    type: 'error'
+                });
+            }
+            else if (!this.colaborador.email) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el email',
+                    type: 'error'
+                });
+            }
+            else if (!this.colaborador.rol) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el rol',
+                    type: 'error'
+                });
+            }
+            else{
+                this.create_colaborador()
+                this.$notify({
+                    group: 'foo',
+                    title: 'Exito',
+                    text: 'Colaborador registrado correctamente',
+                    type: 'success'
+                });
+            }
+        },
+
+        create_colaborador() {
+            axios.post(this.$url + '/admin_registro_usuarios', this.colaborador, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$token
+                }
+            }).then((result => {
+                console.log(result)
+            })).catch((err) => {
+                console.log(err)
+            })
+        }
+        
+    },
+           mounted() {
+
     }
+      
+    
+ 
 }
 </script>
