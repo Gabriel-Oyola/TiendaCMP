@@ -8,7 +8,7 @@
 
                 <div class="header mt-md-5">
                     <div class="header-body">
-                        <div class="row align-items-center">
+                        <div class="row align-colaboradores-center">
                             <div class="col">
 
                                 <!-- Pretitle -->
@@ -23,7 +23,7 @@
 
                             </div>
                         </div> <!-- / .row -->
-                        <div class="row align-items-center">
+                        <div class="row align-colaboradores-center">
                             <div class="col">
 
                                 <!-- Nav -->
@@ -59,7 +59,7 @@
                             data-list='{"valueNames": ["item-name", "item-title", "item-email", "item-phone", "item-score", "item-company"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'
                             id="contactsList">
                             <div class="card-header">
-                                <div class="row align-items-center">
+                                <div class="row align-colaboradores-center">
                                     <div class="col">
 
                                         <!-- Form -->
@@ -108,8 +108,16 @@
                                           
                                         </tr>
                                     </thead>
-                                    <tbody class="list fs-base">
-                                        <tr v-for="item in colaboradores">
+                               
+                                        <paginate 
+                                            tag="tbody"
+                                            ref="colaboradores"
+                                            name="colaboradores"
+                                            :list="colaboradores"
+                                            :per="perPage"
+                                            class="list fs-base"
+                                            >
+                                           <tr v-for="item in paginated('colaboradores')">
 
                                             <td>
 
@@ -166,9 +174,7 @@
 
                                             </td>
                                         </tr>
-
-
-                                    </tbody>
+                                        </paginate>
                                 </table>
                             </div>
                             <div class="card-footer d-flex justify-content-between">
@@ -176,62 +182,26 @@
                                 <!-- Pagination (prev) -->
                                 <ul class="list-pagination-prev pagination pagination-tabs card-pagination">
                                     <li class="page-item">
-                                        <a class="page-link ps-0 pe-4 border-end" href="#">
-                                            <i class="fe fe-arrow-left me-1"></i> Prev
+                                        <a class="page-link ps-0 pe-4 border-end" v-on:click="goPrev()">
+                                            <i class="fe fe-arrow-left me-1"></i> Anterior
                                         </a>
                                     </li>
                                 </ul>
 
                                 <!-- Pagination -->
-                                <ul class="list-pagination pagination pagination-tabs card-pagination"></ul>
+                                <ul class=" pagination pagination-tabs card-pagination"></ul>
+                                <paginate-links   @change="onLangsPageChange" for="colaboradores" :classes="{'ul': ['list-pagination', 'pagination', 'pagination-tabs', 'cad-pagination'], 'a': ['page']}"></paginate-links>
 
                                 <!-- Pagination (next) -->
                                 <ul class="list-pagination-next pagination pagination-tabs card-pagination">
                                     <li class="page-item">
-                                        <a class="page-link ps-4 pe-0 border-start" href="#">
-                                            Next <i class="fe fe-arrow-right ms-1"></i>
+                                        <a class="page-link ps-4 pe-0 border-start" v-on:click="goNext()">
+                                            Siguiente<i class="fe fe-arrow-right ms-1"></i>
                                         </a>
                                     </li>
                                 </ul>
 
-                                <!-- Alert -->
-                                <div class="list-alert alert alert-dark alert-dismissible border fade" role="alert">
-
-                                    <!-- Content -->
-                                    <div class="row align-items-center">
-                                        <div class="col">
-
-                                            <!-- Checkbox -->
-                                            <div class="form-check">
-                                                <input class="form-check-input" id="listAlertCheckbox" type="checkbox"
-                                                    checked disabled>
-                                                <label class="form-check-label text-white" for="listAlertCheckbox">
-                                                    <span class="list-alert-count">0</span> deal(s)
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-auto me-n3">
-
-                                            <!-- Button -->
-                                            <button class="btn btn-sm btn-white-20">
-                                                Edit
-                                            </button>
-
-                                            <!-- Button -->
-                                            <button class="btn btn-sm btn-white-20">
-                                                Delete
-                                            </button>
-
-                                        </div>
-                                    </div> <!-- / .row -->
-
-                                    <!-- Close -->
-                                    <button type="button" class="list-alert-close btn-close"
-                                        aria-label="Close"></button>
-
-                                </div>
-
+                             
                             </div>
                         </div>
 
@@ -258,13 +228,39 @@ export default {
 
     data() {
         return {
-            colaboradores : [],       
+            colaboradores: [],   
+            paginate: ['colaboradores'],    
+            currentPage: '1',
+            perPage: '2'
         }
     },
     components: {
         Sidebar,
         TopNav
     }, 
+    methods: {
+        onLangsPageChange(toPage, fromPage) {
+            // handle here…
+
+            this.currentPage = toPage;
+        },
+        goPrev() {
+         
+
+            if (this.currentPage >=2) {
+                   this.$refs.colaboradores.goToPage(this.currentPage--)
+            } else {
+                   this.$refs.colaboradores.goToPage(1)
+            }
+        },
+        goNext() {
+             if (this.currentPage <=Math.ceil(this.colaboradores.length/this.perPage)) {
+                   this.$refs.colaboradores.goToPage(this.currentPage++)
+            } else {
+                   this.$refs.colaboradores.goToPage(Math.ceil(this.colaboradores.length/this.perPage))
+            }
+        }
+    },
     beforeMount() {
         axios.get(this.$url + '/listar_usuarios_admin', {
             headers: {
