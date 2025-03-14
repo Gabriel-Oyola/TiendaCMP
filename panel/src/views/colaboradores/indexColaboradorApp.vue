@@ -67,7 +67,7 @@
                                             <div
                                                 class="input-group input-group-flush input-group-merge input-group-reverse">
                                                 <input class="form-control list-search" type="search"
-                                                    placeholder="Search">
+                                                    placeholder="Buscar colaborador" v-model="filtro">
                                                 <span class="input-group-text">
                                                     <i class="fe fe-search"></i>
                                                 </span>
@@ -79,8 +79,8 @@
                                     <div class="col-auto">
 
                                         <!-- Dropdown -->
-                                        <button class="btn btn-sm btn-white" type="button">
-                                            <i class="fe fe-sliders me-1"></i> Filter <span
+                                        <button class="btn btn-sm btn-white" type="button" v-on:click="filtrar()">
+                                            <i class="fe fe-sliders me-1"></i> Filtrar <span
                                                 class="badge bg-primary ms-1 d-none">0</span>
                                         </button>
 
@@ -109,7 +109,7 @@
                                         </tr>
                                     </thead>
                                
-                                        <paginate 
+                                        <paginate v-if="!load_data"
                                             tag="tbody"
                                             ref="colaboradores"
                                             name="colaboradores"
@@ -175,6 +175,13 @@
                                             </td>
                                         </tr>
                                         </paginate>
+                                        <tr v-if="load_data">
+                                            <td colspan="5" class="text-center">
+                                                <div class="spinner-border mb-5 mt-5" role="status">
+                                                <span class="visually-hidden">Cargando...</span>
+                                                </div>
+                                            </td>
+                                        </tr>
                                 </table>
                             </div>
                             <div class="card-footer d-flex justify-content-between">
@@ -228,10 +235,13 @@ export default {
 
     data() {
         return {
-            colaboradores: [],   
+            colaboradores: [],
+            colaboradores_const: ['colaboradores'],   
             paginate: ['colaboradores'],    
             currentPage: '1',
-            perPage: '2'
+            perPage: '15',
+            filtro: '', 
+            load_data: false
         }
     },
     components: {
@@ -245,34 +255,46 @@ export default {
             this.currentPage = toPage;
         },
         goPrev() {
-         
 
-            if (this.currentPage >=2) {
-                   this.$refs.colaboradores.goToPage(this.currentPage--)
+
+            if (this.currentPage >= 2) {
+                this.$refs.colaboradores.goToPage(this.currentPage--)
             } else {
-                   this.$refs.colaboradores.goToPage(1)
+                this.$refs.colaboradores.goToPage(1)
             }
         },
         goNext() {
-             if (this.currentPage <=Math.ceil(this.colaboradores.length/this.perPage)) {
-                   this.$refs.colaboradores.goToPage(this.currentPage++)
+            if (this.currentPage <= Math.ceil(this.colaboradores.length / this.perPage)) {
+                this.$refs.colaboradores.goToPage(this.currentPage++)
             } else {
-                   this.$refs.colaboradores.goToPage(Math.ceil(this.colaboradores.length/this.perPage))
+                this.$refs.colaboradores.goToPage(Math.ceil(this.colaboradores.length / this.perPage))
             }
-        }
+        },
+        filtrar() {
+            let term = new RegExp(this.filtro, 'i')
+             this.init_data();
+            /*  this.colaboradores = this.colaboradores_const.filter(item=>term.test(item.nombre)) /* //Filtrar con backend */
+        },
+        init_data() {
+            this.load_data = true;
+            axios.get(this.$url + '/listar_usuarios_admin/' + this.filtro, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$token
+                }
+            }).then((result => {
+                this.colaboradores = result.data;
+                this.colaboradores_const = this.colaboradores;
+                this.load_data = false;
+                console.log(colaboradores)
+            })).catch((err => {
+                console.log(err)
+            }))
+        },
     },
+
     beforeMount() {
-        axios.get(this.$url + '/listar_usuarios_admin', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': this.$token
-            }
-        }).then((result => {
-            this.colaboradores = result.data;
-            console.log(colaboradores)
-        })).catch((err => {
-            console.log(err)
-        }))
+        this.init_data();
     }
 }
 </script>

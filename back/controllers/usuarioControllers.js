@@ -66,7 +66,27 @@ const login_usuario = async function (req, res) {
   }
 };
 
+const listar_usuarios_admin = async function (req, res) {
+  if (req.user) {
+    let filtro = req.params["filtro"];
+    let usuarios = await Usuario.find({
+      $or: [
+        { nombre: new RegExp(filtro, "i") },
+        { apellido: new RegExp(filtro, "i") },
+        { email: new RegExp(filtro, "i") },
+      ],
+    });
+    res.status(200).send(usuarios);
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "No se encontraron usuarios",
+    });
+  }
+};
+
 module.exports = {
   admin_registro_usuarios,
   login_usuario,
+  listar_usuarios_admin,
 };

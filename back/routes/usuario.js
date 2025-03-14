@@ -12,4 +12,10 @@ api.post(
 );
 api.post("/login_usuario", usuarioControllers.login_usuario);
 
+api.get(
+  "/listar_usuarios_admin/:filtro?",
+  authenticate.decodeToken,
+  usuarioControllers.listar_usuarios_admin
+);
+
 module.exports = api;
