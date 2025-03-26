@@ -26,6 +26,11 @@ const routes = [
     name: "index-colaborador",
     component: IndexColaboradorApp,
   },
+  {
+    path: "/colaboradores/edit/:id",
+    name: "edit-colaborador",
+    component: () => import("@/views/colaboradores/editColaborador.vue"),
+  },
 ];
 
 const router = new VueRouter({

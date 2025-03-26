@@ -119,7 +119,7 @@ export default {
           if(result.data.token){
             localStorage.setItem('token', result.data.token);
             localStorage.setItem('user', JSON.stringify(result.data.usuario))
-            this.$router.push({name:'about'})
+            this.$router.push({name:'index-colaborador'})
           }
         }).catch((error)=> {
           console.log(error)

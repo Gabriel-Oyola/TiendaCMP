@@ -18,4 +18,10 @@ api.get(
   usuarioControllers.listar_usuarios_admin
 );
 
+api.get(
+  "/obtener_usuario_id/:id",
+  authenticate.decodeToken,
+  usuarioControllers.obtener_usuario_id
+);
+
 module.exports = api;

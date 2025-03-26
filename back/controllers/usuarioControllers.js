@@ -85,8 +85,27 @@ const listar_usuarios_admin = async function (req, res) {
   }
 };
 
+const obtener_usuario_id = async (req, res) => {
+  if (req.user) {
+    let id = req.params["id"];
+    try {
+      let usuario = await Usuario.findById({ _id: id });
+
+      res.status(200).send(usuario);
+    } catch (error) {
+      res.status(400).send(undefined);
+    }
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "No se encontraron usuarios",
+    });
+  }
+};
+
 module.exports = {
   admin_registro_usuarios,
   login_usuario,
   listar_usuarios_admin,
+  obtener_usuario_id,
 };
