@@ -121,6 +121,10 @@ export default {
             localStorage.setItem('user', JSON.stringify(result.data.usuario))
             this.$router.push({name:'index-colaborador'})
           }
+          if (result.data.data == 400) {
+             this.msm_error = result.data.message; 
+          }
+
         }).catch((error)=> {
           console.log(error)
         })

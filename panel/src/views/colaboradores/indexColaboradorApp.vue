@@ -49,6 +49,8 @@
                     </div>
                 </div>
 
+              
+
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active" id="contactsListPane" role="tabpanel"
@@ -109,7 +111,7 @@
                                         </tr>
                                     </thead>
                                
-                                        <paginate v-if="!load_data"
+                                        <paginate 
                                             tag="tbody"
                                             ref="colaboradores"
                                             name="colaboradores"
@@ -117,7 +119,7 @@
                                             :per="perPage"
                                             class="list fs-base"
                                             >
-                                           <tr v-for="item in paginated('colaboradores')">
+                                           <tr v-if="!load_data" v-for="item in paginated('colaboradores')">
 
                                             <td>
 
@@ -160,17 +162,19 @@
                                                         <i class="fe fe-more-vertical"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a href="#!" class="dropdown-item">
-                                                            Action
+                                                        <router-link :to="{name:'edit-colaborador', params: {id: item._id} }"  class="dropdown-item">Editar</router-link>
+                                                        <a style="cursor: pointer;" class="dropdown-item" v-b-modal="'delete-'+item._id">
+                                                            <span v-if="item.estado"> Desactivar</span>
+                                                            <span v-if="!item.estado">Activar</span>
                                                         </a>
-                                                        <a href="#!" class="dropdown-item">
-                                                            Another action
-                                                        </a>
-                                                        <a href="#!" class="dropdown-item">
-                                                            Something else here
-                                                        </a>
+                                                         
+                                                         
                                                     </div>
                                                 </div>
+
+                                                   <b-modal centered :id="'delete-'+item._id" title="BootstrapVue" title-html="<h4 class='card-header-title'><b>Add a member</b></h4>" @ok="eliminar(item._id, item.estado)">
+                                                                <p class="my-4">{{ item._id }}</p>
+                                                  </b-modal>
 
                                             </td>
                                         </tr>
@@ -197,7 +201,7 @@
 
                                 <!-- Pagination -->
                                 <ul class=" pagination pagination-tabs card-pagination"></ul>
-                                <paginate-links   @change="onLangsPageChange" for="colaboradores" :classes="{'ul': ['list-pagination', 'pagination', 'pagination-tabs', 'cad-pagination'], 'a': ['page']}"></paginate-links>
+                                <paginate-links   @change="onLangsPageChange" for="colaboradores" :classes="{'ul': ['list-pagination', 'pagination', 'pagination-tabs', 'cad-pagination'], 'a': ['page']}" ></paginate-links>
 
                                 <!-- Pagination (next) -->
                                 <ul class="list-pagination-next pagination pagination-tabs card-pagination">
@@ -239,7 +243,7 @@ export default {
             colaboradores_const: ['colaboradores'],   
             paginate: ['colaboradores'],    
             currentPage: '1',
-            perPage: '15',
+            perPage: '10',
             filtro: '', 
             load_data: false
         }
@@ -291,6 +295,22 @@ export default {
                 console.log(err)
             }))
         },
+        eliminar(id, estado) {
+            axios.put(this.$url + '/cambiar_estado/' + id,{estado: estado}, {
+                headers: {
+                     'Content-Type': 'application/json',
+                    'Authorization': this.$token
+                }
+            }).then((result) => {
+                 this.$notify({
+                        group: 'foo',
+                        title: 'Exito',
+                        text: 'El estado del colaborador se cambio correctamente',
+                        type: 'success'
+                 });
+                this.init_data();
+            })
+        }
     },
 
     beforeMount() {

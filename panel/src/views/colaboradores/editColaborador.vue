@@ -137,7 +137,7 @@
                             </div> 
                             <hr class="my-5">
                             <button type="button" class="btn btn-primary" v-on:click="validar()">
-                                Crear colaborador
+                                Guardar cambios
                             </button>
 
                             </div>
@@ -242,43 +242,32 @@ export default {
                 });
             }
             else{
-               // this.create_colaborador()
+               this.actualizar_colaborador()
              
             }
         },
 
-        /*
-        create_colaborador() {
-            axios.post(this.$url + '/admin_registro_usuarios', this.colaborador, {
+        
+        actualizar_colaborador() {
+            axios.put(this.$url + '/actualizar_usuario_id/'+ this.id, this.colaborador, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': this.$token
                 }
             }).then((result => {
-                console.log(result)
-                if (result.data.data == undefined) {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'ERROR',
-                        text: result.data.message,
-                        type: 'error'
-                    });
-                }
-                else {
-                    this.$notify({
+                this.$notify({
                         group: 'foo',
                         title: 'Exito',
-                        text: 'Colaborador registrado correctamente',
+                        text: 'Colaborador actualizado correctamente',
                         type: 'success'
                     });
 
                     this.$router.push({name: 'index-colaborador'})
-                }
             })).catch((err) => {
                 console.log(err)
             })
         }
-            */
+            
         
     },
            mounted() {
