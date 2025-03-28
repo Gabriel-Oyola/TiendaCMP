@@ -82,7 +82,7 @@
 
           <li class="nav-item">
 
-            <router-link to="/colaboradores/index" class="nav-link"> <i
+            <router-link to="/colaboradores" class="nav-link" active-class="active"> <i
                 class="fe fe-user"></i>Colaboradores</router-link>
           </li>
 

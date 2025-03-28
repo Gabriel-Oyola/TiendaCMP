@@ -36,7 +36,7 @@
                                         <!-- Nav -->
                                         <ul class="nav nav-tabs nav-overflow header-tabs">
                                             <li class="nav-item">
-                                                <router-link to="/colaboradores/index" class="nav-link"> Todos los colaboradores</router-link>
+                                                <router-link to="/colaboradores" class="nav-link"> Todos los colaboradores</router-link>
                                           
                                             </li>
                                             <li class="nav-item">

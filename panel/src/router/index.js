@@ -8,6 +8,7 @@ import store from "@/store/index";
 
 import Bienvenido from "@/views/colaboradores/Bienvenido.vue";
 import { jwtDecode } from "jwt-decode";
+import CreateProductoApp from "@/views/Productos/CreateProductoApp.vue";
 
 Vue.use(VueRouter);
 
@@ -31,7 +32,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/colaboradores/index",
+    path: "/colaboradores",
     name: "index-colaborador",
     component: IndexColaboradorApp,
     meta: { requiresAuth: true },
@@ -40,6 +41,12 @@ const routes = [
     path: "/colaboradores/edit/:id",
     name: "edit-colaborador",
     component: () => import("@/views/colaboradores/editColaborador.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/productos/create",
+    name: "create-producto",
+    component: CreateProductoApp,
     meta: { requiresAuth: true },
   },
 ];
