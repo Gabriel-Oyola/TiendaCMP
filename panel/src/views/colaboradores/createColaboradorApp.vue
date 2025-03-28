@@ -226,7 +226,7 @@ export default {
             axios.post(this.$url + '/admin_registro_usuarios', this.colaborador, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': this.$token
+                    'Authorization': this.$store.state.token
                 }
             }).then((result => {
                 console.log(result)

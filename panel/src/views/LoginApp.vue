@@ -77,6 +77,7 @@
 <script>
 
 import axios from 'axios'
+import store from '@/store/index';
 
 export default {
   name: 'LoginApp',
@@ -117,13 +118,11 @@ export default {
             this.msm_error = result.data.message; 
           }
           if(result.data.token){
-            localStorage.setItem('token', result.data.token);
-            localStorage.setItem('user', JSON.stringify(result.data.usuario))
-            this.$router.push({name:'index-colaborador'})
+
+            this.$store.dispatch('saveToken', result.data.token)
+            this.$router.push({name:'bienvenido'})
           }
-          if (result.data.data == 400) {
-             this.msm_error = result.data.message; 
-          }
+          
 
         }).catch((error)=> {
           console.log(error)

@@ -252,7 +252,7 @@ export default {
             axios.put(this.$url + '/actualizar_usuario_id/'+ this.id, this.colaborador, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': this.$token
+                    'Authorization': this.$store.state.token
                 }
             }).then((result => {
                 this.$notify({

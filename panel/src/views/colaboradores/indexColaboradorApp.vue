@@ -284,7 +284,7 @@ export default {
             axios.get(this.$url + '/listar_usuarios_admin/' + this.filtro, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': this.$token
+                    'Authorization': this.$store.state.token
                 }
             }).then((result => {
                 this.colaboradores = result.data;
