@@ -24,4 +24,16 @@ api.get(
   usuarioControllers.obtener_usuario_id
 );
 
+api.put(
+  "/actualizar_usuario_id/:id",
+  authenticate.decodeToken,
+  usuarioControllers.actualizar_usuario_id
+);
+
+api.put(
+  "/cambiar_estado/:id",
+  authenticate.decodeToken,
+  usuarioControllers.cambiar_estado_usuario_id
+);
+
 module.exports = api;
