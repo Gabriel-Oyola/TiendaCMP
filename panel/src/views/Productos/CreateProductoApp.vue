@@ -106,7 +106,7 @@
        
 
         <!-- Input -->
-        <input type="email" class="form-control" placeholder="Título del producto">
+        <input type="text" class="form-control" placeholder="Título del producto" v-model="producto.titulo">
 
       </div>
 
@@ -122,7 +122,7 @@
         </label>
 
         <!-- Input -->
-        <select name="" class="form-select">
+        <select name="" class="form-select" v-model="producto.categoria">
             <option value="" disabled selected>Seleccionar</option>
             <option value="Categoria 1">Categoria 1</option>
             <option value="Categoria 2">Categoria 2</option>
@@ -143,7 +143,7 @@
         </label>
 
         <!-- Input -->
-        <input type="number" class="form-control" placeholder="Precio">
+        <input type="number" class="form-control" placeholder="Precio" v-model="producto.precio">
 
       </div>
 
@@ -160,7 +160,7 @@
         </label>
 
         <!-- Input -->
-        <textarea class="form-control" id=""  rows="3" placeholder="..."></textarea>
+        <textarea class="form-control" id=""  rows="3" placeholder="..." v-model="producto.descripcion"></textarea>
 
       </div>
 
@@ -191,7 +191,7 @@
 
             <!-- Switch -->
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="switchOne" />
+              <input class="form-check-input" type="checkbox" id="switchOne" v-model="producto.estado" />
               <label class="form-check-label" for="switchOne"></label>
             </div>
 
@@ -228,7 +228,7 @@
 
             <!-- Switch -->
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="switchTwo" />
+              <input class="form-check-input" type="checkbox" id="switchTwo" v-model="producto.descuento" />
               <label class="form-check-label" for="switchTwo"></label>
             </div>
 
@@ -251,8 +251,8 @@
   <hr class="mt-4 mb-5">
 
   <!-- Button -->
-  <button class="btn btn-primary">
-    Guardar producto
+  <button class="btn btn-primary" v-on:click="validar()">
+        Crear producto
   </button>
 
 
@@ -281,7 +281,19 @@ export default {
     },
     data() {
         return {
-            str_image: ''
+            str_image: '',
+            producto: {
+                titulo: '',
+                categoria: '',
+                precio: '',
+                descripcion: '',
+                estado: false,
+                descuento: false,
+                portada: undefined,
+
+            },
+
+            portada: undefined
         }
     },
     methods: {
@@ -300,8 +312,9 @@ export default {
                     image.type == 'image/webp' ||
                     image.type == 'image/jpg') {
 
-                        this.str_image = URL.createObjectURL(image)
-
+                    this.str_image = URL.createObjectURL(image)
+                    this.portada = image;
+                    this.producto.portada = this.portada
 
                 } else {
                     this.$notify({
@@ -319,6 +332,46 @@ export default {
                     text: 'Imagen mayor a 1MB',
                     type: 'error'
                 });
+            }
+        },
+        validar() {
+
+            if (!this.producto.titulo) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el titulo del producto',
+                    type: 'error'
+                })
+            } else if (!this.producto.categoria) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese la categoría del producto',
+                    type: 'error'
+                })
+            } else if (!this.producto.precio) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el precio del producto',
+                    type: 'error'
+                })
+            
+            }else   if (!this.producto.descripcion) {
+                     this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese la descripcion del producto',
+                    type: 'error'
+                })
+            }else   if (this.producto.portada == undefined) {
+                     this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Selecccione una imagen de portada',
+                    type: 'error'
+                })
             }
         }
     }
