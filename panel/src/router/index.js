@@ -9,6 +9,7 @@ import store from "@/store/index";
 import Bienvenido from "@/views/colaboradores/Bienvenido.vue";
 import { jwtDecode } from "jwt-decode";
 import CreateProductoApp from "@/views/Productos/CreateProductoApp.vue";
+import IndexProducto from "@/views/Productos/IndexProducto.vue";
 
 Vue.use(VueRouter);
 
@@ -47,6 +48,12 @@ const routes = [
     path: "/productos/create",
     name: "create-producto",
     component: CreateProductoApp,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/producto",
+    name: "index-producto",
+    component: IndexProducto,
     meta: { requiresAuth: true },
   },
 ];

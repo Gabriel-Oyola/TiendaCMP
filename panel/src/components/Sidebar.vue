@@ -89,11 +89,18 @@
 
         </ul>
 
-
+        <hr class="navbar-divider my-3">
+        <h6 class="navbar-heading">
+          Control
+        </h6>
 
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-4">
+          <li class="nav-item">
 
+            <router-link to="/producto" class="nav-link" active-class="active"> <i
+                class="fe fe-shopping-cart"></i>Productos</router-link>
+          </li>
         </ul>
 
         <!-- Push content down -->

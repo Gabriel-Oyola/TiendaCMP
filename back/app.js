@@ -9,6 +9,7 @@ app.use(bodyparser.json({ limit: "50mb", extended: true }));
 
 var clienteRouter = require("./routes/cliente");
 var usuarioRouter = require("./routes/usuario");
+var productoRouter = require("./routes/producto");
 
 app.listen(port, function () {
   console.log("escuchando el puerto + " + port);
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 
 app.use("/api", clienteRouter);
 app.use("/api", usuarioRouter);
+app.use("/api", productoRouter);
 
 ConexionBD();
 module.exports = app;
