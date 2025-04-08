@@ -18,7 +18,7 @@
 
                                 <!-- Title -->
                                 <h1 class="header-title">
-                                    Nuevo producto
+                                    Editar producto
                                 </h1>
 
                             </div>
@@ -141,7 +141,7 @@
         </label>
 
         <!-- Input -->
-        <input type="number" class="form-control" placeholder="Precio" v-model="producto.precio">
+        <input type="number" readonly class="form-control" placeholder="Precio" v-model="producto.precio">
 
       </div>
 
@@ -250,7 +250,7 @@
 
   <!-- Button -->
   <button class="btn btn-primary" v-on:click="validar()">
-        Crear producto
+        Actualizar producto
   </button>
 
 
@@ -273,7 +273,7 @@ import TopNav from '@/components/TopNav.vue'
 import axios from 'axios'
 
 export default {
-    name: 'CreateProductoApp',
+    name: 'EditProductoApp',
     components: {
         Sidebar,
         TopNav
@@ -296,6 +296,19 @@ export default {
         }
     },
     methods: {
+
+        init_data() {
+            axios.get(this.$url + '/obtener_producto_admin/' + this.$route.params.id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+                this.producto = result.data;
+                this.str_image = this.$url + '/obtener_portada_producto/' + this.producto.portada;
+               
+            })
+        },
         uploadImage($event) {
 
             var image;
@@ -322,6 +335,8 @@ export default {
                         text: 'Por favor sube una imagen',
                         type: 'error'
                     })
+
+                    this.portada = undefined;
                 }
 
             } else {
@@ -331,6 +346,7 @@ export default {
                     text: 'Imagen mayor a 1MB',
                     type: 'error'
                 });
+                 this.portada = undefined;
             }
         },
         validar() {
@@ -349,13 +365,6 @@ export default {
                     text: 'Ingrese la categoría del producto',
                     type: 'error'
                 })
-            } else if (!this.producto.precio) {
-                this.$notify({
-                    group: 'foo',
-                    title: 'ERROR',
-                    text: 'Ingrese el precio del producto',
-                    type: 'error'
-                })
             
             }else   if (!this.producto.descripcion) {
                      this.$notify({
@@ -372,27 +381,35 @@ export default {
                     type: 'error'
                 })
             } else {
-                this.registro()
+                this.Actualizar()
             }
       }, 
 
-      registro() {
-        var fm = new FormData();
-        fm.append('titulo', this.producto.titulo); 
-        fm.append('categoria', this.producto.categoria); 
-        fm.append('precio', this.producto.precio); 
-        fm.append('descripcion', this.producto.descripcion); 
-        fm.append('estado', this.producto.estado); 
-        fm.append('descuento', this.producto.descuento); 
-        fm.append('portada', this.producto.portada); 
+        Actualizar() {
+            var data; 
+            var content = ''; 
+                
+            if (this.poratda != undefined) {
+                content = 'multipart/form-data';
+                        data = new FormData();
+                        fm.append('titulo', this.producto.titulo); 
+                        fm.append('categoria', this.producto.categoria); 
+                        fm.append('descripcion', this.producto.descripcion); 
+                        fm.append('estado', this.producto.estado); 
+                        fm.append('descuento', this.producto.descuento); 
+                        fm.append('portada', this.producto.portada); 
+                    } else {
+                content = 'application/json';
+                        data = this.producto;
+                }
               
-        axios.post(this.$url + '/registro_producto_admin', fm, {
+        axios.put(this.$url + '/actualizar_producto_admin/'+ this.$route.params.id, data, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': this.$store.state.token
+          'Content-Type': content, 
+            'Authorization' : this.$store.state.token
           }
         }).then((result) => {
-              if (result.data.message) {
+            if (result.data.message) {
             this.$notify({
                     group: 'foo',
                     title: 'ERROR',
@@ -403,15 +420,19 @@ export default {
                 this.$notify({
                     group: 'foo',
                     title: 'SUCCESS',
-                    text: 'Se creo correctamente el producto',
+                    text: 'Se actualizo correctamente el producto',
                     type: 'success'
                 })
                         this.$router.push({name: 'index-producto'})
           }
-          
         })
-
+                
         }
+        
+    }, 
+
+    beforeMount() {
+        this.init_data();
     }
 }
 

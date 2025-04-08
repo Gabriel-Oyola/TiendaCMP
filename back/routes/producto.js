@@ -24,4 +24,15 @@ api.get(
   ProductoControllers.obtener_portada_producto
 );
 
+api.get(
+  "/obtener_producto_admin/:id",
+  authenticate.decodeToken,
+  ProductoControllers.obtener_producto_admin
+);
+
+api.put(
+  "/actualizar_producto_admin/:id",
+  [authenticate.decodeToken, path],
+  ProductoControllers.actualizar_producto_admin
+);
 module.exports = api;

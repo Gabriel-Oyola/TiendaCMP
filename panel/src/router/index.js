@@ -56,6 +56,12 @@ const routes = [
     component: IndexProducto,
     meta: { requiresAuth: true },
   },
+  {
+    path: "/producto/edit/:id",
+    name: "edit-producto",
+    component: () => import("@/views/Productos/EditProductoApp.vue"),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = new VueRouter({
