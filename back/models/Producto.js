@@ -9,6 +9,7 @@ var productoSchema = new mongoose.Schema({
   precio: { type: Number, required: true },
   descripcion: { type: String, required: true },
   portada: { type: String, required: true },
+  str_variedad: { type: String, required: true },
   estado: { type: Boolean, required: true },
   descuento: { type: Boolean, required: true },
   updateAT: { type: Date, required: false },

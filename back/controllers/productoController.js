@@ -32,6 +32,7 @@ const registro_producto_admin = async function (req, res) {
           data: undefined,
           message: "No se pudo guardar el producto",
         });
+        console.log(error);
       }
       console.log(data);
     }
@@ -51,7 +52,7 @@ const listar_producto_admin = async function (req, res) {
         { titulo: new RegExp(filtro, "i") },
         { categoria: new RegExp(filtro, "i") },
       ],
-    });
+    }).sort({ createAT: -1 });
     res.status(200).send(productos);
   } else {
     res.status(500).send({
@@ -119,6 +120,7 @@ const actualizar_producto_admin = async function (req, res) {
                 categoria: data.categoria,
                 descripcion: data.descripcion,
                 estado: data.estado,
+                str_variedad: data.str_variedad,
                 descuento: data.descuento,
                 poratada: data.portada,
               }
@@ -142,6 +144,7 @@ const actualizar_producto_admin = async function (req, res) {
                 categoria: data.categoria,
                 descripcion: data.descripcion,
                 estado: data.estado,
+                str_variedad: data.str_variedad,
                 descuento: data.descuento,
               }
             );
@@ -180,6 +183,7 @@ const actualizar_producto_admin = async function (req, res) {
               categoria: data.categoria,
               descripcion: data.descripcion,
               estado: data.estado,
+              str_variedad: data.str_variedad,
               descuento: data.descuento,
               poratada: data.portada,
             }
@@ -203,6 +207,7 @@ const actualizar_producto_admin = async function (req, res) {
               categoria: data.categoria,
               descripcion: data.descripcion,
               estado: data.estado,
+              str_variedad: data.str_variedad,
               descuento: data.descuento,
             }
           );

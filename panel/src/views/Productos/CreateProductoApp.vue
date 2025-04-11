@@ -91,7 +91,7 @@
   <hr class="my-5">
 
   <div class="row">
-      <div class="col-12">
+      <div class="col-12 col-md-6">
 
       <!-- Email address -->
       <div class="form-group">
@@ -126,6 +126,22 @@
             <option value="Categoria 2">Categoria 2</option>
             <option value="Categoria 3">Categoria 3</option>
         </select>
+
+      </div>
+
+    </div>
+         <div class="col-12 col-md-6">
+
+      <!-- Last name -->
+      <div class="form-group">
+
+        <!-- Label -->
+        <label class="form-label">
+          Variedad
+        </label>
+
+        <!-- Input -->
+        <input type="text" class="form-control" placeholder="Titulo de la variedad" v-model="producto.str_variedad">
 
       </div>
 
@@ -288,7 +304,9 @@ export default {
                 descripcion: '',
                 estado: false,
                 descuento: false,
-                portada: undefined,
+              portada: undefined,
+                str_variedad: ''
+               
 
             },
 
@@ -364,7 +382,14 @@ export default {
                     text: 'Ingrese la descripcion del producto',
                     type: 'error'
                 })
-            }else   if (this.producto.portada == undefined) {
+            } else   if (!this.producto.str_variedad) {
+                     this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese la variedad del producto',
+                    type: 'error'
+                })
+            }else if (this.producto.portada == undefined) {
                      this.$notify({
                     group: 'foo',
                     title: 'ERROR',
@@ -385,6 +410,7 @@ export default {
         fm.append('estado', this.producto.estado); 
         fm.append('descuento', this.producto.descuento); 
         fm.append('portada', this.producto.portada); 
+        fm.append('str_variedad', this.producto.str_variedad); 
               
         axios.post(this.$url + '/registro_producto_admin', fm, {
           headers: {
