@@ -35,4 +35,13 @@ api.put(
   [authenticate.decodeToken, path],
   ProductoControllers.actualizar_producto_admin
 );
+
+//////////////////////////////////////////
+
+api.post(
+  "/registro_variedad_producto",
+  authenticate.decodeToken,
+  ProductoControllers.registro_variedad_producto
+);
+
 module.exports = api;

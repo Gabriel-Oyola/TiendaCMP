@@ -1,4 +1,5 @@
 var Producto = require("../models/Producto");
+var Variedad = require("../models/variedad");
 var slugify = require("slugify");
 var fs = require("fs");
 var path = require("path");
@@ -228,10 +229,19 @@ const actualizar_producto_admin = async function (req, res) {
     });
   }
 };
+
+const registro_variedad_producto = async function (req, res) {
+  if (req.user) {
+    let data = req.body;
+    let variedad = await Variedad.create(data);
+    res.status(200).send({ data: variedad });
+  }
+};
 module.exports = {
   registro_producto_admin,
   listar_producto_admin,
   obtener_portada_producto,
   obtener_producto_admin,
   actualizar_producto_admin,
+  registro_variedad_producto,
 };

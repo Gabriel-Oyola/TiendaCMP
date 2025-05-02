@@ -293,19 +293,19 @@
         <small class="text-muted">
             Proveedor
         </small>
-        <input type="text" class="form-control" placeholder="Empresa proveedora">
+        <input type="text" class="form-control" placeholder="Empresa proveedora" v-model="variedad.proveedor">
     </div>
     <div class="col-lg-5">
         <small class="text-muted">
             Variedad
         </small>
-        <input type="text" class="form-control" placeholder="Tallas, colores...">
+        <input type="text" class="form-control" placeholder="Tallas, colores..." v-model="variedad.variedad">
     </div>
     <div class="col">
             <small class="text-muted">
             Acción*
         </small> <br>
-        <button class="btn btn-primary btn-block" style="width: 100% !important;">Agregar</button>
+        <button class="btn btn-primary btn-block" style="width: 100% !important;" v-on:click="validar_variedad()">Agregar</button>
     </div>
 </div>
 
@@ -433,7 +433,8 @@ export default {
 
             },
 
-            portada: undefined
+          portada: undefined,
+            variedad: {}
         }
     },
     methods: {
@@ -578,7 +579,53 @@ export default {
           }
         })
                 
+      }, 
+
+      validar_variedad() {
+
+        if (!this.variedad.proveedor) {
+          this.$notify({
+            group: 'foo',
+            title: 'ERROR',
+            text: 'Ingrese el proveedor del producto',
+            type: 'error'
+          })
+        } else if (!this.variedad.variedad) {
+          this.$notify({
+            group: 'foo',
+            title: 'ERROR',
+            text: 'Ingrese la variedad del producto',
+            type: 'error'
+          })
+        } else {
+
+          this.variedad.producto = this.$route.params.id;
+          this.variedad.sku = this.generar_sku()
+          console.log(this.variedad)
+          this.registro_variedad();
+
         }
+      }, 
+
+      registro_variedad() {
+
+        axios.post(this.$url + '/registro_variedad_producto', this.variedad, {
+          headers: {
+                 'Content-Type': 'application/json', 
+            'Authorization' : this.$store.state.token
+          }
+        }).then((result) => {
+          console.log(result)
+        })
+        
+      },
+      generar_sku() {
+        let sku = this.producto.titulo.substr(0,3)+''+this.producto.str_variedad.substr(0,3)+''+this.variedad.variedad.substr(0,3)+ ''+ this.variedad.proveedor.substr(0,3)
+
+        return sku.toUpperCase();
+           
+        
+       }
         
     }, 
 
