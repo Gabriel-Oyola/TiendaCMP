@@ -49,4 +49,10 @@ api.get(
   authenticate.decodeToken,
   ProductoControllers.obtener_variedad_producto
 );
+
+api.delete(
+  "/eliminar_variedad_producto/:id",
+  authenticate.decodeToken,
+  ProductoControllers.eliminar_variedad_producto
+);
 module.exports = api;

@@ -250,6 +250,25 @@ const obtener_variedad_producto = async function (req, res) {
     res.status(500).send({ data: undefined, message: "ErrorToken" });
   }
 };
+
+const eliminar_variedad_producto = async function (req, res) {
+  if (req.user) {
+    let id = req.params["id"];
+
+    let reg = await Variedad.findById({ _id: id });
+
+    if (reg.stock == 0) {
+      let variedad = await Variedad.findByIdAndDelete({ _id: id });
+      res.status(200).send(variedad);
+    } else {
+      res
+        .status(200)
+        .send({ data: undefined, message: "No se puede eliminar la variedad" });
+    }
+  } else {
+    res.status(500).send({ data: undefined, message: "ErrorToken" });
+  }
+};
 module.exports = {
   registro_producto_admin,
   listar_producto_admin,
@@ -258,4 +277,5 @@ module.exports = {
   actualizar_producto_admin,
   registro_variedad_producto,
   obtener_variedad_producto,
+  eliminar_variedad_producto,
 };

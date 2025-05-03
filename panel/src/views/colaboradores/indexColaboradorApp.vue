@@ -173,7 +173,7 @@
                                                 </div>
 
                                                    <b-modal centered :id="'delete-'+item._id" title="BootstrapVue" title-html="<h4 class='card-header-title'><b>Add a member</b></h4>" @ok="eliminar(item._id, item.estado)">
-                                                                <p class="my-4">{{ item._id }}</p>
+                                                                <p class="my-4">{{ item._id }} Eliminar?</p>
                                                   </b-modal>
 
                                             </td>
