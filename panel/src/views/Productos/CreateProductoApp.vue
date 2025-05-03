@@ -322,7 +322,7 @@ export default {
                 image = $event.target.files[0]
             }
 
-            if (image.size <= 100000) {
+            if (image.size <= 1000000) {
 
                 if (image.type == 'image/jpeg' ||
                     image.type == 'image/png' ||
@@ -340,6 +340,8 @@ export default {
                         text: 'Por favor sube una imagen',
                         type: 'error'
                     })
+
+                  this.portada = undefined;
                 }
 
             } else {

@@ -235,6 +235,19 @@ const registro_variedad_producto = async function (req, res) {
     let data = req.body;
     let variedad = await Variedad.create(data);
     res.status(200).send({ data: variedad });
+  } else {
+    res.status(500).send({ data: undefined, message: "ErrorToken" });
+  }
+};
+
+const obtener_variedad_producto = async function (req, res) {
+  if (req.user) {
+    let id = req.params["id"];
+    let variedades = await Variedad.find({ producto: id }).sort({ stock: -1 });
+
+    res.status(200).send(variedades);
+  } else {
+    res.status(500).send({ data: undefined, message: "ErrorToken" });
   }
 };
 module.exports = {
@@ -244,4 +257,5 @@ module.exports = {
   obtener_producto_admin,
   actualizar_producto_admin,
   registro_variedad_producto,
+  obtener_variedad_producto,
 };

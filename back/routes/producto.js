@@ -44,4 +44,9 @@ api.post(
   ProductoControllers.registro_variedad_producto
 );
 
+api.get(
+  "/obtener_variedad_producto/:id",
+  authenticate.decodeToken,
+  ProductoControllers.obtener_variedad_producto
+);
 module.exports = api;

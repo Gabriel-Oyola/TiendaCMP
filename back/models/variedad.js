@@ -8,6 +8,7 @@ var VariedadSchema = new mongoose.Schema({
   sku: { type: String, required: true },
   producto: { type: schema.ObjectId, ref: "Producto", required: true },
   createAT: { type: Date, default: Date.now },
+  stock: { type: Number, default: 0, required: true },
 });
 
 module.exports = mongoose.model("variedad", VariedadSchema);
