@@ -1,0 +1,257 @@
+<template>
+    <div>
+        <Sidebar />
+
+        <div class="main-content">
+            <TopNav />
+            <div class="container-fluid">
+
+                <div class="header mt-md-5">
+                    <div class="header-body">
+                        <div class="row align-colaboradores-center">
+                            <div class="col">
+
+                                <!-- Pretitle -->
+                                <h6 class="header-pretitle">
+                                    Ingreso
+                                </h6>
+
+                                <!-- Title -->
+                                <h1 class="header-title">
+                                    Nuevo Ingreso
+                                </h1>
+
+                            </div>
+                        </div> <!-- / .row -->
+                        <div class="row align-colaboradores-center">
+                            <div class="col">
+
+                                <!-- Nav -->
+                                <ul class="nav nav-tabs nav-overflow header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link ">
+                                            Ingresos
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+
+                                        <a  class="nav-link active">
+                                            Nuevo ingreso
+                                        </a>
+
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              <div class="row">
+                <div class="col-12 col-md-6">
+
+                <!-- Last name -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                        Proveedor
+                    </label>
+                    <small class="form-text text-muted">
+                        Proveedor encargado del ingreso.
+                    </small>
+                    <!-- Input -->
+                    <select class="form-select mb-3">
+                        <option>My first option</option>
+                        <option>Another option</option>
+                        <option>Third option is here</option>
+                    </select>
+
+                </div>
+
+                </div>
+
+                <div class="col-12 col-md-6">
+
+                <!-- Last name -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                        N° comprobante
+                    </label>
+                    <small class="form-text text-muted">
+                        Número de la factura.
+                    </small>
+                    <!-- Input -->
+                        <input type="text" class="form-control" placeholder="5DSF-000154">
+
+                </div>
+
+                </div>
+
+                <div class="col-12 col-md-6">
+
+                <!-- Last name -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                        Monto total
+                    </label>
+                    <small class="form-text text-muted">
+                        Monto total pagado al proveedor.
+                    </small>
+                    <!-- Input -->
+                        <input type="text" class="form-control" placeholder="546">
+
+                </div>
+
+                </div>
+
+                <div class="col-12 col-md-6">
+
+                <!-- Last name -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                        Comprobante
+                    </label>
+                    <small class="form-text text-muted">
+                        Subir comprobante del ingreso.
+                    </small>
+                    <!-- Input -->
+                        <input type="file" class="form-control" >
+
+                </div>
+
+                </div>
+                </div>
+
+                <hr class="my-5">
+
+                <div class="row">
+
+                <div class="col-md-12 mb-4">
+                    <h3><b>Productos del ingreso</b></h3>
+                </div>
+
+                <div class="col-12 col-md-4">
+
+                <!-- First name -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                    Producto
+                    </label>
+                    <!-- Input -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Buscar producto">
+                        <button class="btn btn-primary">
+                            <i class="fe fe-search"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                </div>
+
+
+                <div class="col-12 col-md-3">
+
+                <!-- Phone -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                    Precio unidad
+                    </label>
+                    <!-- Input -->
+                    <input type="text" class="form-control mb-3" placeholder="0.00">
+
+                </div>
+
+                </div>
+                <div class="col-12 col-md-3">
+
+                <!-- Birthday -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                    Cantidad total
+                    </label>
+                    <!-- Input -->
+                    <input type="number" class="form-control mb-3" placeholder="0">
+
+                </div>
+
+                </div>
+
+                <div class="col-md-2">
+                    
+                    <button class="btn btn-primary" style="margin-top: 1.8rem!important;">
+                        Agregar
+                    </button>
+                </div>
+                </div> <!-- / .row -->
+
+                <!-- Button -->
+                <div class="card ">
+                <div class="table-responsive mb-0">
+                    <table class="table table-sm table-nowrap card-table">
+                        <thead>
+                            <tr>
+                            <th>Invoice ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fs-base">
+                            <tr>
+                            <td>
+                                <a href="invoice.html">Invoice #10395</a>
+                            </td>
+                            <td>
+                                <time datetime="2020-04-24">Apr. 24, 2020</time>
+                            </td>
+                            <td>
+                                $29.00
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">Quitar</button>
+                            </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+
+                <button class="btn btn-primary mb-7">
+                Ingresar datos
+                </button>
+               </div>
+      </div>
+
+
+     </div>
+</template>
+
+<script>
+import Sidebar from '@/components/Sidebar.vue'
+import TopNav from '@/components/TopNav.vue'
+
+export default {
+  name: 'CreateIngresoApp',
+    components: {
+        Sidebar,
+        TopNav
+    }, 
+}
+</script>

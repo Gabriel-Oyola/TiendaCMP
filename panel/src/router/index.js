@@ -10,6 +10,7 @@ import Bienvenido from "@/views/colaboradores/Bienvenido.vue";
 import { jwtDecode } from "jwt-decode";
 import CreateProductoApp from "@/views/Productos/CreateProductoApp.vue";
 import IndexProducto from "@/views/Productos/IndexProducto.vue";
+import CreateIngresoApp from "@/views/Ingreso/CreateIngresoApp.vue";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,13 @@ const routes = [
     path: "/producto/edit/:id",
     name: "edit-producto",
     component: () => import("@/views/Productos/EditProductoApp.vue"),
+    meta: { requiresAuth: true },
+  },
+
+  {
+    path: "/ingreso/create",
+    name: "ingreso-create",
+    component: CreateIngresoApp,
     meta: { requiresAuth: true },
   },
 ];
