@@ -63,7 +63,8 @@
                         Proveedor encargado del ingreso.
                     </small>
                     <!-- Input -->
-                    <select class="form-select mb-3">
+                    <select class="form-select mb-3" v-model="ingreso.proveedor">
+                        <option value="" selected disabled>Seleccionar</option>
                         <option>My first option</option>
                         <option>Another option</option>
                         <option>Third option is here</option>
@@ -86,7 +87,7 @@
                         Número de la factura.
                     </small>
                     <!-- Input -->
-                        <input type="text" class="form-control" placeholder="5DSF-000154">
+                        <input type="text" class="form-control" placeholder="5DSF-000154" v-model="ingreso.ncomprobante">
 
                 </div>
 
@@ -105,7 +106,7 @@
                         Monto total pagado al proveedor.
                     </small>
                     <!-- Input -->
-                        <input type="text" class="form-control" placeholder="546">
+                        <input type="text" class="form-control" placeholder="546" v-model="ingreso.monto_total">
 
                 </div>
 
@@ -124,7 +125,7 @@
                         Subir comprobante del ingreso.
                     </small>
                     <!-- Input -->
-                        <input type="file" class="form-control" >
+                        <input type="file" class="form-control" v-on:change="uploadComprobante($event)">
 
                 </div>
 
@@ -248,10 +249,60 @@ import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
 
 export default {
-  name: 'CreateIngresoApp',
+    name: 'CreateIngresoApp',
+    data() {
+        return {
+            ingreso: {
+            proveedor:''
+            },
+        comprobante:undefined,
+    }
+  },
     components: {
         Sidebar,
         TopNav
     }, 
+    methods: {
+         uploadComprobante($event) {
+
+            var image;
+
+            if ($event.target.files.length >= 1) {
+                image = $event.target.files[0]
+            }
+
+            if (image.size <= 1000000) {
+
+                if (image.type == 'image/jpeg' ||
+                    image.type == 'image/png' ||
+                    image.type == 'image/webp' ||
+                    image.type == 'image/jpg' ||
+                image.type== 'application/pdf') {
+
+                    this.comprobante = image;
+                    this.ingreso.documento = this.comprobante
+
+                } else {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'ERROR',
+                        text: 'Por favor sube una imagen o pdf',
+                        type: 'error'
+                    })
+
+                  this.comprobante = undefined;
+                }
+
+            } else {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Imagen mayor a 1MB',
+                    type: 'error'
+                });
+            }
+            console.log(this.comprobante)
+        },
+    }
 }
 </script>
