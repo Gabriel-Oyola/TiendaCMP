@@ -140,7 +140,7 @@
                     <h3><b>Productos del ingreso</b></h3>
                 </div>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-6">
 
                 <!-- First name -->
                 <div class="form-group">
@@ -150,19 +150,39 @@
                     Producto
                     </label>
                     <!-- Input -->
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Buscar producto">
-                        <button class="btn btn-primary">
-                            <i class="fe fe-search"></i>
-                        </button>
-                    </div>
+                     <BasicSelect
+                    :options="productos"
+                    v-model="producto"
+                    :selected-option="producto"
+                    placeholder="Selecciona un producto"
+                    @select="producto_selected"
+                     />  
 
                 </div>
 
                 </div>
 
+                 <div class="col-12 col-md-6">
 
-                <div class="col-12 col-md-3">
+                <!-- First name -->
+                <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                    Variedad
+                    </label>
+                        <select class="form-select mb-3" v-model="detalle.variedad" >
+                        <option value="" selected disabled>Seleccionar</option>
+                        <option :value="item._id " v-for="item in variedades">{{ 
+                        item.variedad.toUpperCase()}} - {{ item.sku }} - {{ item.stock }}</option>
+                       
+                    </select>
+                </div>
+
+                </div>
+
+
+                <div class="col-12 col-md-6">
 
                 <!-- Phone -->
                 <div class="form-group">
@@ -172,12 +192,12 @@
                     Precio unidad
                     </label>
                     <!-- Input -->
-                    <input type="text" class="form-control mb-3" placeholder="0.00">
+                    <input type="text" class="form-control mb-3" placeholder="0.00" v-model="detalle.precio_unidad">
 
                 </div>
 
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-6">
 
                 <!-- Birthday -->
                 <div class="form-group">
@@ -187,15 +207,15 @@
                     Cantidad total
                     </label>
                     <!-- Input -->
-                    <input type="number" class="form-control mb-3" placeholder="0">
+                    <input type="number" class="form-control mb-3" placeholder="0" v-model="detalle.cantidad">
 
                 </div>
 
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-12">
                     
-                    <button class="btn btn-primary" style="margin-top: 1.8rem!important;">
+                    <button class="btn btn-primary" style="margin-bottom: 1.8rem!important;" v-on:click="agregar_detalle()">
                         Agregar
                     </button>
                 </div>
@@ -207,25 +227,30 @@
                     <table class="table table-sm table-nowrap card-table">
                         <thead>
                             <tr>
-                            <th>Invoice ID</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Status</th>
+                            <th>Producto</th>
+                            <th>Precio unidad</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th></th>
                             </tr>
                         </thead>
                         <tbody class="fs-base">
-                            <tr>
+                            <tr v-for="item in detalles">
                             <td>
-                                <a href="invoice.html">Invoice #10395</a>
+                                <a >{{ item.titulo_producto }}</a>
                             </td>
                             <td>
-                                <time datetime="2020-04-24">Apr. 24, 2020</time>
+                                <time datetime="2020-04-24">{{ convertCurrency(item.precio_unidad)  }}</time>
                             </td>
                             <td>
-                                $29.00
+                                {{ item.cantidad }}
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm">Quitar</button>
+                                {{ convertCurrency( item.precio_unidad * item.cantidad) }}
+                              
+                            </td>
+                            <td>
+                                 <button class="btn btn-danger btn-sm">Quitar</button> 
                             </td>
                             </tr>
                             
@@ -244,9 +269,14 @@
      </div>
 </template>
 
+
 <script>
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
+import { BasicSelect } from 'vue-search-select'
+import 'vue-search-select/dist/VueSearchSelect.css'
+import axios from 'axios'
+import currency_formatter from 'currency-formatter'
 
 export default {
     name: 'CreateIngresoApp',
@@ -255,13 +285,18 @@ export default {
             ingreso: {
             proveedor:''
             },
-        comprobante:undefined,
+            detalle: {
+                variedad:''
+            },
+            detalles:[],
+            comprobante: undefined,
+            producto: {},
+            productos: [],
+            variedades:[]
+
     }
   },
-    components: {
-        Sidebar,
-        TopNav
-    }, 
+    
     methods: {
          uploadComprobante($event) {
 
@@ -303,6 +338,102 @@ export default {
             }
             console.log(this.comprobante)
         },
-    }
+
+        init_productos() {
+            this.productos = [];
+            axios.get(this.$url + '/listar_activos_productos_admin', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => { 
+                console.log(result)
+
+                for (var item of result.data) {
+                    this.productos.push({
+                        value: item._id,
+                        text: item.titulo
+                    })
+                }
+            })
+        },
+
+        producto_selected(item) {
+            console.log(item)
+            this.init_variedades(item.value)
+            this.producto = item
+          this.detalle.producto = item.value;
+          this.detalle.titulo_producto = item.text;
+        },
+          init_variedades(id) {
+           axios.get(this.$url + '/obtener_variedad_producto/'+id, {
+          headers: {
+                 'Content-Type': 'application/json', 
+            'Authorization' : this.$store.state.token
+          }
+           }).then((result) => {
+    
+             this.variedades = result.data; 
+               console.log(this.variedades)
+             console.log(this.variedades)
+        })
+        }, 
+
+        agregar_detalle() {
+            if (!this.detalle.producto) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'seleccione el producto',
+                    type: 'error'
+
+                });
+            }else if (!this.detalle.variedad) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'seleccione la variedad',
+                    type: 'error'
+
+                });
+            }else if (!this.detalle.precio_unidad) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese el precio de la unidad',
+                    type: 'error'
+
+                });
+            }else if (!this.detalle.cantidad) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese la cantidad del producto',
+                    type: 'error'
+
+                });
+            } else {
+                this.detalles.push(this.detalle)
+                this.detalle= {
+                variedad:''
+                }
+           this.producto={}
+            }
+            console.log(this.detalles)
+        },
+          convertCurrency(number) {
+            return currency_formatter.format(number, { code: 'USD' });
+// => '$1,000,000.00'
+        }
+    },
+    beforeMount() {
+        this.init_productos()
+    },
+    components: {
+        Sidebar,
+        TopNav,
+        BasicSelect,
+        
+    }, 
 }
 </script>

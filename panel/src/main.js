@@ -10,9 +10,13 @@ import { ModalPlugin } from "bootstrap-vue";
 Vue.use(Notifications);
 Vue.use(VuePaginate);
 Vue.config.productionTip = false;
+
 Vue.prototype.$url = "http://localhost:6007/api";
 Vue.prototype.$token = localStorage.getItem("token");
+
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import "vue-search-select/dist/VueSearchSelect.css";
+
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(ModalPlugin);
