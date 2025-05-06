@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-const { type } = require("os");
+
 var schema = mongoose.schema;
 
 var UsuarioSchema = new mongoose.Schema({

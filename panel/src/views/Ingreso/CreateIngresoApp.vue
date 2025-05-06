@@ -234,8 +234,8 @@
                             <th></th>
                             </tr>
                         </thead>
-                        <tbody class="fs-base">
-                            <tr v-for="item in detalles">
+                        <tbody class="fs-base" v-if="detalles.length >= 1">
+                            <tr v-for="(item, index) in detalles">
                             <td>
                                 <a >{{ item.titulo_producto }}</a>
                             </td>
@@ -250,16 +250,29 @@
                               
                             </td>
                             <td>
-                                 <button class="btn btn-danger btn-sm">Quitar</button> 
+                                 <button class="btn btn-danger btn-sm" v-on:click="quitarDetalle(index,item.precio_unidad*item.cantidad)">Quitar</button> 
                             </td>
                             </tr>
                             
                         </tbody>
+                          <tbody class="fs-base" v-if="detalles.length == 0">
+                            <tr>
+                                <td class="text-center" colspan="5">
+                                    <span class="text-muted">No hay detalles en el ingreso</span>
+                                </td>
+                            </tr>
+                          </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Total</td>
+                                <td>{{ convertCurrency(total) }}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 </div>
 
-                <button class="btn btn-primary mb-7">
+                <button class="btn btn-primary mb-7" v-on:click="registro_ingreso()">
                 Ingresar datos
                 </button>
                </div>
@@ -292,7 +305,8 @@ export default {
             comprobante: undefined,
             producto: {},
             productos: [],
-            variedades:[]
+            variedades: [], 
+            total: 0
 
     }
   },
@@ -325,7 +339,8 @@ export default {
                         type: 'error'
                     })
 
-                  this.comprobante = undefined;
+                    this.comprobante = undefined;
+                    this.ingreso.documento = undefined;
                 }
 
             } else {
@@ -335,6 +350,10 @@ export default {
                     text: 'Imagen mayor a 1MB',
                     type: 'error'
                 });
+                  this.comprobante = undefined;
+                this.ingreso.documento = undefined;
+
+               
             }
             console.log(this.comprobante)
         },
@@ -414,6 +433,9 @@ export default {
                 });
             } else {
                 this.detalles.push(this.detalle)
+                let subtotal = this.detalle.precio_unidad * this.detalle.cantidad;
+                this.total = this.total + subtotal;
+
                 this.detalle= {
                 variedad:''
                 }
@@ -424,6 +446,71 @@ export default {
           convertCurrency(number) {
             return currency_formatter.format(number, { code: 'USD' });
 // => '$1,000,000.00'
+        }, 
+        quitarDetalle(idx,subtotal) {
+            this.detalles.splice(idx, 1);
+            this.total = this.total - subtotal;
+        },
+
+        registro_ingreso() {
+            if (!this.ingreso.proveedor) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'seleccione el proveedor',
+                    type: 'error'
+
+                });
+            }else if (!this.ingreso.ncomprobante) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'seleccione el numero de comprobante',
+                    type: 'error'
+
+                });
+            } else if (!this.ingreso.documento) {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Suba el comprobante',
+                    type: 'error'
+
+                });
+            } else {
+                console.log(this.ingreso)
+                console.log(this.detalles)
+
+                   var fm = new FormData();
+                    fm.append('proveedor', this.ingreso.proveedor); 
+                    fm.append('ncomprobante', this.ingreso.ncomprobante); 
+                    fm.append('monto_total', this.ingreso.monto_total); 
+                    fm.append('monto_resultante', this.total);  
+                    fm.append('documento', this.ingreso.documento); 
+                    fm.append('detalles', JSON.stringify(this.detalles)); 
+                     
+                        
+                    axios.post(this.$url + '/registro_ingreso_admin', fm, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': this.$store.state.token
+                    }
+                    }).then((result) => {
+                    
+                        if (result.data.message) {
+                                   this.$notify({
+                                    group: 'foo',
+                                    title: 'ERROR',
+                                    text: result.data.message,
+                                    type: 'error'
+
+                                });
+                        } else {
+                                console.log(result)
+                            }
+                    
+                    })
+            }
         }
     },
     beforeMount() {

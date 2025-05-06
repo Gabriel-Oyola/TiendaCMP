@@ -1,14 +1,11 @@
 var mongoose = require("mongoose");
-const usuario = require("./usuario");
-const ingreso = require("./ingreso");
-var schema = mongoose.schema;
+var Schema = mongoose.Schema;
 
-var Ingreso_detalleSchema = new mongoose.Schema({
+var Ingreso_detalleSchema = Schema({
   cantidad: { type: Number, required: true },
   precio_unidad: { type: Number, required: true },
-  ingreso: { type: Schema.objectId, ref: "ingreso", required: true },
-  producto: { type: Schema.objectId, ref: "Producto", required: true },
-  createAT: { type: Date, default: Date.now },
+  ingreso: { type: Schema.ObjectId, ref: "ingreso", required: true },
+  producto: { type: Schema.ObjectId, ref: "Producto", required: true },
+  createdAt: { type: Date, default: Date.now },
 });
-
 module.exports = mongoose.model("ingreso_detalle", Ingreso_detalleSchema);
