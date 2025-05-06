@@ -312,6 +312,20 @@ const registro_ingreso_admin = async function (req, res) {
       for (var item of detalles) {
         item.ingreso = ingreso._id;
         await Ingreso_detalle.create(item);
+
+        let variedad = await Variedad.findById({ _id: item.variedad });
+
+        await Variedad.findByIdAndUpdate(
+          { _id: item.variedad },
+          { stock: variedad.stock + item.cantidad }
+        );
+
+        let producto = await Producto.findById({ _id: item.producto });
+
+        await Producto.findByIdAndUpdate(
+          { _id: item.producto },
+          { stock: producto.stock + item.producto }
+        );
       }
 
       res.status(200).send(ingreso);
