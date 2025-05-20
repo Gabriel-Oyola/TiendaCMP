@@ -313,19 +313,35 @@ const registro_ingreso_admin = async function (req, res) {
         item.ingreso = ingreso._id;
         await Ingreso_detalle.create(item);
 
+        //ACTUALIZAR CANTIDADES
         let variedad = await Variedad.findById({ _id: item.variedad });
-
         await Variedad.findByIdAndUpdate(
           { _id: item.variedad },
-          { stock: variedad.stock + item.cantidad }
+          {
+            stock: parseInt(variedad.stock) + parseInt(item.cantidad),
+          }
         );
 
         let producto = await Producto.findById({ _id: item.producto });
-
         await Producto.findByIdAndUpdate(
           { _id: item.producto },
-          { stock: producto.stock + item.producto }
+          {
+            stock: parseInt(producto.stock) + parseInt(item.cantidad),
+          }
         );
+
+        //MARGEN DE GANANCIA
+        if (producto.stock >= 1) {
+          //
+        } else {
+          let ganancia = Math.ceil((item.precio_unidad * data.ganancia) / 100);
+          await Producto.findByIdAndUpdate(
+            { _id: item.producto },
+            {
+              precio: parseFloat(item.precio_unidad) + parseFloat(ganancia),
+            }
+          );
+        }
       }
 
       res.status(200).send(ingreso);

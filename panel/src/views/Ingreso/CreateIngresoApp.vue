@@ -482,7 +482,8 @@ export default {
                 console.log(this.detalles)
 
                    var fm = new FormData();
-                    fm.append('proveedor', this.ingreso.proveedor); 
+                fm.append('proveedor', this.ingreso.proveedor); 
+                      fm.append('ganancia', this.$ganancia); 
                     fm.append('ncomprobante', this.ingreso.ncomprobante); 
                     fm.append('monto_total', this.ingreso.monto_total); 
                     fm.append('monto_resultante', this.total);  
@@ -490,7 +491,7 @@ export default {
                     fm.append('detalles', JSON.stringify(this.detalles)); 
                      
                         
-                    axios.post(this.$url + '/registro_ingreso_admin', fm, {
+                    axios.post(this.$url + '/registro_ingreso_admin/', fm, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': this.$store.state.token
