@@ -333,6 +333,27 @@ const registro_ingreso_admin = async function (req, res) {
         //MARGEN DE GANANCIA
         if (producto.stock >= 1) {
           //
+
+          let subtotal_residual = producto.precio * producto.stock;
+          let ganancia = Math.ceil((item.precio_unidad * data.ganancia) / 100);
+          let subtotal_ingreso =
+            (parseFloat(item.precio_unidad) + parseFloat(ganancia)) *
+            item.cantidad;
+
+          let cantidades = parseInt(producto.stock) + parseInt(item.cantidad);
+          let subtotales =
+            parseFloat(subtotal_residual) + parseFloat(subtotal_ingreso);
+
+          console.log(subtotales + " " + cantidades);
+
+          let precio_equilibrio = Math.ceil(subtotales / cantidades);
+
+          await Producto.findByIdAndUpdate(
+            { _id: item.producto },
+            {
+              precio: precio_equilibrio,
+            }
+          );
         } else {
           let ganancia = Math.ceil((item.precio_unidad * data.ganancia) / 100);
           await Producto.findByIdAndUpdate(

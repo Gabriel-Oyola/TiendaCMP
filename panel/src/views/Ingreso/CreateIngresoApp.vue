@@ -491,7 +491,7 @@ export default {
                     fm.append('detalles', JSON.stringify(this.detalles)); 
                      
                         
-                    axios.post(this.$url + '/registro_ingreso_admin/', fm, {
+                    axios.post(this.$url + '/registro_ingreso_admin', fm, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': this.$store.state.token
