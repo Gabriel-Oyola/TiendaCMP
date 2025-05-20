@@ -63,6 +63,12 @@ const routes = [
     component: () => import("@/views/Productos/EditProductoApp.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/producto/galeria/:id",
+    name: "producto-galeria",
+    component: () => import("@/views/Productos/GaleriaProductoApp.vue"),
+    meta: { requiresAuth: true },
+  },
 
   {
     path: "/ingreso/create",
