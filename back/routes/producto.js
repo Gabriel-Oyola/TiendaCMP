@@ -6,6 +6,7 @@ var multipart = require("connect-multiparty");
 
 var path = multipart({ uploadDir: "./uploads/productos" });
 var path_ingreso = multipart({ uploadDir: "./uploads/facturas" });
+var path_galeria = multipart({ uploadDir: "./uploads/galeria" });
 var api = express.Router();
 
 /////////////////////PRODUCTOS
@@ -72,4 +73,11 @@ api.post(
   ProductoControllers.registro_ingreso_admin
 );
 
+////////////////////////////
+
+api.post(
+  "/subir_imagen_producto",
+  [authenticate.decodeToken, path_galeria],
+  ProductoControllers.subir_imagen_producto
+);
 module.exports = api;
