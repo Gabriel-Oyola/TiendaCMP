@@ -49,7 +49,19 @@
                     </div>
                 </div>
 
-              <div class="mb-7">
+             <template v-if="load_data">
+                <div class="row">
+                   <div class="col-12 text-center">
+                    <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                    </div>
+                   </div>
+                </div>
+             </template> 
+
+             <template v-if="!load_data">
+                <div>
+                    <div class="mb-7" v-if="data">
                 <div class="row">
                     <div class="col-12 col-md-12">
 
@@ -101,6 +113,13 @@
 
             </div>
 
+            <template v-if="!data">
+                           <ErrorNotFound />
+            </template>
+                       
+                </div>
+             </template>
+
             </div>
         </div>
 
@@ -111,6 +130,7 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
+import ErrorNotFound from '@/components/ErrorNotFound.vue';
 import $ from "jquery";
 import axios from 'axios'
 
@@ -118,19 +138,45 @@ export default {
   name: 'GaleriaProductoApp',
     components: {
         Sidebar,
-        TopNav
+        TopNav,
+        ErrorNotFound
     }, 
 
     data() {
         return {
             imagen: undefined, 
-            str_image: ''
+            str_image: '',
+            data: false,
+            load_data:true
 
         }
     },
 
 
     methods: {
+
+        init_data() {
+            this.load_data = true;
+            axios.get(this.$url + '/obtener_producto_admin/' + this.$route.params.id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+
+                if (result.data == '') {
+                    this.data = false;
+                }
+                else {
+                    this.data = true;
+                this.producto = result.data;
+                this.str_image = this.$url + '/obtener_portada_producto/' + this.producto.portada;
+                }
+
+                this.load_data = false;
+               
+            })
+        },
          uploadImage($event) {
 
             var image;
@@ -218,6 +264,9 @@ export default {
             }
 
         }
+    },
+    beforeMount() {
+        this.init_data();
     }
 }
 </script>
