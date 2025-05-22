@@ -408,6 +408,19 @@ const subir_imagen_producto = async function (req, res) {
   }
 };
 
+const obtener_galeria_producto = async function (req, res) {
+  let img = req.params["img"];
+  fs.stat("./uploads/galeria/" + img, async function (err) {
+    if (err) {
+      let path_img = "./uploads/default.jpg";
+      res.status(200).sendFile(path.resolve(path_img));
+    } else {
+      let path_img = "./uploads/galeria/" + img;
+      res.status(200).sendFile(path.resolve(path_img));
+    }
+  });
+};
+
 module.exports = {
   registro_producto_admin,
   listar_producto_admin,
@@ -420,4 +433,5 @@ module.exports = {
   listar_activos_productos_admin,
   registro_ingreso_admin,
   subir_imagen_producto,
+  obtener_galeria_producto,
 };

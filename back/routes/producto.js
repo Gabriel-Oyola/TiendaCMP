@@ -80,4 +80,9 @@ api.post(
   [authenticate.decodeToken, path_galeria],
   ProductoControllers.subir_imagen_producto
 );
+
+api.get(
+  "/obtener_galeria_producto/:img",
+  ProductoControllers.obtener_galeria_producto
+);
 module.exports = api;
