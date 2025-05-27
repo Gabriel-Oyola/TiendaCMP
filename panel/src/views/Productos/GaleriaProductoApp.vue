@@ -59,7 +59,7 @@
                 </div>
              </template> 
 
-             <template v-if="!load_data">
+             <template v-if="load_data">
                 <div>
                     <div class="mb-7" v-if="data">
                 <div class="row">
@@ -92,11 +92,11 @@
                     
                 </div> <!-- / .row -->
 
-                <div class="row listAlias">
-                    <div class="col-12 col-md-6 col-xl-4">
+                <div class="row listAlias" v-if="load_galeria">
+                    <div class="col-12 col-md-6 col-xl-4" v-for="item in galeriaP">
                         <div class="card">
                             <a href="project-overview.html">
-                                <img src="https://dashkit.goodthemes.co/assets/img/avatars/projects/project-1.jpg" alt="..." class="card-img-top">
+                                <img :src="$url+'/obtener_galeria_producto/'+item.imagen" alt="..." class="card-img-top">
                             </a>
                             <div class="card-footer card-footer-boxed">
                             <div class="row">
@@ -109,6 +109,12 @@
                         </div>
                     </div>
                     
+                </div>
+
+                <div class="row mt-5" v-if="!load_galeria">
+                    <div class="col-12 text-center">
+                        <img src="/assets/img/reloj.gif" alt="" style="width: 80px;">
+                    </div>
                 </div>
 
             </div>
@@ -147,7 +153,9 @@ export default {
             imagen: undefined, 
             str_image: '',
             data: false,
-            load_data:true
+            load_data: true,
+            load_galeria: true,
+            galeriaP: []
 
         }
     },
@@ -263,10 +271,28 @@ export default {
                     })
             }
 
+        }, 
+
+        init_galeria() {
+            this.load_galeria = true;
+            axios.get(this.$url + '/obtener_galeria_producto_admin/' + this.$route.params.id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+
+                console.log(result)
+                this.galeriaP = result.data;
+            
+                this.load_galeria = false;
+               
+            })
         }
     },
     beforeMount() {
         this.init_data();
+        this.init_galeria()
     }
 }
 </script>

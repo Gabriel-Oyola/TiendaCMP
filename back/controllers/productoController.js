@@ -421,6 +421,20 @@ const obtener_galeria_producto = async function (req, res) {
   });
 };
 
+const obtener_galeria_producto_admin = async function (req, res) {
+  if (req.user) {
+    let id = req.params["id"];
+
+    let galeria = await Galeria.find({ producto: id });
+    res.status(200).send(galeria);
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "ErrorToken",
+    });
+  }
+};
+
 module.exports = {
   registro_producto_admin,
   listar_producto_admin,
@@ -434,4 +448,5 @@ module.exports = {
   registro_ingreso_admin,
   subir_imagen_producto,
   obtener_galeria_producto,
+  obtener_galeria_producto_admin,
 };
