@@ -435,6 +435,10 @@ const obtener_galeria_producto_admin = async function (req, res) {
   }
 };
 
+const prueba_git = async function (req, res ){
+    console.log("pruebaaaaaa")
+}
+
 module.exports = {
   registro_producto_admin,
   listar_producto_admin,
