@@ -508,6 +508,13 @@ export default {
                                 });
                         } else {
                                 console.log(result)
+
+                                       this.$notify({
+                                        group: 'foo',
+                                        title: 'SUCCES',
+                                        text: 'Registrado con exito',
+                                        type: 'success'
+                                    })
                             }
                     
                     })
