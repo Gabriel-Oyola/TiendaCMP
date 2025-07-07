@@ -91,4 +91,6 @@ api.get(
   authenticate.decodeToken,
   ProductoControllers.obtener_galeria_producto_admin
 );
+
+api.delete("/eliminar_galeria_producto_admin/:id", authenticate.decodeToken, ProductoControllers.eliminar_galeria_producto_admin)
 module.exports = api;

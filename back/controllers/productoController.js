@@ -435,9 +435,32 @@ const obtener_galeria_producto_admin = async function (req, res) {
   }
 };
 
-const prueba_git = async function (req, res ){
-    console.log("pruebaaaaaa")
-}
+const eliminar_galeria_producto_admin = async function (req, res) {
+  if (req.user) {
+    let id = req.params["id"];
+
+    try {
+      let reg = await Galeria.findById({_id:id})
+      let path_img = "./uploads/galeria/" + reg.imagen;
+      fs.unlinkSync(path_img);
+       let galeria = await Galeria.findByIdAndDelete({ _id: id });
+      res.status(200).send(galeria);
+    } catch (error) {
+      res.status(200).send({
+        data: undefined,
+        message: "No se pudo eliminar la imagen",
+      });
+    }
+   
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "ErrorToken",
+    });
+  }
+};
+
+
 
 module.exports = {
   registro_producto_admin,
@@ -453,4 +476,5 @@ module.exports = {
   subir_imagen_producto,
   obtener_galeria_producto,
   obtener_galeria_producto_admin,
+  eliminar_galeria_producto_admin,
 };

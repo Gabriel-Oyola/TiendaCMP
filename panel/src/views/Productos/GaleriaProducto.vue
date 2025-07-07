@@ -101,7 +101,12 @@
                                         <div class="card-footer card-footer-boxed">
                                         <div class="row">
                                             <div class="col text-center">
-                                                <a href="" class="text-danger">Eliminar imagen</a>
+                                                <a v-b-modal="'delete-'+item._id" style="cursor: pointer;" class="text-danger">Eliminar imagen</a>
+
+                                                    <b-modal centered :id="'delete-'+item._id" title="Eliminar imagen" title-html="<h4 class='card-header-title'><b>Add a member</b></h4>" @ok="eliminar(item._id)">
+                                                                <p class="my-4">{{ item._id }} Eliminar?</p>
+                                                  </b-modal>
+
                                             </div>
                                             
                                         </div> <!-- / .row -->
@@ -243,7 +248,7 @@ export default {
                             text: 'Se creo correctamente el producto',
                             type: 'success'
                         })
-                 
+                        this.init_galeria();
                 }
                 
                 })
@@ -270,6 +275,7 @@ export default {
 
                 this.load_data=false;
                 
+                
                
             })
         },
@@ -286,6 +292,35 @@ export default {
                 
                 this.galeria = result.data;
                 this.load_galeria=false;
+                
+               
+            })
+        },
+        eliminar(id){
+            axios.delete(this.$url + '/eliminar_galeria_producto_admin/' + id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+
+                if(result.data.message){
+                    this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: result.data.message,
+                            type: 'error'
+                        })
+                }else{
+                    console.log(result)
+                    this.$notify({
+                            group: 'foo',
+                            title: 'SUCCESS',
+                            text: 'Se elimino correctamente la imagen del producto',
+                            type: 'success'
+                        })
+                        this.init_galeria();
+                }
                 
                
             })
