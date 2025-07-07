@@ -66,7 +66,7 @@
                             <!-- Input -->
                             <div class="input-group mb-3">
                                 <input type="file" id="input_file" class="form-control" placeholder="Selecciona la imagen" v-on:change="uploadImage($event)">
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" v-on:click="subir_imagen()">
                                     <i class="fe fe-upload"></i>
                                 </button>
                             </div>
@@ -113,6 +113,7 @@
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
 import $ from 'jquery'
+import axios from 'axios'
 
 export default {
   name: 'GaleriaProducto',
@@ -174,6 +175,49 @@ export default {
                 }
 
                 console.log(this.imagen)
+        },
+
+          subir_imagen() {
+               if(this.imagen == undefined){
+                    this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: 'Por favor selecciona una imagen',
+                            type: 'error'
+                        })
+
+               }else{
+                     var fm = new FormData();
+                fm.append('producto', this.$route.params.id); 
+                fm.append('imagen', this.imagen); 
+       
+                    
+                axios.post(this.$url + '/subir_imagen_producto', fm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': this.$store.state.token
+                }
+                }).then((result) => {
+                    if (result.data.message) {
+                    this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: result.data.message,
+                            type: 'error'
+                        })
+                    } else {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'SUCCESS',
+                            text: 'Se creo correctamente el producto',
+                            type: 'success'
+                        })
+                 
+                }
+                
+                })
+               }
+
         },
     }
 }
