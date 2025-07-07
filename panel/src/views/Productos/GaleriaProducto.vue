@@ -65,7 +65,7 @@
 
                             <!-- Input -->
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" placeholder="Selecciona la imagen">
+                                <input type="file" id="input_file" class="form-control" placeholder="Selecciona la imagen" v-on:change="uploadImage($event)">
                                 <button class="btn btn-primary">
                                     <i class="fe fe-upload"></i>
                                 </button>
@@ -112,6 +112,7 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
+import $ from 'jquery'
 
 export default {
   name: 'GaleriaProducto',
@@ -119,5 +120,62 @@ export default {
         Sidebar,
         TopNav
     }, 
+
+    data(){
+        return{
+            imagen: undefined, 
+            str_image: '',
+
+        }
+    },
+
+    methods: {
+                uploadImage($event) {
+
+                var image;
+
+                if ($event.target.files.length >= 1) {
+                    image = $event.target.files[0]
+                }
+
+                if (image.size <= 1000000) {
+
+                    if (image.type == 'image/jpeg' ||
+                        image.type == 'image/png' ||
+                        image.type == 'image/webp' ||
+                        image.type == 'image/jpg') {
+
+                        this.str_image = URL.createObjectURL(image)
+                        this.imagen = image;
+              
+
+                    } else {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: 'Por favor sube una imagen',
+                            type: 'error'
+                        })
+
+                    this.imagen = undefined;
+                    $('#input_file').val('')
+                    }
+
+                } else {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'ERROR',
+                        text: 'Imagen mayor a 1MB',
+                        type: 'error'
+                    });
+
+                     $('#input_file').val('')
+                    
+                }
+
+                console.log(this.imagen)
+        },
+    }
 }
+
 </script>
