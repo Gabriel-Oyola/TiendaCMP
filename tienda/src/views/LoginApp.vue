@@ -111,7 +111,13 @@ export default {
                 axios.post(this.$url + "/registro_cliente_ecommerce", this.cliente, {headers:{
                      'Content-Type': 'application/json'
                 }}).then((result)=>{
-                    console.log(result)
+
+                    if(result.data.message){
+                        this.msn_error = result.data.message
+                    }else{
+                        console.log(result)
+                    }
+                    
                 })
 
                 
