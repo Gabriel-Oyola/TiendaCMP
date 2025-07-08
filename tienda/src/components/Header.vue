@@ -209,10 +209,10 @@
                 </div>
                 <!-- User Not Logged - link to login page-->
                 <div class="nav-item">
-                    <a class="navbar-icon-link" href="customer-login.html">
-                        <img src="/assets/icons/user.png" style="width: 25px;" />
+                    <router-link class="navbar-icon-link" to="login">
+                       <img src="/assets/icons/user.png" style="width: 25px;" />
                         <span class="text-sm ms-2 ms-lg-0 text-uppercase text-sm fw-bold d-none d-sm-inline d-lg-none">Log in </span>
-                    </a>
+                    </router-link>
                 </div>
                 <!-- Cart Dropdown-->
                 <div class="nav-item dropdown">
