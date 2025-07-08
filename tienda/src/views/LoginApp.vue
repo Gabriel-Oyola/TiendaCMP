@@ -3,7 +3,7 @@
         <section class="hero" style="margin-top: 11rem;">
             <div class="container">
                 <!-- Breadcrumbs -->
-               
+
                 <!-- Hero Content-->
                 <div class="hero-content pb-5 text-center">
                     <h1 class="hero-heading mb-0">Customer zone</h1>
@@ -20,20 +20,25 @@
                                 <h6 class="text-uppercase mb-0">Iniciar sesion</h6>
                             </div>
                             <div class="block-body">
-                                
+
                                 <p class="text-muted">Ingresa a tu cuenta para realizar una compra.</p>
                                 <hr>
                                 <form action="customer-orders.html" method="get">
                                     <div class="mb-4">
                                         <label class="form-label" for="email1">Correo electronico</label>
-                                        <input class="form-control" id="email1" type="text" placeholder="correo electronico" autocomplete="off">
+                                        <input class="form-control" id="email1" type="text"
+                                            placeholder="correo electronico" autocomplete="off" v-model="email">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="password1">Contraseña</label>
-                                        <input class="form-control" id="password1" type="password" placeholder="contraseña" autocomplete="off">
+                                        <input class="form-control" id="password1" type="password"
+                                            placeholder="contraseña" autocomplete="off" v-model="password">
                                     </div>
                                     <div class="mb-4 text-center">
-                                        <button class="btn btn-outline-dark" type="button"><i
+                                        <div class="mb-4" v-if="msn_error_login">
+                                            <small class="text-danger ">{{ msn_error_login }}</small>
+                                        </div>
+                                        <button class="btn btn-outline-dark" type="button" v-on:click="login()"><i
                                                 class="fa fa-sign-in-alt me-2"></i> Ingresar</button>
                                     </div>
                                 </form>
@@ -46,9 +51,10 @@
                                 <h6 class="text-uppercase mb-0">Nueva cuenta</h6>
                             </div>
                             <div class="block-body">
-                             
-                                <p class="text-muted">Registrate para realizar tu compra y acceder a miles de promociones y beneficios de la web</p>
-                             
+
+                                <p class="text-muted">Registrate para realizar tu compra y acceder a miles de
+                                    promociones y beneficios de la web</p>
+
                                 <form action="customer-orders.html" method="get">
                                     <div class="mb-4">
                                         <label class="form-label" for="name">Nombre</label>
@@ -60,18 +66,20 @@
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="password">Contraseña</label>
-                                        <input class="form-control" id="password" type="password" v-model="cliente.password">
+                                        <input class="form-control" id="password" type="password"
+                                            v-model="cliente.password">
                                     </div>
 
                                     <div class="mb-4" v-if="msn_error">
-                                         <small class="text-danger ">{{ msn_error }}</small>
+                                        <small class="text-danger ">{{ msn_error }}</small>
                                     </div>
                                     <div class="mb-4 text-center">
-                                        <button class="btn btn-outline-dark" type="button" v-on:click="validar_registro()"><i
-                                                class="far fa-user me-2" ></i>Registrar </button>
+                                        <button class="btn btn-outline-dark" type="button"
+                                            v-on:click="validar_registro()"><i class="far fa-user me-2"></i>Registrar
+                                        </button>
                                     </div>
 
-                                   
+
                                 </form>
                             </div>
                         </div>
@@ -87,41 +95,80 @@
 import axios from 'axios'
 
 export default {
-    name: 'LoginApp', 
+    name: 'LoginApp',
 
-    data(){
-        return{
-            cliente:{},
-            msn_error: ""
+    data() {
+        return {
+            cliente: {},
+            msn_error: "",
+            email: '',
+            password: '',
+            msn_error_login: '',
         }
-    }, 
-    methods: { 
-        validar_registro(){
+    },
+    methods: {
+        validar_registro() {
             console.log(this.cliente)
-            if(!this.cliente.nombre){
-                this.msn_error= "Ingrese su nombre completo"
+            if (!this.cliente.nombre) {
+                this.msn_error = "Ingrese su nombre completo"
             }
-             else if(!this.cliente.email){
-                this.msn_error= "Ingrese su correo eletronico"
+            else if (!this.cliente.email) {
+                this.msn_error = "Ingrese su correo eletronico"
             }
-              else if(!this.cliente.password){
-                this.msn_error= "Ingrese su contrasena"
-            }else {
-                this.msn_error=""; 
-                axios.post(this.$url + "/registro_cliente_ecommerce", this.cliente, {headers:{
-                     'Content-Type': 'application/json'
-                }}).then((result)=>{
+            else if (!this.cliente.password) {
+                this.msn_error = "Ingrese su contrasena"
+            } else {
+                this.msn_error = "";
+                axios.post(this.$url + "/registro_cliente_ecommerce", this.cliente, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((result) => {
 
-                    if(result.data.message){
+                    if (result.data.message) {
                         this.msn_error = result.data.message
-                    }else{
+                    } else {
                         console.log(result)
                     }
-                    
+
                 })
 
-                
+
             }
+        },
+        login() {
+
+            if (!this.email) {
+                this.msn_error_login = 'Ingrese un correo'
+            } else if (!this.password) {
+                this.msn_error_login = 'Ingrese una contraseña'
+            }
+            else {
+                this.msn_error_login = ""
+
+                let data = {
+                    email: this.email,
+                    password: this.password
+                }
+                axios.post(this.$url + '/login_cliente', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((result) => {
+                    if(result.data.message){
+                        this.msn_error_login = result.data.message;
+                    }else{
+                        this.$store.dispatch('saveToken', result.data.token)
+                        this.$router.push({ name: 'home' })
+                    }
+
+
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+
+
         }
     }
 }
