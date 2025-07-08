@@ -52,20 +52,26 @@
                                 <form action="customer-orders.html" method="get">
                                     <div class="mb-4">
                                         <label class="form-label" for="name">Nombre</label>
-                                        <input class="form-control" id="name" type="text">
+                                        <input class="form-control" id="name" type="text" v-model="cliente.nombre">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="email">Correo eletronico</label>
-                                        <input class="form-control" id="email" type="text">
+                                        <input class="form-control" id="email" type="text" v-model="cliente.email">
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label" for="password">Contraseña</label>
-                                        <input class="form-control" id="password" type="password">
+                                        <input class="form-control" id="password" type="password" v-model="cliente.password">
+                                    </div>
+
+                                    <div class="mb-4" v-if="msn_error">
+                                         <small class="text-danger ">{{ msn_error }}</small>
                                     </div>
                                     <div class="mb-4 text-center">
-                                        <button class="btn btn-outline-dark" type="button"><i
-                                                class="far fa-user me-2"></i>Registrar </button>
+                                        <button class="btn btn-outline-dark" type="button" v-on:click="validar_registro()"><i
+                                                class="far fa-user me-2" ></i>Registrar </button>
                                     </div>
+
+                                   
                                 </form>
                             </div>
                         </div>
@@ -78,8 +84,40 @@
 
 <script>
 
+import axios from 'axios'
+
 export default {
-    name: 'LoginApp'
+    name: 'LoginApp', 
+
+    data(){
+        return{
+            cliente:{},
+            msn_error: ""
+        }
+    }, 
+    methods: { 
+        validar_registro(){
+            console.log(this.cliente)
+            if(!this.cliente.nombre){
+                this.msn_error= "Ingrese su nombre completo"
+            }
+             else if(!this.cliente.email){
+                this.msn_error= "Ingrese su correo eletronico"
+            }
+              else if(!this.cliente.password){
+                this.msn_error= "Ingrese su contrasena"
+            }else {
+                this.msn_error=""; 
+                axios.post(this.$url + "/registro_cliente_ecommerce", this.cliente, {headers:{
+                     'Content-Type': 'application/json'
+                }}).then((result)=>{
+                    console.log(result)
+                })
+
+                
+            }
+        }
+    }
 }
 
 

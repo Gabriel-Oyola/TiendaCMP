@@ -1,7 +1,11 @@
-const testing = function (req, res) {
-  res.status(200).send("Controlador testeado ok");
+var Cliente = require("../models/cliente");
+
+const registro_cliente_ecommerce = async function (req, res) {
+    let data = req.body;
+    let cliente = await Cliente.create(data)
+    res.status(200).send(cliente)
 };
 
 module.exports = {
-  testing,
+  registro_cliente_ecommerce,
 };

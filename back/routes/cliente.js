@@ -4,6 +4,6 @@ var mongoose = require("mongoose");
 
 var api = express.Router();
 
-api.get("/testing", clienteControllers.testing);
+api.post("/registro_cliente_ecommerce", clienteControllers.registro_cliente_ecommerce);
 
 module.exports = api;
