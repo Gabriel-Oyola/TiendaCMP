@@ -122,6 +122,7 @@ const actualizar_producto_admin = async function (req, res) {
               {
                 titulo: data.titulo,
                 categoria: data.categoria,
+                subcategoria: data.subcategoria,
                 descripcion: data.descripcion,
                 estado: data.estado,
                 str_variedad: data.str_variedad,
@@ -146,6 +147,7 @@ const actualizar_producto_admin = async function (req, res) {
               {
                 titulo: data.titulo,
                 categoria: data.categoria,
+                subcategoria: data.subcategoria,
                 descripcion: data.descripcion,
                 estado: data.estado,
                 str_variedad: data.str_variedad,
@@ -185,6 +187,7 @@ const actualizar_producto_admin = async function (req, res) {
             {
               titulo: data.titulo,
               categoria: data.categoria,
+              subcategoria: data.subcategoria,
               descripcion: data.descripcion,
               estado: data.estado,
               str_variedad: data.str_variedad,
@@ -209,6 +212,7 @@ const actualizar_producto_admin = async function (req, res) {
             {
               titulo: data.titulo,
               categoria: data.categoria,
+              subcategoria: data.subcategoria,
               descripcion: data.descripcion,
               estado: data.estado,
               str_variedad: data.str_variedad,
