@@ -101,53 +101,7 @@
         </div>
       </div>
     </section>
-    <section class="pt-6 pb-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-8 mx-auto text-center mb-5">
-            <h2 class="text-uppercase">Productos recomendados</h2>
-            <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <!-- Products Slider-->
-          <div class="owl-carousel owl-theme product-slider">
-            <!-- product-->
-            <div class="product-slider-item" v-if="productos_recomendados[0]">
-              <div class="product">
-                <div class="product-image">
-                  <div class="ribbon ribbon-primary">Sale</div>
-                  <img :src="$url + '/obtener_portada_producto/' + productos_recomendados[0].portada" alt="product" />
-
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">{{ productos_recomendados[0].categoria }}</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark"
-                      href="detail.html">{{ productos_recomendados[0].titulo.substr(0, 20) }}...</a></h3>
-                  <span class="text-muted">{{ convertCurrency(productos_recomendados[0].precio) }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="product-slider-item" v-if="productos_recomendados[1]">
-              <div class="product">
-                <div class="product-image">
-                  <div class="ribbon ribbon-primary">Sale</div>
-                  <img :src="$url + '/obtener_portada_producto/' + productos_recomendados[1].portada" alt="product" />
-
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">{{ productos_recomendados[1].categoria }}</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark"
-                      href="detail.html">{{ productos_recomendados[1].titulo.substr(0, 20) }}...</a></h3>
-                  <span class="text-muted">{{ convertCurrency(productos_recomendados[1].precio) }}</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-          
-          </div>
-        </div>
-      </div>
-    </section>
+ 
   </div>
 </template>
 
