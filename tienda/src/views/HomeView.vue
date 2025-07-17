@@ -41,15 +41,14 @@
             <div class="product">
               <div class="product-image">
                 <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img class="img-fluid"
-                  :src="$url+ '/obtener_portada_producto/'+item.portada"
-                  alt="product" />
+                  :src="$url + '/obtener_portada_producto/' + item.portada" alt="product" />
                 <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
                 </div>
               </div>
               <div class="py-2">
                 <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
-                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">{{ item.titulo }}</a></h3><span
-                  class="text-muted">{{ convertCurrency (item.precio) }}</span>
+                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">{{ item.titulo }}</a></h3>
+                <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
               </div>
             </div>
           </div>
@@ -113,207 +112,38 @@
           <!-- Products Slider-->
           <div class="owl-carousel owl-theme product-slider">
             <!-- product-->
-            <div class="product-slider-item">
+            <div class="product-slider-item" v-if="productos_recomendados[0]">
               <div class="product">
                 <div class="product-image">
-                  <div class="ribbon ribbon-primary">Sale</div><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-596319-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
+                  <div class="ribbon ribbon-primary">Sale</div>
+                  <img :src="$url + '/obtener_portada_producto/' + productos_recomendados[0].portada" alt="product" />
+
                 </div>
                 <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Accessories</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">College jacket</a></h3>
-                  <span class="text-muted">$40.00</span>
+                  <p class="text-muted text-sm mb-1">{{ productos_recomendados[0].categoria }}</p>
+                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark"
+                      href="detail.html">{{ productos_recomendados[0].titulo.substr(0, 20) }}...</a></h3>
+                  <span class="text-muted">{{ convertCurrency(productos_recomendados[0].precio) }}</span>
                 </div>
               </div>
             </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ethan-haddox-484912-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Denim</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Carrot-fit jeans</a></h3>
-                  <span class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494231-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Jackets</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Striped T-Shirt</a></h3>
-                  <span class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/averie-woodard-319832-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Shirts</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Short top</a></h3><span
-                    class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
+            <div class="product-slider-item" v-if="productos_recomendados[1]">
               <div class="product">
                 <div class="product-image">
-                  <div class="ribbon ribbon-danger">Sold out</div><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494279-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
+                  <div class="ribbon ribbon-primary">Sale</div>
+                  <img :src="$url + '/obtener_portada_producto/' + productos_recomendados[1].portada" alt="product" />
+
                 </div>
                 <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Sweaters</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Ethnic Sweater</a></h3>
-                  <span class="text-muted">$40.00</span>
+                  <p class="text-muted text-sm mb-1">{{ productos_recomendados[1].categoria }}</p>
+                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark"
+                      href="detail.html">{{ productos_recomendados[1].titulo.substr(0, 20) }}...</a></h3>
+                  <span class="text-muted">{{ convertCurrency(productos_recomendados[1].precio) }}</span>
                 </div>
               </div>
             </div>
             <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/dmitriy-ilkevich-437760-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Coats</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Beige</a></h3><span
-                    class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ian-dooley-347968-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">T-Shirts</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Skull Tee</a></h3><span
-                    class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/alex-holyoake-571682-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Denim</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Trucker jacket</a></h3>
-                  <span class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ao-456813-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Denim</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Blouse</a></h3><span
-                    class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
-            <!-- product-->
-            <div class="product-slider-item">
-              <div class="product">
-                <div class="product-image"><img class="img-fluid"
-                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-592041-unsplash.jpg"
-                    alt="product" />
-                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
-                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy" href="detail.html"><i
-                          class="fa-search fa"></i><span class="btn-buy-label ms-2">View</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="py-2">
-                  <p class="text-muted text-sm mb-1">Denim</p>
-                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Shirt</a></h3><span
-                    class="text-muted">$40.00</span>
-                </div>
-              </div>
-            </div>
-            <!-- /product-->
+          
           </div>
         </div>
       </div>
@@ -322,20 +152,17 @@
 </template>
 
 <style>
+.product-image {
+  display: block !important;
+  overflow: hidden !important;
+  height: 320px !important;
+}
 
-  .product-image{
-    display: block !important;
-    overflow: hidden !important;
-    height: 320px !important;
-  }
-
-  .img-fluid{
-    height: auto !important;
-    display: auto !important;
-    vertical-align: middle !important;
-  }
-
-
+.img-fluid {
+  height: auto !important;
+  display: auto !important;
+  vertical-align: middle !important;
+}
 </style>
 
 <script>
@@ -343,16 +170,20 @@
 import HelloWorld from '@/components/HelloWorld.vue';
 import axios from 'axios'
 import currency_formatter from 'currency-formatter'
-import { init_carrusel} from '../../public/assets/js/theme.d7b4a888'
+import { init_carrusel } from '../../public/assets/js/theme.d7b4a888'
 
 export default {
   name: 'HomeView',
 
   data() {
-      return{
-        nuevos_productos: [], 
+    return {
+      nuevos_productos: [],
+      load_nuevos_productos: true,
 
-      }
+      productos_recomendados: [],
+      load_productos_recomendados: true
+
+    }
   },
   methods: {
     init_nuevos_productos() {
@@ -360,22 +191,36 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         }
-      }).then((result)=> {
+      }).then((result) => {
         this.nuevos_productos = result.data;
-        console.log(result)
+        this.load_nuevos_productos;
+        console.log(this.nuevos_productos)
       })
     },
-    
-        convertCurrency(number) {
-            return currency_formatter.format(number, { code: 'USD' });
-// => '$1,000,000.00'
+
+    init_productos_recomendados() {
+      axios.get(this.$url + '/obtener_productos_recomendados', {
+        headers: {
+          'Content-Type': 'application/json'
         }
+      }).then((result) => {
+        this.productos_recomendados = result.data;
+        this.load_productos_recomendados = false;
+        console.log(this.productos_recomendados)
+      })
+    },
+
+    convertCurrency(number) {
+      return currency_formatter.format(number, { code: 'USD' });
+      // => '$1,000,000.00'
+    }
   },
   components: {
     HelloWorld
-  }, 
-  beforeMount(){ 
+  },
+  beforeMount() {
     this.init_nuevos_productos();
+    this.init_productos_recomendados();
     init_carrusel.init();
   }
 }
