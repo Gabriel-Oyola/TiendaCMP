@@ -97,145 +97,116 @@ const obtener_producto_admin = async (req, res) => {
   }
 };
 
-const actualizar_producto_admin = async function (req, res) {
-  if (req.user) {
-    let data = req.body;
-    let id = req.params["id"];
-    let productos = await Producto.find({ titulo: data.titulo });
-    console.log(productos.length);
-    if (productos.length >= 1) {
-      if (productos[0]._id == id) {
-        if (req.files) {
-          var img_path = req.files.portada.path;
-          console.log(img_path);
-          var str_img = img_path.split("\\");
-          var str_portada = str_img[2];
+const actualizar_producto_admin = async function(req,res){
+    if(req.user){
+        let data = req.body;
+        let id = req.params['id'];
 
-          ///
 
-          data.portada = str_portada;
-          data.slug = slugify(data.titulo);
+        let productos = await Producto.find({titulo:data.titulo});
+        console.log(productos.length);
 
-          try {
-            let producto = await Producto.findByIdAndUpdate(
-              { _id: id },
-              {
-                titulo: data.titulo,
-                categoria: data.categoria,
-                subcategoria: data.subcategoria,
-                descripcion: data.descripcion,
-                estado: data.estado,
-                str_variedad: data.str_variedad,
-                descuento: data.descuento,
-                poratada: data.portada,
-              }
-            );
-            res.status(200).send({ data: producto });
-          } catch (error) {
-            res.status(200).send({
-              data: undefined,
-              message: "No se pudo guardar el producto",
-            });
-          }
-          console.log(data);
-        } else {
-          data.slug = slugify(data.titulo);
-
-          try {
-            let producto = await Producto.findByIdAndUpdate(
-              { _id: id },
-              {
-                titulo: data.titulo,
-                categoria: data.categoria,
-                subcategoria: data.subcategoria,
-                descripcion: data.descripcion,
-                estado: data.estado,
-                str_variedad: data.str_variedad,
-                descuento: data.descuento,
-              }
-            );
-            res.status(200).send({ data: producto });
-          } catch (error) {
-            res.status(200).send({
-              data: undefined,
-              message: "No se pudo guardar el producto",
-            });
-          }
-          console.log(data);
-        }
-      } else {
-        res.status(200).send({
-          data: undefined,
-          message: "El producto ya existe",
-        });
-      }
-    } else {
-      if (req.files) {
-        var img_path = req.files.portada.path;
-        console.log(img_path);
-        var str_img = img_path.split("\\");
-        var str_portada = str_img[2];
-
-        ///
-
-        data.portada = str_portada;
-        data.slug = slugify(data.titulo);
-
-        try {
-          let producto = await Producto.findByIdAndUpdate(
-            { _id: id },
-            {
-              titulo: data.titulo,
-              categoria: data.categoria,
-              subcategoria: data.subcategoria,
-              descripcion: data.descripcion,
-              estado: data.estado,
-              str_variedad: data.str_variedad,
-              descuento: data.descuento,
-              poratada: data.portada,
+        if(productos.length>= 1){
+            if(productos[0]._id == id){
+                if(req.files){
+                    //REGISTRO PRODUCTO
+                    var img_path = req.files.portada.path;
+                    var str_img = img_path.split('\\');
+                    var str_portada = str_img[2];
+    
+                    ///
+    
+                    data.portada = str_portada;
+                    data.slug = slugify(data.titulo);
+                    
+                    try {
+                        let producto = await Producto.findByIdAndUpdate({_id:id},{
+                            titulo: data.titulo,
+                            categoria:data.categoria,
+                            subcategoria:data.subcategoria,
+                            extracto: data.extracto,
+                            estado: data.estado,
+                            str_variedad: data.str_variedad,
+                            descuento: data.descuento,
+                            portada: data.portada,
+                        });
+                        res.status(200).send({data:producto});
+                    } catch (error) {
+                        res.status(200).send({data:undefined,message: 'No se pudo crear el producto.'});   
+                    }
+                }else{
+    
+                     data.slug = slugify(data.titulo);
+                     
+                     try {
+                         let producto = await Producto.findByIdAndUpdate({_id:id},{
+                             titulo: data.titulo,
+                             categoria:data.categoria,
+                             subcategoria:data.subcategoria,
+                             extracto: data.extracto,
+                             estado: data.estado,
+                             str_variedad: data.str_variedad,
+                             descuento: data.descuento
+                         });
+                         res.status(200).send({data:producto});
+                     } catch (error) {
+                         res.status(200).send({data:undefined,message: 'No se pudo crear el producto.'});   
+                     }
+                }
+            }else{
+                res.status(200).send({data:undefined,message: 'El titulo de producto ya existe.'});   
             }
-          );
-          res.status(200).send({ data: producto });
-        } catch (error) {
-          res.status(200).send({
-            data: undefined,
-            message: "No se pudo guardar el producto",
-          });
-        }
-        console.log(data);
-      } else {
-        data.slug = slugify(data.titulo);
+        }else{
+            if(req.files){
+                //REGISTRO PRODUCTO
+                var img_path = req.files.portada.path;
+                var str_img = img_path.split('\\');
+                var str_portada = str_img[2];
 
-        try {
-          let producto = await Producto.findByIdAndUpdate(
-            { _id: id },
-            {
-              titulo: data.titulo,
-              categoria: data.categoria,
-              subcategoria: data.subcategoria,
-              descripcion: data.descripcion,
-              estado: data.estado,
-              str_variedad: data.str_variedad,
-              descuento: data.descuento,
+                ///
+
+                data.portada = str_portada;
+                data.slug = slugify(data.titulo);
+                
+                try {
+                    let producto = await Producto.findByIdAndUpdate({_id:id},{
+                        titulo: data.titulo,
+                        categoria:data.categoria,
+                        subcategoria:data.subcategoria,
+                        extracto: data.extracto,
+                        estado: data.estado,
+                        str_variedad: data.str_variedad,
+                        descuento: data.descuento,
+                        portada: data.portada,
+                    });
+                    res.status(200).send({data:producto});
+                } catch (error) {
+                    res.status(200).send({data:undefined,message: 'No se pudo crear el producto.'});   
+                }
+            }else{
+
+                 data.slug = slugify(data.titulo);
+                 
+                 try {
+                     let producto = await Producto.findByIdAndUpdate({_id:id},{
+                         titulo: data.titulo,
+                         categoria:data.categoria,
+                         subcategoria:data.subcategoria,
+                         extracto: data.extracto,
+                         estado: data.estado,
+                         str_variedad: data.str_variedad,
+                         descuento: data.descuento
+                     });
+                     res.status(200).send({data:producto});
+                 } catch (error) {
+                     res.status(200).send({data:undefined,message: 'No se pudo crear el producto.'});   
+                 }
             }
-          );
-          res.status(200).send({ data: producto });
-        } catch (error) {
-          res.status(200).send({
-            data: undefined,
-            message: "No se pudo guardar el producto",
-          });
         }
-        console.log(data);
-      }
+    }else{
+        res.status(500).send({data:undefined,message: 'ErrorToken'});
     }
-  } else {
-    res.status(500).send({
-      data: undefined,
-      message: "ErrorToken",
-    });
-  }
-};
+}
 
 const registro_variedad_producto = async function (req, res) {
   if (req.user) {

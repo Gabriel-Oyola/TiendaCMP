@@ -106,7 +106,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xl-8 mx-auto text-center mb-5">
-            <h2 class="text-uppercase">Your favourites</h2>
+            <h2 class="text-uppercase">Productos recomendados</h2>
             <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.</p>
           </div>
@@ -326,6 +326,7 @@
 import HelloWorld from '@/components/HelloWorld.vue';
 import axios from 'axios'
 import currency_formatter from 'currency-formatter'
+import { init_carrusel} from '../../public/assets/js/theme.d7b4a888'
 
 export default {
   name: 'HomeView',
@@ -358,6 +359,7 @@ export default {
   }, 
   beforeMount(){ 
     this.init_nuevos_productos();
+    init_carrusel.init();
   }
 }
 </script>

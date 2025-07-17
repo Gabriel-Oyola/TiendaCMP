@@ -491,3 +491,35 @@ $(function () {
 
     objectFitImages();
 });
+
+
+export const init_carrusel = {
+    init: function(){ 
+ 
+       setTimeout(() => {
+               $(".product-slider").owlCarousel({
+        loop: false,
+        margin: 0,
+        nav: false,
+        dots: true,
+        navText: [
+            '<img src="' + basePath + 'img/prev.svg" alt="" width="50">',
+            '<img src="' + basePath + 'img/next.svg" alt="" width="50">',
+        ],
+        smartSpeed: 400,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            600: {
+                items: 2,
+            },
+            1000: {
+                items: 5,
+            },
+        },
+    });
+       }, 50);
+    }
+}
