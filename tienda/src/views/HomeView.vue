@@ -321,6 +321,23 @@
   </div>
 </template>
 
+<style>
+
+  .product-image{
+    display: block !important;
+    overflow: hidden !important;
+    height: 320px !important;
+  }
+
+  .img-fluid{
+    height: auto !important;
+    display: auto !important;
+    vertical-align: middle !important;
+  }
+
+
+</style>
+
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
