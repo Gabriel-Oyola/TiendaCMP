@@ -101,7 +101,14 @@
         </div>
       </div>
     </section>
- 
+    <section class="py-6 position-relative light-overlay"><img class="bg-image" src="../../public/assets/img/air-force-one-portada-1200x572x80xX.jpg" alt="">
+      <div class="container">
+        <div class="overlay-content text-center text-dark">
+          <p class="text-uppercase fw-bold mb-1 letter-spacing-5">PRODUCTOS TENDENCIAS                </p>
+          <h3 class="display-1 fw-bold text-serif mb-4">INVIERNO 2025</h3><a class="btn btn-dark" href="category.html">COMPRAR AHORA</a>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
