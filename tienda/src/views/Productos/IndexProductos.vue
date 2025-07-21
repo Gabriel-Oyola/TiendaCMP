@@ -1,15 +1,22 @@
 <template>
-    <div>
-        <section class="hero">
+    <div style="background: #ccc;">
+        <section class="hero" style="margin-top: 8rem !important;">
             <div class="container">
                 <!-- Breadcrumbs -->
                 <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Jackets and tops </li>
+                    <li class="breadcrumb-item">
+                        <router-link to="/">
+                            Inicio
+                        </router-link>
+                    </li>
+                    <li class="breadcrumb-item active">Tienda
+
+
+                    </li>
                 </ol>
                 <!-- Hero Content-->
                 <div class="hero-content pb-5 text-center">
-                    <h1 class="hero-heading">Jackets and tops</h1>
+                    <h1 class="hero-heading">Tienda</h1>
                     <div class="row">
                         <div class="col-xl-8 offset-xl-2">
                             <p class="lead text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
@@ -46,7 +53,7 @@
                                 <div class="product-image">
                                     <div class="ribbon ribbon-info">Fresh</div><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494312-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -74,7 +81,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-590881-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -102,8 +109,7 @@
                             <div class="product">
                                 <div class="product-image">
                                     <div class="ribbon ribbon-primary">Sale</div><img class="img-fluid"
-                                        src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-596319-unsplash.jpg"
-                                        >
+                                        src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-596319-unsplash.jpg">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -131,7 +137,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ethan-haddox-484912-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -160,7 +166,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494231-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -217,7 +223,7 @@
                                 <div class="product-image">
                                     <div class="ribbon ribbon-danger">Sold out</div><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494279-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -245,7 +251,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/dmitriy-ilkevich-437760-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -273,7 +279,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ian-dooley-347968-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -301,7 +307,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/alex-holyoake-571682-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -329,7 +335,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ao-456813-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -357,7 +363,7 @@
                             <div class="product">
                                 <div class="product-image"><img class="img-fluid"
                                         src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-592041-unsplash.jpg"
-                                        alt="product" >
+                                        alt="product">
                                     <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                             href="detail.html"></a>
                                         <div class="product-hover-overlay-buttons"><a
@@ -401,13 +407,19 @@
                 <div class="sidebar col-xl-3 col-lg-4 order-lg-1">
                     <div class="sidebar-block px-3 px-lg-0 me-lg-4"><a class="d-lg-none block-toggler"
                             data-bs-toggle="collapse" href="#categoriesMenu" aria-expanded="false"
-                            aria-controls="categoriesMenu">Product Categories</a>
+                            aria-controls="categoriesMenu">Categorias de productos</a>
                         <div class="expand-lg collapse" id="categoriesMenu">
                             <div class="nav nav-pills flex-column mt-4 mt-lg-0" role="menu">
                                 <div class="sidebar-menu-item mb-2 active" data-bs-toggle="collapse"
                                     data-bs-target="#subcategories_0" aria-expanded="true"
-                                    aria-controls="subcategories_0" role="menuitem"><a class="nav-link active"
-                                        href="#!"><span>Jackets</span><span class="sidebar-badge ms-2">123</span></a>
+                                    aria-controls="subcategories_0" role="menuitem">
+                                    <a class="nav-link active"
+                                        href="#!">
+                                        <div class="row">
+                                            <div class="col"><span>Jackets</span></div>
+                                            <div class="col" style="text-align: right;" ><img src="../../assets/flecha.png" alt="" style="width: 20px;"></div>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="collapse show" id="subcategories_0">
                                     <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2" href="#!">Lorem
@@ -418,9 +430,14 @@
                                 </div>
                                 <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse"
                                     data-bs-target="#subcategories_1" aria-expanded="false"
-                                    aria-controls="subcategories_1" role="menuitem"><a class="nav-link "
-                                        href="#!"><span>Jeans &amp; chinos</span><span
-                                            class="sidebar-badge ms-2">55</span></a></div>
+                                    aria-controls="subcategories_1" role="menuitem">
+                                    <a class="nav-link "
+                                        href="#!">
+                                        <div class="col"><span>Jackets</span></div>
+                                            <div class="col" style="text-align: right;" ><img src="../../assets/Flecha2.png" alt="" style="width: 20px;"></div>
+
+                                            </a>
+                                    </div>
                                 <div class="collapse" id="subcategories_1">
                                     <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2" href="#!">Lorem
                                             ipsum</a><a class="nav-link mb-2" href="#!">Dolor</a><a
@@ -430,8 +447,11 @@
                                 </div>
                                 <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse"
                                     data-bs-target="#subcategories_2" aria-expanded="false"
-                                    aria-controls="subcategories_2" role="menuitem"><a class="nav-link "
-                                        href="#!"><span>Accessories</span><span class="sidebar-badge ms-2">80</span></a>
+                                    aria-controls="subcategories_2" role="menuitem">
+                                    <a class="nav-link ">
+                                       <div class="col"><span>Jackets</span></div>
+                                            <div class="col" style="text-align: right;" ><img src="../../assets/Flecha2.png" alt="" style="width: 20px;"></div>
+                                    </a>
                                 </div>
                                 <div class="collapse" id="subcategories_2">
                                     <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2" href="#!">Sit
@@ -585,3 +605,15 @@
         </div>
     </div>
 </template>
+
+<style>
+.sidebar-menu-item[data-bs-toggle="collapse"]::before{
+    display: none !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    color: white !important;
+    background-color: #005f96 !important;
+}
+
+</style>
