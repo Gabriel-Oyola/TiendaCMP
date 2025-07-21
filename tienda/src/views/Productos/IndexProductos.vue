@@ -46,19 +46,22 @@
                             </select>
                         </div>
                     </header>
-                    <div class="row">
+                    <div class="row" id="my-table">
                         <!-- product-->
-                        <div class="col-xl-4 col-6" v-for="item in productos">
+                        <div class="col-xl-4 col-6" v-for="item in itemsForList">
                             <div class="product">
                                 <div class="product-image">
-                                   <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img class="img-fluid"
-                                        :src="$url + '/obtener_portada_producto/' + item.portada" alt="product">
+                                    <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
+                                        class="img-fluid" :src="$url + '/obtener_portada_producto/' + item.portada"
+                                        alt="product">
 
                                 </div>
                                 <div class="py-2">
                                     <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
-                                    <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{
-                                            item.titulo }}</a></h3>
+                                    <h3 class="h6 text-uppercase mb-1"
+                                        style="text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">
+                                        <a class="text-dark" href="detail.html">{{ item.titulo }}</a>
+                                    </h3>
                                     <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
                                 </div>
                             </div>
@@ -66,19 +69,8 @@
 
                     </div>
                     <!-- Pagination-->
-                    <nav class="d-flex justify-content-center mb-5 mt-3" aria-label="page navigation">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
-                                        aria-hidden="true">Prev</span><span class="sr-only">Previous</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1 </a></li>
-                            <li class="page-item"><a class="page-link" href="#">2 </a></li>
-                            <li class="page-item"><a class="page-link" href="#">3 </a></li>
-                            <li class="page-item"><a class="page-link" href="#">4 </a></li>
-                            <li class="page-item"><a class="page-link" href="#">5 </a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
-                                        aria-hidden="true">Next</span><span class="sr-only">Next </span></a></li>
-                        </ul>
-                    </nav>
+                    <b-pagination v-model="currentPage" :total-rows="productos.length" :per-page="perPage"
+                        aria-controls="my-table"></b-pagination>
                 </div>
                 <!-- / Grid End-->
                 <!-- Sidebar-->
@@ -149,8 +141,8 @@
                             <h6 class="sidebar-heading d-none d-lg-block">Price </h6>
                             <div class="mt-4 mt-lg-0" id="slider-snap" ref="slider"> </div>
                             <div class="nouislider-values">
-                                <div class="min">From <span
-                                        id="slider-snap-value-lower">{{ convertCurrency(minRange) }}</span></div>
+                                <div class="min">From <span id="slider-snap-value-lower">{{ convertCurrency(minRange)
+                                }}</span></div>
                                 <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
                                         }}</span></div>
                                 <input class="slider-snap-input" type="hidden" name="pricefrom"
@@ -305,7 +297,12 @@ export default {
             },
             minRange: null,
             maxRange: null,
-            productos: []
+            productos: [],
+            currentPage: 1,
+            perPage: 12,
+            get itemsForList() {
+                return this.productos.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage)
+            }
         }
     },
 
