@@ -12,4 +12,9 @@ api.get("/obtener_productos_recomendados", publicControllers.obtener_productos_r
 ;
 
 
+api.get("/obtener_productos_shop", publicControllers.obtener_productos_shop );
+;
+
+
+
 module.exports = api;
