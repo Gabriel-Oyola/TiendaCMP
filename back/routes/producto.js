@@ -94,3 +94,8 @@ api.get(
 
 api.delete("/eliminar_galeria_producto_admin/:id", authenticate.decodeToken, ProductoControllers.eliminar_galeria_producto_admin)
 module.exports = api;
+
+
+/////////////////////////////
+
+api.post('/crear_categoria_admin', authenticate.decodeToken, ProductoControllers.crear_categoria_admin)

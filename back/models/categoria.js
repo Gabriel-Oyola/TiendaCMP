@@ -5,6 +5,7 @@ var schema = mongoose.Schema;
 
 var CategoriaSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
+  slug: { type: String, required: true },
   estado: { type: Boolean, default:true, required: true },
   createAT: { type: Date, default: Date.now },
 });

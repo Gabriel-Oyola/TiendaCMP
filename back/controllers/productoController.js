@@ -2,6 +2,8 @@ var Producto = require("../models/Producto");
 var Galeria = require("../models/galeria");
 var Variedad = require("../models/variedad");
 var Ingreso = require("../models/ingreso");
+var Categoria = require("../models/categoria");
+var Subcategoria = require("../models/subcategoria");
 var Ingreso_detalle = require("../models/ingreso_detalle");
 var slugify = require("slugify");
 var fs = require("fs");
@@ -435,6 +437,34 @@ const eliminar_galeria_producto_admin = async function (req, res) {
   }
 };
 
+const crear_categoria_admin = async function (req, res) {
+  if (req.user) {
+    
+    let data = req.body
+
+    var reg = await Categoria.find({titulo: data.titulo})
+
+    if(reg.length == 0){
+      data.slug = slugify(data.titulo).toLowerCase();
+      var categorias = await Categoria.create(data);
+      res.status(200).send(categorias)
+    }else{
+      res.status(200).send({
+        data: undefined,
+        message: "La categoria ya existe",
+      });
+    }
+    
+   
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "ErrorToken",
+    });
+  }
+};
+
+
 
 
 module.exports = {
@@ -452,4 +482,5 @@ module.exports = {
   obtener_galeria_producto,
   obtener_galeria_producto_admin,
   eliminar_galeria_producto_admin,
+  crear_categoria_admin,
 };

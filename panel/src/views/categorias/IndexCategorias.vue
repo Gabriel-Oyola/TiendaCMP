@@ -29,13 +29,16 @@
 
                 <div class="row mb-3">
                     <div class="col-12">
-                        <button v-if="!section_form" class="btn btn-dark btn-sm" v-on:click="section_form=true">Nuevas categorias</button>
-                          <button v-if="section_form" class="btn btn-dark btn-sm" v-on:click="section_form=false">Ocultar</button>
+                        <button v-if="!section_form" class="btn btn-dark btn-sm" v-on:click="section_form = true">Nuevas
+                            categorias</button>
+                        <button v-if="section_form" class="btn btn-dark btn-sm"
+                            v-on:click="section_form = false">Ocultar</button>
                     </div>
                     <div class="col-12 mt-3" v-if="section_form">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control">
-                            <span class="input-group-text" id="basic-addon2">@example.com</span>
+                            <input type="text" class="form-control" v-model="nueva_categoria"
+                                placeholder="Nueva categoria">
+                            <button class="btn btn-dark" v-on:click="crear_categoria()">Crear</button>
                         </div>
 
                     </div>
@@ -257,13 +260,45 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
+import axios from 'axios'
 
 export default {
     name: 'IndexCategorias',
 
-    data(){
-        return{
+    data() {
+        return {
             section_form: false,
+            nueva_categoria: '',
+        }
+    },
+
+    methods: {
+        crear_categoria() {
+            console.log(this.nueva_categoria)
+            axios.post(this.$url + '/crear_categoria_admin', { titulo: this.nueva_categoria }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+                if (result.data.message) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'ERROR',
+                        text: result.data.message,
+                        type: 'error'
+                    })
+                } else {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'SUCCESS',
+                        text: 'Se registro la categoria',
+                        type: 'success'
+                    })
+                    this.nueva_categoria = ''
+                }
+
+            })
         }
     },
     components: {
