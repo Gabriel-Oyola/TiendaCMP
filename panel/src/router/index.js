@@ -11,6 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import CreateProductoApp from "@/views/Productos/CreateProductoApp.vue";
 import IndexProducto from "@/views/Productos/IndexProducto.vue";
 import CreateIngresoApp from "@/views/Ingreso/CreateIngresoApp.vue";
+import IndexCategorias from "@/views/categorias/IndexCategorias.vue";
 
 Vue.use(VueRouter);
 
@@ -74,6 +75,13 @@ const routes = [
     path: "/ingreso/create",
     name: "ingreso-create",
     component: CreateIngresoApp,
+    meta: { requiresAuth: true },
+  },
+
+   {
+    path: "/categorias",
+    name: "categorias",
+    component: IndexCategorias,
     meta: { requiresAuth: true },
   },
 ];

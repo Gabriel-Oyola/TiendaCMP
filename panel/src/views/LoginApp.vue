@@ -120,7 +120,7 @@ export default {
           if(result.data.token){
 
             this.$store.dispatch('saveToken', result.data.token)
-            this.$router.push({name:'bienvenido'})
+            this.$router.push({name:'index-colaborador'})
           }
           
 

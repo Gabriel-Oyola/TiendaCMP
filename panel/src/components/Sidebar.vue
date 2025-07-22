@@ -54,31 +54,6 @@
 
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="true"
-              aria-controls="sidebarDashboards">
-              <i class="fe fe-home"></i> Dashboards
-            </a>
-            <div class="collapse show" id="sidebarDashboards">
-              <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                  <a href="./index.html" class="nav-link active">
-                    Default
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./dashboard-project-management.html" class="nav-link ">
-                    Project Management
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./dashboard-ecommerce.html" class="nav-link ">
-                    E-Commerce
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
 
           <li class="nav-item">
 
@@ -102,7 +77,13 @@
                 class="fe fe-shopping-cart"></i>Productos</router-link>
           </li>
 
-            <li class="nav-item">
+          <li class="nav-item">
+
+            <router-link to="/categorias" class="nav-link" active-class="active"> <i
+                class="fe fe-tag"></i>Categorias</router-link>
+          </li>
+
+          <li class="nav-item">
 
             <router-link to="/ingreso/create" class="nav-link" active-class="active"> <i
                 class="fe fe-folder"></i>Ingreso</router-link>
@@ -166,31 +147,6 @@
 <script>
 export default {
   name: 'Sidebar',
-  
+
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
