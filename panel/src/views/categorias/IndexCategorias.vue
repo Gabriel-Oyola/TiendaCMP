@@ -70,7 +70,7 @@
                                             <span class="text-success">●</span> Publicado
                                         </p>
 
-                                         <p class="small mb-0" v-if="!item.estado">
+                                        <p class="small mb-0" v-if="!item.estado">
                                             <span class="text-danger">●</span> Oculto
                                         </p>
 
@@ -82,16 +82,23 @@
                                             style="margin-right: 1rem;">
                                             Quitar
                                         </a>
-                                        <a href="#!" class="btn btn-sm btn-dark text-white">
+                                        <button v-on:click="OpenInputGroup(item._id)"
+                                            class="btn btn-sm btn-dark text-white ">
                                             Subcategoria
-                                        </a>
+                                        </button>
 
+                                    </div>
+
+                                    <div class="input-group mt-4 hide_input content_group" :id="'content_' + item._id">
+                                        <input type="text" class="form-control" v-model="nueva_subcategoria"
+                                            placeholder="Nueva subcategoria">
+                                        <button class="btn btn-dark" v-on:click="crear_subcategoria()">Crear</button>
                                     </div>
                                 </div>
                                 <!-- / .row -->
                                 <div class="row mb-3">
                                     <div class="col-12">
-                                        <ul class="list-group mt-4">
+                                        <ul class="list-group mt-3">
 
                                             <li class="list-group-item d-flex justify-content-between align-items-center"
                                                 style="font-size: .8rem;padding: 0.5rem 1.5rem;">
@@ -118,7 +125,7 @@
                                     </div>
                                 </div>
                             </li>
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -131,10 +138,21 @@
     </div>
 </template>
 
+<style>
+.hide_input {
+    display: none;
+}
+
+.show_input {
+    display: block;
+}
+</style>
+
 <script>
 import Sidebar from '@/components/Sidebar.vue'
 import TopNav from '@/components/TopNav.vue'
 import axios from 'axios'
+import $ from 'jquery'
 
 export default {
     name: 'IndexCategorias',
@@ -143,7 +161,9 @@ export default {
         return {
             section_form: false,
             nueva_categoria: '',
+            nueva_subcategoria: '',
             categorias: [],
+            idCategoria: '',
         }
     },
 
@@ -177,7 +197,7 @@ export default {
         },
 
         init_data() {
-            axios.get(this.$url + '/listar_categorias_admin',  {
+            axios.get(this.$url + '/listar_categorias_admin', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': this.$store.state.token
@@ -186,10 +206,48 @@ export default {
                 console.log(result)
                 this.categorias = result.data;
             })
+        },
+
+        OpenInputGroup(id) {
+
+
+            setTimeout(() => {
+                this.idCategoria = id;
+                this.nueva_subcategoria = ''
+                $('.content_group').addClass('hide_input');
+                $('#content_' + id).removeClass('hide_input')
+            }, 50);
+        },
+
+        crear_subcategoria() {
+            axios.post(this.$url + '/crear_subcategoria_admin', { titulo: this.nueva_subcategoria, categoria: this.idCategoria }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+                if (result.data.message) {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'ERROR',
+                        text: result.data.message,
+                        type: 'error'
+                    })
+                } else {
+                    this.$notify({
+                        group: 'foo',
+                        title: 'SUCCESS',
+                        text: 'Se registro la subcategoria',
+                        type: 'success'
+                    })
+                    this.nueva_subcategoria = ''
+                }
+
+            })
         }
     },
 
-    beforeMount(){
+    beforeMount() {
         this.init_data();
     },
     components: {

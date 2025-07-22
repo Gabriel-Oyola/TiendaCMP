@@ -101,3 +101,6 @@ module.exports = api;
 api.post('/crear_categoria_admin', authenticate.decodeToken, ProductoControllers.crear_categoria_admin)
 
 api.get('/listar_categorias_admin', authenticate.decodeToken, ProductoControllers.listar_categorias_admin)
+
+api.post('/crear_subcategoria_admin', authenticate.decodeToken, ProductoControllers.crear_subcategoria_admin)
+
