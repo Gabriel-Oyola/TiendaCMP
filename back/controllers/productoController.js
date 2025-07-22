@@ -465,6 +465,22 @@ const crear_categoria_admin = async function (req, res) {
 };
 
 
+const listar_categorias_admin = async function (req, res) {
+  if (req.user) {
+   
+
+    var categorias = await Categoria.find().sort({titulo:1})
+    res.status(200).send(categorias)
+   
+    
+   
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "ErrorToken",
+    });
+  }
+};
 
 
 module.exports = {
@@ -483,4 +499,5 @@ module.exports = {
   obtener_galeria_producto_admin,
   eliminar_galeria_producto_admin,
   crear_categoria_admin,
+  listar_categorias_admin, 
 };
