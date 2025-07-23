@@ -93,7 +93,7 @@ api.get(
 );
 
 api.delete("/eliminar_galeria_producto_admin/:id", authenticate.decodeToken, ProductoControllers.eliminar_galeria_producto_admin)
-module.exports = api;
+
 
 
 /////////////////////////////
@@ -104,3 +104,10 @@ api.get('/listar_categorias_admin', authenticate.decodeToken, ProductoController
 
 api.post('/crear_subcategoria_admin', authenticate.decodeToken, ProductoControllers.crear_subcategoria_admin)
 
+api.delete('/eliminar_subcategoria_admin/:id', authenticate.decodeToken, ProductoControllers.eliminar_subcategoria_admin) 
+
+
+
+
+
+module.exports = api;

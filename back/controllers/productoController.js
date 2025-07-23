@@ -469,7 +469,22 @@ const listar_categorias_admin = async function (req, res) {
   if (req.user) {
    
 
-    var categorias = await Categoria.find().sort({titulo:1})
+    var regs = await Categoria.find().sort({titulo:1})
+    var categorias = [];
+
+
+    for(var item of regs){
+        var subcategorias = await Subcategoria.find({categoria: item._id})
+        var productos = await Producto.find({categoria: item.titulo})
+
+        categorias.push({
+          categoria: item,  subcategorias,
+          nproductos: productos.length
+
+        })
+    }
+
+
     res.status(200).send(categorias)
    
     
@@ -511,6 +526,21 @@ const crear_subcategoria_admin = async function (req, res) {
   }
 };
 
+const eliminar_subcategoria_admin = async function (req, res) {
+  if (req.user) {
+    
+    let id = req.params['id']
+    var reg = await   Subcategoria.findByIdAndDelete({_id: id})
+    
+    res.status(200).send(reg)
+  } else {
+    res.status(500).send({
+      data: undefined,
+      message: "ErrorToken",
+    });
+  }
+};
+
 module.exports = {
   registro_producto_admin,
   listar_producto_admin,
@@ -528,5 +558,7 @@ module.exports = {
   eliminar_galeria_producto_admin,
   crear_categoria_admin,
   listar_categorias_admin, 
-  crear_subcategoria_admin
+  crear_subcategoria_admin,
+  eliminar_subcategoria_admin
+
 };

@@ -62,15 +62,18 @@
 
                                         <!-- Title -->
                                         <h4 class="mb-1 name">
-                                            <a href="profile-posts.html">{{ item.titulo }}</a>
+                                            <a href="profile-posts.html">{{ item.categoria.titulo }}
+                                                ({{ item.nproductos  }} Productos)
+
+                                            </a>
                                         </h4>
 
                                         <!-- Time -->
-                                        <p class="small mb-0" v-if="item.estado">
+                                        <p class="small mb-0" v-if="item.categoria.estado">
                                             <span class="text-success">●</span> Publicado
                                         </p>
 
-                                        <p class="small mb-0" v-if="!item.estado">
+                                        <p class="small mb-0" v-if="!item.categoria.estado">
                                             <span class="text-danger">●</span> Oculto
                                         </p>
 
@@ -82,45 +85,36 @@
                                             style="margin-right: 1rem;">
                                             Quitar
                                         </a>
-                                        <button v-on:click="OpenInputGroup(item._id)"
+                                        <button v-on:click="OpenInputGroup(item.categoria._id)"
                                             class="btn btn-sm btn-dark text-white ">
                                             Subcategoria
                                         </button>
 
                                     </div>
 
-                                    <div class="input-group mt-4 hide_input content_group" :id="'content_' + item._id">
-                                        <input type="text" class="form-control" v-model="nueva_subcategoria"
-                                            placeholder="Nueva subcategoria">
-                                        <button class="btn btn-dark" v-on:click="crear_subcategoria()">Crear</button>
-                                    </div>
+                                         <div class="input-group mt-4 hide_input content_group" :id="'content_'+item.categoria._id">
+                                            <input type="text" class="form-control" placeholder="Nueva categoria" v-model="nueva_subcategoria">
+                                            <button class="btn btn-dark" v-on:click="crear_subcategoria()">Crear subcategoría</button>
+                                        </div>
                                 </div>
                                 <!-- / .row -->
                                 <div class="row mb-3">
                                     <div class="col-12">
                                         <ul class="list-group mt-3">
 
-                                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                            <li v-for="subitem in item.subcategorias" class="list-group-item d-flex justify-content-between align-items-center"
                                                 style="font-size: .8rem;padding: 0.5rem 1.5rem;">
-                                                Morbi leo risus
-                                                <a href="#!" class="btn btn-sm btn-danger text-white">
+                                                {{ subitem.titulo }}
+                                                <a  style="cursor: pointer;"
+                                                v-b-modal="'delete-'+subitem._id" class="btn btn-sm btn-danger text-white" >
                                                     Quitar
                                                 </a>
+
+                                                  <b-modal centered :id="'delete-'+subitem._id" title="BootstrapVue" title-html="<h4 class='card-header-title'><b>Add a member</b></h4>" @ok="eliminar_subcategorias(subitem._id)">
+                                                                <p class="my-4">{{ subitem._id }} Eliminar?</p>
+                                                  </b-modal>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center"
-                                                style="font-size: .8rem;padding: 0.5rem 1.5rem;">
-                                                Morbi leo risus
-                                                <a href="#!" class="btn btn-sm btn-danger text-white">
-                                                    Quitar
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center"
-                                                style="font-size: .8rem;padding: 0.5rem 1.5rem;">
-                                                Morbi leo risus
-                                                <a href="#!" class="btn btn-sm btn-danger text-white">
-                                                    Quitar
-                                                </a>
-                                            </li>
+                                     
                                         </ul>
                                     </div>
                                 </div>
@@ -241,10 +235,30 @@ export default {
                         type: 'success'
                     })
                     this.nueva_subcategoria = ''
+                    this.init_data();
                 }
 
             })
+        }, 
+
+        eliminar_subcategorias(id){
+              axios.delete(this.$url + '/eliminar_subcategoria_admin/' + id, {
+                headers: {
+                     'Content-Type': 'application/json',
+                    'Authorization': this.$token
+                }
+            }).then((result) => {
+                 this.$notify({
+                        group: 'foo',
+                        title: 'Exito',
+                        text: 'Se elimino la subcategoria',
+                        type: 'success'
+                 });
+                this.init_data();
+            })
         }
+        
+        
     },
 
     beforeMount() {
