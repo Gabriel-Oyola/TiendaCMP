@@ -120,9 +120,10 @@
                 </label>
 
                 <!-- Input -->
-                <select name="" class="form-select" v-model="producto.categoria">
+                <select name="" class="form-select" v-model="producto.categoria" v-on:change="getSubcategorias($event)">
                   <option value="" disabled selected>Seleccionar</option>
-                  <option :value="item" v-for="item in $categorias">{{ item }}</option>
+                  <option :value="item.categoria.titulo" v-for="item in categorias">{{ item.categoria.titulo }}
+                  </option>
 
                 </select>
 
@@ -143,7 +144,7 @@
                 <!-- Input -->
                 <select name="" class="form-select" v-model="producto.subcategoria">
                   <option value="" disabled selected>Seleccionar</option>
-                  <option :value="item" v-for="item in subcategorias">{{ item }}</option>
+                  <option :value="item.titulo" v-for="item in subcategorias">{{ item.titulo }}</option>
 
                 </select>
 
@@ -439,7 +440,8 @@ export default {
         str_variedad: ''
 
       },
-      subcategorias: ['Hombre', 'Mujer', 'Accesorios'],
+      categorias: [],
+      subcategorias: [],
       portada: undefined,
       variedad: {},
       sku: '',
@@ -702,6 +704,24 @@ export default {
 
 
       })
+    },
+
+
+    init_categorias() {
+      axios.get(this.$url + '/listar_categorias_admin', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.$store.state.token
+        }
+      }).then((result) => {
+
+        this.categorias = result.data;
+         this.subcategorias = this.categorias.filter(item => item.categoria.titulo == this.producto.categoria)[0].subcategorias;
+      })
+    },
+
+    getSubcategorias(event) {
+      this.subcategorias = this.categorias.filter(item => item.categoria.titulo == event.target.value)[0].subcategorias;
     }
 
   },
@@ -709,6 +729,7 @@ export default {
   beforeMount() {
     this.init_data();
     this.init_variedades();
+    this.init_categorias();
   }
 }
 
