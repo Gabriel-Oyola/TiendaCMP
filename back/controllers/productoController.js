@@ -519,7 +519,7 @@ const crear_subcategoria_admin = async function (req, res) {
     let data = req.body;
 
     try {
-      var reg = await Subcategoria.find({ titulo: data.titulo });
+      var reg = await Subcategoria.find({ titulo: data.titulo, _id: data._id });
 
       if (reg.length == 0) {
         var subcategorias = await Subcategoria.create(data);
