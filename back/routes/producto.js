@@ -106,7 +106,7 @@ api.post('/crear_subcategoria_admin', authenticate.decodeToken, ProductoControll
 
 api.delete('/eliminar_subcategoria_admin/:id', authenticate.decodeToken, ProductoControllers.eliminar_subcategoria_admin) 
 
-
+api.put('/cambiar_estado_categoria_id/:id', authenticate.decodeToken, ProductoControllers.cambiar_estado_categoria_id )
 
 
 

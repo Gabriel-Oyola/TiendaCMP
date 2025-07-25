@@ -63,7 +63,7 @@
                                         <!-- Title -->
                                         <h4 class="mb-1 name">
                                             <a href="profile-posts.html">{{ item.categoria.titulo }}
-                                                ({{ item.nproductos  }} Productos)
+                                                ({{ item.nproductos }} Productos)
 
                                             </a>
                                         </h4>
@@ -81,40 +81,57 @@
                                     <div class="col-auto">
 
                                         <!-- Button -->
-                                        <a href="#!" class="btn btn-sm btn-danger text-white"
-                                            style="margin-right: 1rem;">
-                                            Quitar
+                                        <a v-b-modal="'estado-' + item.categoria._id" v-if="item.categoria.estado"
+                                            class="btn btn-sm btn-danger text-white" style="margin-right: 1rem;">
+                                            Ocultar
+                                        </a>
+                                        <a v-b-modal="'estado-' + item.categoria._id" v-if="!item.categoria.estado"
+                                            class="btn btn-sm btn-primary text-white" style="margin-right: 1rem;">
+                                            Mostrar
                                         </a>
                                         <button v-on:click="OpenInputGroup(item.categoria._id)"
                                             class="btn btn-sm btn-dark text-white ">
                                             Subcategoria
                                         </button>
 
+                                        <b-modal centered :id="'estado-' + item.categoria._id" title="BootstrapVue"
+                                            title-html="<h4 class='card-header-title'><b>Cambiar estado de categoria</b></h4>"
+                                            @ok="cambiar_estado(item.categoria._id, item.categoria.estado)">
+                                            <p class="my-4"> se cambiara el estado de la categoria: {{ item.categoria._id }}</p>
+                                        </b-modal>
+
+
                                     </div>
 
-                                         <div class="input-group mt-4 hide_input content_group" :id="'content_'+item.categoria._id">
-                                            <input type="text" class="form-control" placeholder="Nueva categoria" v-model="nueva_subcategoria">
-                                            <button class="btn btn-dark" v-on:click="crear_subcategoria()">Crear subcategoría</button>
-                                        </div>
+                                    <div class="input-group mt-4 hide_input content_group"
+                                        :id="'content_' + item.categoria._id">
+                                        <input type="text" class="form-control" placeholder="Nueva categoria"
+                                            v-model="nueva_subcategoria">
+                                        <button class="btn btn-dark" v-on:click="crear_subcategoria()">Crear
+                                            subcategoría</button>
+                                    </div>
                                 </div>
                                 <!-- / .row -->
                                 <div class="row mb-3">
                                     <div class="col-12">
                                         <ul class="list-group mt-3">
 
-                                            <li v-for="subitem in item.subcategorias" class="list-group-item d-flex justify-content-between align-items-center"
+                                            <li v-for="subitem in item.subcategorias"
+                                                class="list-group-item d-flex justify-content-between align-items-center"
                                                 style="font-size: .8rem;padding: 0.5rem 1.5rem;">
                                                 {{ subitem.titulo }}
-                                                <a  style="cursor: pointer;"
-                                                v-b-modal="'delete-'+subitem._id" class="btn btn-sm btn-danger text-white" >
+                                                <a style="cursor: pointer;" v-b-modal="'delete-' + subitem._id"
+                                                    class="btn btn-sm btn-danger text-white">
                                                     Quitar
                                                 </a>
 
-                                                  <b-modal centered :id="'delete-'+subitem._id" title="BootstrapVue" title-html="<h4 class='card-header-title'><b>Add a member</b></h4>" @ok="eliminar_subcategorias(subitem._id)">
-                                                                <p class="my-4">{{ subitem._id }} Eliminar?</p>
-                                                  </b-modal>
+                                                <b-modal centered :id="'delete-' + subitem._id" title="BootstrapVue"
+                                                    title-html="<h4 class='card-header-title'><b>Add a member</b></h4>"
+                                                    @ok="eliminar_subcategorias(subitem._id)">
+                                                    <p class="my-4">{{ subitem._id }} Eliminar?</p>
+                                                </b-modal>
                                             </li>
-                                     
+
                                         </ul>
                                     </div>
                                 </div>
@@ -164,30 +181,42 @@ export default {
     methods: {
         crear_categoria() {
             console.log(this.nueva_categoria)
-            axios.post(this.$url + '/crear_categoria_admin', { titulo: this.nueva_categoria }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': this.$store.state.token
-                }
-            }).then((result) => {
-                if (result.data.message) {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'ERROR',
-                        text: result.data.message,
-                        type: 'error'
-                    })
-                } else {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'SUCCESS',
-                        text: 'Se registro la categoria',
-                        type: 'success'
-                    })
-                    this.nueva_categoria = ''
-                }
+            if (this.nueva_categoria) {
+                axios.post(this.$url + '/crear_categoria_admin', { titulo: this.nueva_categoria }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': this.$store.state.token
+                    }
+                }).then((result) => {
+                    if (result.data.message) {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: result.data.message,
+                            type: 'error'
+                        })
+                    } else {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'SUCCESS',
+                            text: 'Se registro la categoria',
+                            type: 'success'
+                        })
+                        this.nueva_categoria = ''
 
-            })
+                    }
+                    this.init_data();
+
+                })
+
+            } else {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese la categoria',
+                    type: 'error'
+                })
+            }
         },
 
         init_data() {
@@ -214,51 +243,77 @@ export default {
         },
 
         crear_subcategoria() {
-            axios.post(this.$url + '/crear_subcategoria_admin', { titulo: this.nueva_subcategoria, categoria: this.idCategoria }, {
+            if (this.nueva_subcategoria) {
+                axios.post(this.$url + '/crear_subcategoria_admin', { titulo: this.nueva_subcategoria, categoria: this.idCategoria }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': this.$store.state.token
+                    }
+                }).then((result) => {
+                    if (result.data.message) {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: result.data.message,
+                            type: 'error'
+                        })
+                    } else {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'SUCCESS',
+                            text: 'Se registro la subcategoria',
+                            type: 'success'
+                        })
+                        this.nueva_subcategoria = ''
+                        this.init_data();
+                    }
+
+                })
+            } else {
+                this.$notify({
+                    group: 'foo',
+                    title: 'ERROR',
+                    text: 'Ingrese la subcategoria',
+                    type: 'error'
+                })
+            }
+        },
+
+        eliminar_subcategorias(id) {
+            axios.delete(this.$url + '/eliminar_subcategoria_admin/' + id, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': this.$store.state.token
-                }
-            }).then((result) => {
-                if (result.data.message) {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'ERROR',
-                        text: result.data.message,
-                        type: 'error'
-                    })
-                } else {
-                    this.$notify({
-                        group: 'foo',
-                        title: 'SUCCESS',
-                        text: 'Se registro la subcategoria',
-                        type: 'success'
-                    })
-                    this.nueva_subcategoria = ''
-                    this.init_data();
-                }
-
-            })
-        }, 
-
-        eliminar_subcategorias(id){
-              axios.delete(this.$url + '/eliminar_subcategoria_admin/' + id, {
-                headers: {
-                     'Content-Type': 'application/json',
                     'Authorization': this.$token
                 }
             }).then((result) => {
-                 this.$notify({
-                        group: 'foo',
-                        title: 'Exito',
-                        text: 'Se elimino la subcategoria',
-                        type: 'success'
-                 });
+                this.$notify({
+                    group: 'foo',
+                    title: 'Exito',
+                    text: 'Se elimino la subcategoria',
+                    type: 'success'
+                });
+                this.init_data();
+            })
+        },
+
+        cambiar_estado(id, estado) {
+            axios.put(this.$url + '/cambiar_estado_categoria_id/' + id, { estado: estado }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$token
+                }
+            }).then((result) => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Exito',
+                    text: 'El estado de la categoria se cambio correctamente',
+                    type: 'success'
+                });
                 this.init_data();
             })
         }
-        
-        
+
+
     },
 
     beforeMount() {
