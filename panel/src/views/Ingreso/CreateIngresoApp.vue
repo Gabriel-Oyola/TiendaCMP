@@ -432,14 +432,16 @@ export default {
 
                 });
             } else {
-                this.detalles.push(this.detalle)
+               
+                this.detalles.push(this.detalle);
+
                 let subtotal = this.detalle.precio_unidad * this.detalle.cantidad;
                 this.total = this.total + subtotal;
 
-                this.detalle= {
-                variedad:''
+                this.detalle = {
+                    variedad: ''
                 }
-           this.producto={}
+                this.producto = {};
             }
             console.log(this.detalles)
         },

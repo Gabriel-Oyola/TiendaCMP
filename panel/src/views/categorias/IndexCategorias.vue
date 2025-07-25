@@ -53,7 +53,7 @@
 
                                         <!-- Avatar -->
                                         <a href="profile-posts.html" class="avatar">
-                                            <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-5.jpg"
+                                            <img src="/assets/img/order.png"
                                                 alt="..." class="avatar-img rounded-circle">
                                         </a>
 
