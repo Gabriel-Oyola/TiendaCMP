@@ -320,10 +320,10 @@ export default {
     data() {
         return {
             slider: {
-                startMin: 25,
-                startMax: 100,
+                startMin: 0,
+                startMax: 500000,
                 min: 0,
-                max: 100,
+                max: 500000,
                 start: 40,
                 step: 1
             },
@@ -452,8 +452,15 @@ export default {
                     this.categoria_activa= ''; 
                     this.subcategoria_activa='';
             }
+        },
+        minRange: function(value){
+             this.productos = this.productos_const.filter(item=> item.precio >= value)
+        },
+        maxRange: function(value){
+            this.productos = this.productos_const.filter(item=> item.precio <= value)
         }
     }
+    
 
 }
 
