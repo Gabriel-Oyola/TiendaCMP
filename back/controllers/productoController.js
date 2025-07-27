@@ -98,7 +98,6 @@ const obtener_producto_admin = async (req, res) => {
     });
   }
 };
-
 const actualizar_producto_admin = async function (req, res) {
   if (req.user) {
     let data = req.body;
@@ -132,6 +131,7 @@ const actualizar_producto_admin = async function (req, res) {
                 str_variedad: data.str_variedad,
                 descuento: data.descuento,
                 portada: data.portada,
+                descripcion: data.descripcion,
               }
             );
             res.status(200).send({ data: producto });
@@ -155,6 +155,7 @@ const actualizar_producto_admin = async function (req, res) {
                 estado: data.estado,
                 str_variedad: data.str_variedad,
                 descuento: data.descuento,
+                descripcion: data.descripcion,
               }
             );
             res.status(200).send({ data: producto });
@@ -195,6 +196,7 @@ const actualizar_producto_admin = async function (req, res) {
               str_variedad: data.str_variedad,
               descuento: data.descuento,
               portada: data.portada,
+              descripcion: data.descripcion,
             }
           );
           res.status(200).send({ data: producto });
@@ -218,6 +220,7 @@ const actualizar_producto_admin = async function (req, res) {
               estado: data.estado,
               str_variedad: data.str_variedad,
               descuento: data.descuento,
+              descripcion: data.descripcion,
             }
           );
           res.status(200).send({ data: producto });

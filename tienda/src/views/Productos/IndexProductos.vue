@@ -89,7 +89,7 @@
                             aria-controls="categoriesMenu">Categorias de productos</a>
                         <div class="expand-lg collapse" id="categoriesMenu">
                             <div class="nav nav-pills flex-column mt-4 mt-lg-0" role="menu">
-                                <template v-for="(item, index) in categorias ">
+                                <template v-for="(item, index) in categorias">
 
                                     <div>
                                         <!-- <div class="sidebar-menu-item mb-2 active" data-bs-toggle="collapse"
@@ -113,18 +113,28 @@
                                             </div>
                                         </div> -->
 
-                                        <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse" :data-bs-target="'#subcategories_'+index" aria-expanded="false" :aria-controls="'subcategories_'+index" role="menuitem">
+                                        <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse"
+                                            :data-bs-target="'#subcategories_' + index" aria-expanded="false"
+                                            :aria-controls="'subcategories_' + index" role="menuitem">
                                             <a class="nav-link " href="#!">
                                                 <div class="row">
-                                                    <div class="col"><span>{{item.categoria.titulo}}</span></div>
-                                                    <div class="col" style="text-align: right !important;"><img src="/assets/media/arrow-down-dark.png" style="width:10px" alt=""></div>
+                                                    <div class="col"><span>{{ item.categoria.titulo }}</span></div>
+                                                    <div class="col" style="text-align: right !important;"><img
+                                                            src="/assets/media/arrow-down-dark.png" style="width:10px"
+                                                            alt=""></div>
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="collapse" :id="'subcategories_'+index">
+                                        <div class="collapse" :id="'subcategories_' + index">
                                             <div class="nav nav-pills flex-column ms-3">
-                                             
-                                                <a style="cursor:pointer" class="nav-link mb-2" v-for="subitem in item.subcategorias">{{subitem.titulo}}</a>
+
+
+
+                                                <a style="cursor: pointer;" class="nav-link mb-2"
+                                                    v-for="subitem in item.subcategorias"
+                                                    v-on:click="redirectSubcategoria(subitem.titulo)">
+                                                    {{ subitem.titulo }}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -144,9 +154,9 @@
                             <div class="mt-4 mt-lg-0" id="slider-snap" ref="slider"> </div>
                             <div class="nouislider-values">
                                 <div class="min">From <span id="slider-snap-value-lower">{{ convertCurrency(minRange)
-                                }}</span></div>
-                                <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
                                         }}</span></div>
+                                <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
+                                }}</span></div>
                                 <input class="slider-snap-input" type="hidden" name="pricefrom"
                                     id="slider-snap-input-lower" value="40">
                                 <input class="slider-snap-input" type="hidden" name="priceto"
@@ -340,7 +350,12 @@ export default {
             this.productos = result.data;
             this.productos_const = result.data;
             console.log(this.productos)
+
+                    if (this.$route.query.subcategoria) {
+            this.init_productoSubcategoria();
+        }
         })
+
 
         this.init_categoria();
     },
@@ -378,7 +393,15 @@ export default {
                 this.categorias = result.data;
                 console.log(this.categorias)
             })
-        }
+        },
+        redirectSubcategoria(item) {
+            this.$router.push({ name: 'shop', query: { subcategoria: item } })
+            this.init_productoSubcategoria();
+        },
+
+        init_productoSubcategoria() {
+            this.productos = this.productos_const.filter(item => item.subcategoria == this.$route.query.subcategoria);
+        },
     }
 
 }
