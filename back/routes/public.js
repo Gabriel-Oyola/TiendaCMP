@@ -13,7 +13,8 @@ api.get("/obtener_productos_recomendados", publicControllers.obtener_productos_r
 
 
 api.get("/obtener_productos_shop", publicControllers.obtener_productos_shop );
-;
+
+api.get('/listar_categorias_public', publicControllers.listar_categorias_public)
 
 
 

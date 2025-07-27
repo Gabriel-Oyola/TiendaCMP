@@ -33,14 +33,17 @@
                     <header class="product-grid-header">
                         <div class="me-3 mb-3">
                             Mostrando <strong>
-                            <span v-if="currentPage*perPage>productos.length"> {{ productos.length }} </span>    
-                            <span v-if="currentPage*perPage<+productos.length"> {{ currentPage*perPage }} </span>
-                            </strong> de <strong>{{ productos.length + " "}}</strong>productos
+                                <span v-if="currentPage * perPage > productos.length"> {{ productos.length }} </span>
+                                <span v-if="currentPage * perPage < +productos.length"> {{ currentPage * perPage }}
+                                </span>
+                            </strong> de <strong>{{ productos.length + " " }}</strong>productos
                         </div>
 
-                        <div class="me-3 mb-3"><span class="me-2">Por pagina</span><a class="product-grid-header-show " v-bind:class="{ 'active': perPage==12 }"
-                                 v-on:click="setPerPage(12)" style="cursor: pointer;">12 </a>
-                                <a class="product-grid-header-show " v-bind:class="{ 'active': perPage==18 }" v-on:click="setPerPage(18)" style="cursor: pointer;">18 </a>
+                        <div class="me-3 mb-3"><span class="me-2">Por pagina</span><a class="product-grid-header-show "
+                                v-bind:class="{ 'active': perPage == 12 }" v-on:click="setPerPage(12)"
+                                style="cursor: pointer;">12 </a>
+                            <a class="product-grid-header-show " v-bind:class="{ 'active': perPage == 18 }"
+                                v-on:click="setPerPage(18)" style="cursor: pointer;">18 </a>
                         </div>
 
                         <div class="mb-3 d-flex align-items-center"><span class="d-inline-block me-2">Ordenar</span>
@@ -48,7 +51,7 @@
                                 <option value="Defecto" selected>Defecto</option>
                                 <option value="Mayor">Mayor</option>
                                 <option value="Menor">Menor</option>
-                                
+
                             </select>
                         </div>
                     </header>
@@ -86,57 +89,50 @@
                             aria-controls="categoriesMenu">Categorias de productos</a>
                         <div class="expand-lg collapse" id="categoriesMenu">
                             <div class="nav nav-pills flex-column mt-4 mt-lg-0" role="menu">
-                                <div class="sidebar-menu-item mb-2 active" data-bs-toggle="collapse"
-                                    data-bs-target="#subcategories_0" aria-expanded="true"
-                                    aria-controls="subcategories_0" role="menuitem">
-                                    <a class="nav-link active" href="#!">
-                                        <div class="row">
-                                            <div class="col"><span>Jackets</span></div>
-                                            <div class="col" style="text-align: right;"><img
-                                                    src="../../assets/flecha.png" alt="" style="width: 20px;"></div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="collapse show" id="subcategories_0">
-                                    <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2" href="#!">Lorem
-                                            ipsum</a><a class="nav-link mb-2" href="#!">Dolor</a><a
-                                            class="nav-link mb-2" href="#!">Sit amet</a><a class="nav-link mb-2"
-                                            href="#!">Donec vitae</a>
-                                    </div>
-                                </div>
-                                <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse"
-                                    data-bs-target="#subcategories_1" aria-expanded="false"
-                                    aria-controls="subcategories_1" role="menuitem">
-                                    <a class="nav-link " href="#!">
-                                        <div class="col"><span>Jackets</span></div>
-                                        <div class="col" style="text-align: right;"><img src="../../assets/Flecha2.png"
-                                                alt="" style="width: 20px;"></div>
+                                <template v-for="(item, index) in categorias ">
 
-                                    </a>
-                                </div>
-                                <div class="collapse" id="subcategories_1">
-                                    <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2" href="#!">Lorem
-                                            ipsum</a><a class="nav-link mb-2" href="#!">Dolor</a><a
-                                            class="nav-link mb-2" href="#!">Sit amet</a><a class="nav-link mb-2"
-                                            href="#!">Donec vitae</a>
+                                    <div>
+                                        <!-- <div class="sidebar-menu-item mb-2 active" data-bs-toggle="collapse"
+                                            data-bs-target="#subcategories_0" aria-expanded="true"
+                                            aria-controls="subcategories_0" role="menuitem">
+                                            <a class="nav-link active" href="#!">
+                                                <div class="row">
+                                                    <div class="col"><span>Jackets</span></div>
+                                                    <div class="col" style="text-align: right;"><img
+                                                            src="../../assets/flecha.png" alt="" style="width: 20px;">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="collapse show" id="subcategories_0">
+                                            <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2"
+                                                    href="#!">Lorem
+                                                    ipsum</a><a class="nav-link mb-2" href="#!">Dolor</a><a
+                                                    class="nav-link mb-2" href="#!">Sit amet</a><a class="nav-link mb-2"
+                                                    href="#!">Donec vitae</a>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse" :data-bs-target="'#subcategories_'+index" aria-expanded="false" :aria-controls="'subcategories_'+index" role="menuitem">
+                                            <a class="nav-link " href="#!">
+                                                <div class="row">
+                                                    <div class="col"><span>{{item.categoria.titulo}}</span></div>
+                                                    <div class="col" style="text-align: right !important;"><img src="/assets/media/arrow-down-dark.png" style="width:10px" alt=""></div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="collapse" :id="'subcategories_'+index">
+                                            <div class="nav nav-pills flex-column ms-3">
+                                             
+                                                <a style="cursor:pointer" class="nav-link mb-2" v-for="subitem in item.subcategorias">{{subitem.titulo}}</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="sidebar-menu-item mb-2" data-bs-toggle="collapse"
-                                    data-bs-target="#subcategories_2" aria-expanded="false"
-                                    aria-controls="subcategories_2" role="menuitem">
-                                    <a class="nav-link ">
-                                        <div class="col"><span>Jackets</span></div>
-                                        <div class="col" style="text-align: right;"><img src="../../assets/Flecha2.png"
-                                                alt="" style="width: 20px;"></div>
-                                    </a>
-                                </div>
-                                <div class="collapse" id="subcategories_2">
-                                    <div class="nav nav-pills flex-column ms-3"><a class="nav-link mb-2" href="#!">Sit
-                                            amet</a><a class="nav-link mb-2" href="#!">Donec vitae</a><a
-                                            class="nav-link mb-2" href="#!">Lorem ipsum</a><a class="nav-link mb-2"
-                                            href="#!">Dolor</a>
-                                    </div>
-                                </div>
+                                </template>
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -307,9 +303,10 @@ export default {
             productos_const: [],
             currentPage: 1,
             perPage: 12,
+            categorias: [],
             get itemsForList() {
                 return this.productos.slice((this.currentPage - 1) * this.perPage, this.currentPage * this.perPage)
-            }, 
+            },
             sort_by: 'Defecto',
 
         }
@@ -344,30 +341,43 @@ export default {
             this.productos_const = result.data;
             console.log(this.productos)
         })
+
+        this.init_categoria();
     },
 
     methods: {
         convertCurrency(number) {
             return currency_formatter.format(number, { code: 'USD' });
             // => '$1,000,000.00'
-        }, 
+        },
 
-        setPerPage(item){
+        setPerPage(item) {
             this.perPage = item;
-        }, 
-        setSortBy(){
+        },
+        setSortBy() {
 
-            if(this.sort_by=="Defecto"){
-                this.productos.sort((a,b)=> new Date(a.createAt).getItem() <new Date(a.createAt).getItem()? 1:-1);
+            if (this.sort_by == "Defecto") {
+                this.productos.sort((a, b) => new Date(a.createAt).getItem() < new Date(a.createAt).getItem() ? 1 : -1);
             }
 
-             if(this.sort_by=="Mayor"){
-                this.productos.sort((a,b)=> a.precio < b.precio ? 1:-1);
+            if (this.sort_by == "Mayor") {
+                this.productos.sort((a, b) => a.precio < b.precio ? 1 : -1);
             }
 
-             if(this.sort_by=="Menor"){
-                this.productos.sort((a,b)=> a.precio > b.precio ? 1:-1);
+            if (this.sort_by == "Menor") {
+                this.productos.sort((a, b) => a.precio > b.precio ? 1 : -1);
             }
+        },
+
+        init_categoria() {
+            axios.get(this.$url + '/listar_categorias_public', {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((result) => {
+                this.categorias = result.data;
+                console.log(this.categorias)
+            })
         }
     }
 
