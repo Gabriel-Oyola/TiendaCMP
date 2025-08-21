@@ -35,7 +35,7 @@
                                     </li>
                                     <li class="nav-item">
 
-                                        <a  class="nav-link active">
+                                        <a class="nav-link active">
                                             Nuevo ingreso
                                         </a>
 
@@ -49,237 +49,236 @@
                     </div>
                 </div>
 
-              <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-12 col-md-6">
 
-                <!-- Last name -->
-                <div class="form-group">
+                        <!-- Last name -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                        Proveedor
-                    </label>
-                    <small class="form-text text-muted">
-                        Proveedor encargado del ingreso.
-                    </small>
-                    <!-- Input -->
-                    <select class="form-select mb-3" v-model="ingreso.proveedor">
-                        <option value="" selected disabled>Seleccionar</option>
-                        <option>My first option</option>
-                        <option>Another option</option>
-                        <option>Third option is here</option>
-                    </select>
+                            <!-- Label -->
+                            <label class="form-label">
+                                Proveedor
+                            </label>
+                            <small class="form-text text-muted">
+                                Proveedor encargado del ingreso.
+                            </small>
+                            <!-- Input -->
+                            <select class="form-select mb-3" v-model="ingreso.proveedor">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option>My first option</option>
+                                <option>Another option</option>
+                                <option>Third option is here</option>
+                            </select>
 
-                </div>
+                        </div>
 
-                </div>
+                    </div>
 
-                <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6">
 
-                <!-- Last name -->
-                <div class="form-group">
+                        <!-- Last name -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                        N° comprobante
-                    </label>
-                    <small class="form-text text-muted">
-                        Número de la factura.
-                    </small>
-                    <!-- Input -->
-                        <input type="text" class="form-control" placeholder="5DSF-000154" v-model="ingreso.ncomprobante">
+                            <!-- Label -->
+                            <label class="form-label">
+                                N° comprobante
+                            </label>
+                            <small class="form-text text-muted">
+                                Número de la factura.
+                            </small>
+                            <!-- Input -->
+                            <input type="text" class="form-control" placeholder="5DSF-000154"
+                                v-model="ingreso.ncomprobante">
 
-                </div>
+                        </div>
 
-                </div>
+                    </div>
 
-                <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6">
 
-                <!-- Last name -->
-                <div class="form-group">
+                        <!-- Last name -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                        Monto total
-                    </label>
-                    <small class="form-text text-muted">
-                        Monto total pagado al proveedor.
-                    </small>
-                    <!-- Input -->
-                        <input type="text" class="form-control" placeholder="546" v-model="ingreso.monto_total">
+                            <!-- Label -->
+                            <label class="form-label">
+                                Monto total
+                            </label>
+                            <small class="form-text text-muted">
+                                Monto total pagado al proveedor.
+                            </small>
+                            <!-- Input -->
+                            <input type="text" class="form-control" placeholder="546" v-model="ingreso.monto_total">
 
-                </div>
+                        </div>
 
-                </div>
+                    </div>
 
-                <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6">
 
-                <!-- Last name -->
-                <div class="form-group">
+                        <!-- Last name -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                        Comprobante
-                    </label>
-                    <small class="form-text text-muted">
-                        Subir comprobante del ingreso.
-                    </small>
-                    <!-- Input -->
-                        <input type="file" class="form-control" v-on:change="uploadComprobante($event)">
+                            <!-- Label -->
+                            <label class="form-label">
+                                Comprobante
+                            </label>
+                            <small class="form-text text-muted">
+                                Subir comprobante del ingreso.
+                            </small>
+                            <!-- Input -->
+                            <input type="file" class="form-control" v-on:change="uploadComprobante($event)" ref="comprobanteInput">
 
-                </div>
+                        </div>
 
-                </div>
+                    </div>
                 </div>
 
                 <hr class="my-5">
 
                 <div class="row">
 
-                <div class="col-md-12 mb-4">
-                    <h3><b>Productos del ingreso</b></h3>
-                </div>
+                    <div class="col-md-12 mb-4">
+                        <h3><b>Productos del ingreso</b></h3>
+                    </div>
 
-                <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6">
 
-                <!-- First name -->
-                <div class="form-group">
+                        <!-- First name -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                    Producto
-                    </label>
-                    <!-- Input -->
-                     <BasicSelect
-                    :options="productos"
-                    v-model="producto"
-                    :selected-option="producto"
-                    placeholder="Selecciona un producto"
-                    @select="producto_selected"
-                     />  
+                            <!-- Label -->
+                            <label class="form-label">
+                                Producto
+                            </label>
+                            <!-- Input -->
+                            <BasicSelect :options="productos" v-model="producto" :selected-option="producto"
+                                placeholder="Selecciona un producto" @select="producto_selected" />
 
-                </div>
+                        </div>
 
-                </div>
+                    </div>
 
-                 <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6">
 
-                <!-- First name -->
-                <div class="form-group">
+                        <!-- First name -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                    Variedad
-                    </label>
-                        <select class="form-select mb-3" v-model="detalle.variedad" >
-                        <option value="" selected disabled>Seleccionar</option>
-                        <option :value="item._id " v-for="item in variedades">{{ 
-                        item.variedad.toUpperCase()}} - {{ item.sku }} - {{ item.stock }}</option>
-                       
-                    </select>
-                </div>
+                            <!-- Label -->
+                            <label class="form-label">
+                                Variedad
+                            </label>
+                            <select class="form-select mb-3" v-model="detalle.variedad">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option :value="item._id" v-for="item in variedades">{{
+                                    item.variedad.toUpperCase() }} - {{ item.sku }} - {{ item.stock }}</option>
 
-                </div>
+                            </select>
+                        </div>
+
+                    </div>
 
 
-                <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6">
 
-                <!-- Phone -->
-                <div class="form-group">
+                        <!-- Phone -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                    Precio unidad
-                    </label>
-                    <!-- Input -->
-                    <input type="text" class="form-control mb-3" placeholder="0.00" v-model="detalle.precio_unidad">
+                            <!-- Label -->
+                            <label class="form-label">
+                                Precio unidad
+                            </label>
+                            <!-- Input -->
+                            <input type="text" class="form-control mb-3" placeholder="0.00"
+                                v-model="detalle.precio_unidad">
 
-                </div>
+                        </div>
 
-                </div>
-                <div class="col-12 col-md-6">
+                    </div>
+                    <div class="col-12 col-md-6">
 
-                <!-- Birthday -->
-                <div class="form-group">
+                        <!-- Birthday -->
+                        <div class="form-group">
 
-                    <!-- Label -->
-                    <label class="form-label">
-                    Cantidad total
-                    </label>
-                    <!-- Input -->
-                    <input type="number" class="form-control mb-3" placeholder="0" v-model="detalle.cantidad">
+                            <!-- Label -->
+                            <label class="form-label">
+                                Cantidad total
+                            </label>
+                            <!-- Input -->
+                            <input type="number" class="form-control mb-3" placeholder="0" v-model="detalle.cantidad">
 
-                </div>
+                        </div>
 
-                </div>
+                    </div>
 
-                <div class="col-md-12">
-                    
-                    <button class="btn btn-primary" style="margin-bottom: 1.8rem!important;" v-on:click="agregar_detalle()">
-                        Agregar
-                    </button>
-                </div>
+                    <div class="col-md-12">
+
+                        <button class="btn btn-primary" style="margin-bottom: 1.8rem!important;"
+                            v-on:click="agregar_detalle()">
+                            Agregar
+                        </button>
+                    </div>
                 </div> <!-- / .row -->
 
                 <!-- Button -->
                 <div class="card ">
-                <div class="table-responsive mb-0">
-                    <table class="table table-sm table-nowrap card-table">
-                        <thead>
-                            <tr>
-                            <th>Producto</th>
-                            <th>Precio unidad</th>
-                            <th>Cantidad</th>
-                            <th>Subtotal</th>
-                            <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="fs-base" v-if="detalles.length >= 1">
-                            <tr v-for="(item, index) in detalles">
-                            <td>
-                                <a >{{ item.titulo_producto }}</a>
-                            </td>
-                            <td>
-                                <time datetime="2020-04-24">{{ convertCurrency(item.precio_unidad)  }}</time>
-                            </td>
-                            <td>
-                                {{ item.cantidad }}
-                            </td>
-                            <td>
-                                {{ convertCurrency( item.precio_unidad * item.cantidad) }}
-                              
-                            </td>
-                            <td>
-                                 <button class="btn btn-danger btn-sm" v-on:click="quitarDetalle(index,item.precio_unidad*item.cantidad)">Quitar</button> 
-                            </td>
-                            </tr>
-                            
-                        </tbody>
-                          <tbody class="fs-base" v-if="detalles.length == 0">
-                            <tr>
-                                <td class="text-center" colspan="5">
-                                    <span class="text-muted">No hay detalles en el ingreso</span>
-                                </td>
-                            </tr>
-                          </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="4">Total</td>
-                                <td>{{ convertCurrency(total) }}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                    <div class="table-responsive mb-0">
+                        <table class="table table-sm table-nowrap card-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio unidad</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="fs-base" v-if="detalles.length >= 1">
+                                <tr v-for="(item, index) in detalles">
+                                    <td>
+                                        <a>{{ item.titulo_producto }}</a>
+                                    </td>
+                                    <td>
+                                        <time datetime="2020-04-24">{{ convertCurrency(item.precio_unidad) }}</time>
+                                    </td>
+                                    <td>
+                                        {{ item.cantidad }}
+                                    </td>
+                                    <td>
+                                        {{ convertCurrency(item.precio_unidad * item.cantidad) }}
+
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm"
+                                            v-on:click="quitarDetalle(index, item.precio_unidad * item.cantidad)">Quitar</button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            <tbody class="fs-base" v-if="detalles.length == 0">
+                                <tr>
+                                    <td class="text-center" colspan="5">
+                                        <span class="text-muted">No hay detalles en el ingreso</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">Total</td>
+                                    <td>{{ convertCurrency(total) }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
 
                 <button class="btn btn-primary mb-7" v-on:click="registro_ingreso()">
-                Ingresar datos
+                    Ingresar datos
                 </button>
-               </div>
-      </div>
+            </div>
+        </div>
 
 
-     </div>
+    </div>
 </template>
 
 
@@ -296,23 +295,23 @@ export default {
     data() {
         return {
             ingreso: {
-            proveedor:''
+                proveedor: ''
             },
             detalle: {
-                variedad:''
+                variedad: ''
             },
-            detalles:[],
+            detalles: [],
             comprobante: undefined,
             producto: {},
             productos: [],
-            variedades: [], 
+            variedades: [],
             total: 0
 
-    }
-  },
-    
+        }
+    },
+
     methods: {
-         uploadComprobante($event) {
+        uploadComprobante($event) {
 
             var image;
 
@@ -326,7 +325,7 @@ export default {
                     image.type == 'image/png' ||
                     image.type == 'image/webp' ||
                     image.type == 'image/jpg' ||
-                image.type== 'application/pdf') {
+                    image.type == 'application/pdf') {
 
                     this.comprobante = image;
                     this.ingreso.documento = this.comprobante
@@ -350,10 +349,10 @@ export default {
                     text: 'Imagen mayor a 1MB',
                     type: 'error'
                 });
-                  this.comprobante = undefined;
+                this.comprobante = undefined;
                 this.ingreso.documento = undefined;
 
-               
+
             }
             console.log(this.comprobante)
         },
@@ -365,7 +364,7 @@ export default {
                     'Content-Type': 'application/json',
                     'Authorization': this.$store.state.token
                 }
-            }).then((result) => { 
+            }).then((result) => {
                 console.log(result)
 
                 for (var item of result.data) {
@@ -381,22 +380,22 @@ export default {
             console.log(item)
             this.init_variedades(item.value)
             this.producto = item
-          this.detalle.producto = item.value;
-          this.detalle.titulo_producto = item.text;
+            this.detalle.producto = item.value;
+            this.detalle.titulo_producto = item.text;
         },
-          init_variedades(id) {
-           axios.get(this.$url + '/obtener_variedad_producto/'+id, {
-          headers: {
-                 'Content-Type': 'application/json', 
-            'Authorization' : this.$store.state.token
-          }
-           }).then((result) => {
-    
-             this.variedades = result.data; 
-               console.log(this.variedades)
-             console.log(this.variedades)
-        })
-        }, 
+        init_variedades(id) {
+            axios.get(this.$url + '/obtener_variedad_producto/' + id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+
+                this.variedades = result.data;
+                console.log(this.variedades)
+                console.log(this.variedades)
+            })
+        },
 
         agregar_detalle() {
             if (!this.detalle.producto) {
@@ -407,7 +406,7 @@ export default {
                     type: 'error'
 
                 });
-            }else if (!this.detalle.variedad) {
+            } else if (!this.detalle.variedad) {
                 this.$notify({
                     group: 'foo',
                     title: 'ERROR',
@@ -415,7 +414,7 @@ export default {
                     type: 'error'
 
                 });
-            }else if (!this.detalle.precio_unidad) {
+            } else if (!this.detalle.precio_unidad) {
                 this.$notify({
                     group: 'foo',
                     title: 'ERROR',
@@ -423,7 +422,7 @@ export default {
                     type: 'error'
 
                 });
-            }else if (!this.detalle.cantidad) {
+            } else if (!this.detalle.cantidad) {
                 this.$notify({
                     group: 'foo',
                     title: 'ERROR',
@@ -432,7 +431,7 @@ export default {
 
                 });
             } else {
-               
+
                 this.detalles.push(this.detalle);
 
                 let subtotal = this.detalle.precio_unidad * this.detalle.cantidad;
@@ -445,11 +444,11 @@ export default {
             }
             console.log(this.detalles)
         },
-          convertCurrency(number) {
+        convertCurrency(number) {
             return currency_formatter.format(number, { code: 'USD' });
-// => '$1,000,000.00'
-        }, 
-        quitarDetalle(idx,subtotal) {
+            // => '$1,000,000.00'
+        },
+        quitarDetalle(idx, subtotal) {
             this.detalles.splice(idx, 1);
             this.total = this.total - subtotal;
         },
@@ -463,7 +462,7 @@ export default {
                     type: 'error'
 
                 });
-            }else if (!this.ingreso.ncomprobante) {
+            } else if (!this.ingreso.ncomprobante) {
                 this.$notify({
                     group: 'foo',
                     title: 'ERROR',
@@ -479,56 +478,59 @@ export default {
                     type: 'error'
 
                 })
-             
-            } 
 
-           
-             
-            
+            }
+
+
+
+
             else {
                 console.log(this.ingreso)
                 console.log(this.detalles)
 
-                   var fm = new FormData();
-                fm.append('proveedor', this.ingreso.proveedor); 
-                      fm.append('ganancia', this.$ganancia); 
-                    fm.append('ncomprobante', this.ingreso.ncomprobante); 
-                    fm.append('monto_total', this.ingreso.monto_total); 
-                    fm.append('monto_resultante', this.total);  
-                    fm.append('documento', this.ingreso.documento); 
-                    fm.append('detalles', JSON.stringify(this.detalles)); 
-                     
-                        
-                    axios.post(this.$url + '/registro_ingreso_admin', fm, {
+                var fm = new FormData();
+                fm.append('proveedor', this.ingreso.proveedor);
+                fm.append('ganancia', this.$ganancia);
+                fm.append('ncomprobante', this.ingreso.ncomprobante);
+                fm.append('monto_total', this.ingreso.monto_total);
+                fm.append('monto_resultante', this.total);
+                fm.append('documento', this.ingreso.documento);
+                fm.append('detalles', JSON.stringify(this.detalles));
+
+
+                axios.post(this.$url + '/registro_ingreso_admin', fm, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': this.$store.state.token
                     }
-                    }).then((result) => {
-                    
-                        if (result.data.message) {
-                                   this.$notify({
-                                    group: 'foo',
-                                    title: 'ERROR',
-                                    text: result.data.message,
-                                    type: 'error'
+                }).then((result) => {
 
-                                });
-                        } else {
-                                console.log(result)
+                    if (result.data.message) {
+                        this.$notify({
+                            group: 'foo',
+                            title: 'ERROR',
+                            text: result.data.message,
+                            type: 'error'
 
-                                       this.$notify({
-                                        group: 'foo',
-                                        title: 'SUCCES',
-                                        text: 'Registrado con exito',
-                                        type: 'success'
-                                    })
-                            }
+                        });
+                    } else {
+                        console.log(result)
 
-                            this.detalles= [];
-                            this.total= '';
-                    
-                    })
+                        this.$notify({
+                            group: 'foo',
+                            title: 'SUCCES',
+                            text: 'Registrado con exito',
+                            type: 'success'
+                        })
+                    }
+                    this.ingreso= {
+                        proveedor: ''
+                    };
+                     this.detalles = [];
+                    this.producto = {};
+                    this.total = '';
+                    this.$refs.comprobanteInput.value = null;
+                })
             }
         }
     },
@@ -539,7 +541,7 @@ export default {
         Sidebar,
         TopNav,
         BasicSelect,
-        
-    }, 
+
+    },
 }
 </script>
