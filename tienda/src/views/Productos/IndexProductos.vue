@@ -185,11 +185,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-block px-3 px-lg-0 me-lg-4"><a class="d-lg-none block-toggler"
+                    <!-- <div class="sidebar-block px-3 px-lg-0 me-lg-4"><a class="d-lg-none block-toggler"
                             data-bs-toggle="collapse" href="#brandFilterMenu" aria-expanded="true"
                             aria-controls="brandFilterMenu">Filter by brand</a>
-                        <!-- Brand filter menu - this menu has .show class, so is expanded by default-->
-                        <div class="expand-lg collapse show" id="brandFilterMenu">
+                        Brand filter menu - this menu has .show class, so is expanded by default-->
+                        <!-- <div class="expand-lg collapse show" id="brandFilterMenu">
                             <h6 class="sidebar-heading d-none d-lg-block">Brands </h6>
                             <form class="mt-4 mt-lg-0" action="#">
                                 <div class="mb-1">
@@ -234,7 +234,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --> 
                     <div class="sidebar-block px-3 px-lg-0 me-lg-4"> <a class="d-lg-none block-toggler"
                             data-bs-toggle="collapse" href="#sizeFilterMenu" aria-expanded="false"
                             aria-controls="sizeFilterMenu">Talles</a>
