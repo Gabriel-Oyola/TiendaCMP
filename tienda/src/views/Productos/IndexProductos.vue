@@ -237,33 +237,33 @@
                     </div>
                     <div class="sidebar-block px-3 px-lg-0 me-lg-4"> <a class="d-lg-none block-toggler"
                             data-bs-toggle="collapse" href="#sizeFilterMenu" aria-expanded="false"
-                            aria-controls="sizeFilterMenu">Filter by size</a>
+                            aria-controls="sizeFilterMenu">Talles</a>
                         <!-- Size filter menu-->
                         <div class="expand-lg collapse" id="sizeFilterMenu">
-                            <h6 class="sidebar-heading d-none d-lg-block">Size </h6>
+                            <h6 class="sidebar-heading d-none d-lg-block">Talles </h6>
                             <form class="mt-4 mt-lg-0" action="#">
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size0" type="radio" name="size" checked>
-                                        <label class="form-check-label" for="size0">Small</label>
+                                        <input class="form-check-input" id="size0" type="radio" name="size" value="small" v-on:change="selectedSize($event)">
+                                        <label class="form-check-label" for="size0">small</label>
                                     </div>
                                 </div>
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size1" type="radio" name="size">
-                                        <label class="form-check-label" for="size1">Medium</label>
+                                        <input class="form-check-input" id="size1" type="radio" name="size" value="medium" v-on:change="selectedSize($event)">
+                                        <label class="form-check-label" for="size1">medium</label>
                                     </div>
                                 </div>
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size2" type="radio" name="size">
-                                        <label class="form-check-label" for="size2">Large</label>
+                                        <input class="form-check-input" id="size2" type="radio" name="size" value="large" v-on:change="selectedSize($event)">
+                                        <label class="form-check-label" for="size2">large</label>
                                     </div>
                                 </div>
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size3" type="radio" name="size">
-                                        <label class="form-check-label" for="size3">X-Large</label>
+                                        <input class="form-check-input" id="size3" type="radio" name="size" value="x-large" v-on:change="selectedSize($event)">
+                                        <label class="form-check-label" for="size3">x-Large</label>
                                     </div>
                                 </div>
                             </form>
@@ -451,7 +451,11 @@ export default {
         },
 
         selectedColor(value) {
-            this.productos = this.productos_const.filter(item => item.variedades.some(subitem => subitem.variedad == value));
+            this.productos = this.productos_const.filter(item => item.variedades.some(subitem => subitem.variedad == value)); //FUNCIONANDO CORRECTAMENTE
+        },
+
+          selectedSize(event) {
+            this.productos = this.productos_const.filter(item => item.variedades.some(subitem => subitem.variedad == event.target.value)); //FUNCIONANDO CORRECTAMENTE
         }
     },
     watch: {
