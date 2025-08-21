@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginApp from '@/views/LoginApp.vue'
 import IndexProductos from '@/views/Productos/IndexProductos.vue'
+import ShowProductosApp from '@/views/Productos/ShowProductosApp.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,12 @@ const routes = [
     path: "/shop",
     name: "shop",
     component: IndexProductos,
+   
+  },
+   {
+    path: "/producto/:slug",
+    name: "show-producto",
+    component: ShowProductosApp,
    
   },
 ]

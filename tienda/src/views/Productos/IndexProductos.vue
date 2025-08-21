@@ -58,22 +58,24 @@
                     <div class="row" id="my-table">
                         <!-- product-->
                         <div class="col-xl-4 col-6" v-for="item in itemsForList">
-                            <div class="product">
-                                <div class="product-image">
-                                    <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
-                                        class="img-fluid" :src="$url + '/obtener_portada_producto/' + item.portada"
-                                        alt="product">
+                            <router-link :to="{name: 'show-producto', params:{slug: item.slug}}">
+                                <div class="product">
+                                    <div class="product-image">
+                                        <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
+                                            class="img-fluid" :src="$url + '/obtener_portada_producto/' + item.portada"
+                                            alt="product">
 
+                                    </div>
+                                    <div class="py-2">
+                                        <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
+                                        <h3 class="h6 text-uppercase mb-1"
+                                            style="text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">
+                                            <a class="text-dark" href="detail.html">{{ item.titulo }}</a>
+                                        </h3>
+                                        <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
+                                    </div>
                                 </div>
-                                <div class="py-2">
-                                    <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
-                                    <h3 class="h6 text-uppercase mb-1"
-                                        style="text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">
-                                        <a class="text-dark" href="detail.html">{{ item.titulo }}</a>
-                                    </h3>
-                                    <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
-                                </div>
-                            </div>
+                            </router-link>
                         </div>
 
                     </div>
@@ -118,7 +120,7 @@
                                                             v-bind:class="{ 'bg_subcat_activa': subitem.titulo == subcategoria_activa }"
                                                             v-for="subitem in item.subcategorias"
                                                             v-on:click="redirectSubcategoria(subitem.titulo, item.categoria._id)">{{
-                                                            subitem.titulo }}</a>
+                                                                subitem.titulo }}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,9 +177,9 @@
                             <div class="mt-4 mt-lg-0" id="slider-snap" ref="slider"> </div>
                             <div class="nouislider-values">
                                 <div class="min">From <span id="slider-snap-value-lower">{{ convertCurrency(minRange)
-                                        }}</span></div>
-                                <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
                                 }}</span></div>
+                                <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
+                                        }}</span></div>
                                 <input class="slider-snap-input" type="hidden" name="pricefrom"
                                     id="slider-snap-input-lower" value="40">
                                 <input class="slider-snap-input" type="hidden" name="priceto"
@@ -189,7 +191,7 @@
                             data-bs-toggle="collapse" href="#brandFilterMenu" aria-expanded="true"
                             aria-controls="brandFilterMenu">Filter by brand</a>
                         Brand filter menu - this menu has .show class, so is expanded by default-->
-                        <!-- <div class="expand-lg collapse show" id="brandFilterMenu">
+                    <!-- <div class="expand-lg collapse show" id="brandFilterMenu">
                             <h6 class="sidebar-heading d-none d-lg-block">Brands </h6>
                             <form class="mt-4 mt-lg-0" action="#">
                                 <div class="mb-1">
@@ -234,7 +236,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div> --> 
+                    </div> -->
                     <div class="sidebar-block px-3 px-lg-0 me-lg-4"> <a class="d-lg-none block-toggler"
                             data-bs-toggle="collapse" href="#sizeFilterMenu" aria-expanded="false"
                             aria-controls="sizeFilterMenu">Talles</a>
@@ -244,25 +246,29 @@
                             <form class="mt-4 mt-lg-0" action="#">
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size0" type="radio" name="size" value="small" v-on:change="selectedSize($event)">
+                                        <input class="form-check-input" id="size0" type="radio" name="size"
+                                            value="small" v-on:change="selectedSize($event)">
                                         <label class="form-check-label" for="size0">small</label>
                                     </div>
                                 </div>
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size1" type="radio" name="size" value="medium" v-on:change="selectedSize($event)">
+                                        <input class="form-check-input" id="size1" type="radio" name="size"
+                                            value="medium" v-on:change="selectedSize($event)">
                                         <label class="form-check-label" for="size1">medium</label>
                                     </div>
                                 </div>
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size2" type="radio" name="size" value="large" v-on:change="selectedSize($event)">
+                                        <input class="form-check-input" id="size2" type="radio" name="size"
+                                            value="large" v-on:change="selectedSize($event)">
                                         <label class="form-check-label" for="size2">large</label>
                                     </div>
                                 </div>
                                 <div class="mb-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="size3" type="radio" name="size" value="x-large" v-on:change="selectedSize($event)">
+                                        <input class="form-check-input" id="size3" type="radio" name="size"
+                                            value="x-large" v-on:change="selectedSize($event)">
                                         <label class="form-check-label" for="size3">x-Large</label>
                                     </div>
                                 </div>
@@ -454,7 +460,7 @@ export default {
             this.productos = this.productos_const.filter(item => item.variedades.some(subitem => subitem.variedad == value)); //FUNCIONANDO CORRECTAMENTE
         },
 
-          selectedSize(event) {
+        selectedSize(event) {
             this.productos = this.productos_const.filter(item => item.variedades.some(subitem => subitem.variedad == event.target.value)); //FUNCIONANDO CORRECTAMENTE
         }
     },
