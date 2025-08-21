@@ -117,7 +117,8 @@
                                                         <a style="cursor:pointer" class="nav-link mb-2"
                                                             v-bind:class="{ 'bg_subcat_activa': subitem.titulo == subcategoria_activa }"
                                                             v-for="subitem in item.subcategorias"
-                                                            v-on:click="redirectSubcategoria(subitem.titulo, item.categoria._id)">{{ subitem.titulo }}</a>
+                                                            v-on:click="redirectSubcategoria(subitem.titulo, item.categoria._id)">{{
+                                                            subitem.titulo }}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,9 +175,9 @@
                             <div class="mt-4 mt-lg-0" id="slider-snap" ref="slider"> </div>
                             <div class="nouislider-values">
                                 <div class="min">From <span id="slider-snap-value-lower">{{ convertCurrency(minRange)
-                                }}</span></div>
-                                <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
                                         }}</span></div>
+                                <div class="max">To <span id="slider-snap-value-upper">{{ convertCurrency(maxRange)
+                                }}</span></div>
                                 <input class="slider-snap-input" type="hidden" name="pricefrom"
                                     id="slider-snap-input-lower" value="40">
                                 <input class="slider-snap-input" type="hidden" name="priceto"
@@ -270,35 +271,39 @@
                     </div>
                     <div class="sidebar-block px-3 px-lg-0 me-lg-4"><a class="d-lg-none block-toggler"
                             data-bs-toggle="collapse" href="#colourFilterMenu" aria-expanded="false"
-                            aria-controls="colourFilterMenu">Filter by colour</a>
+                            aria-controls="colourFilterMenu">Filtro de colores</a>
                         <!-- Size filter menu-->
                         <div class="expand-lg collapse" id="colourFilterMenu">
-                            <h6 class="sidebar-heading d-none d-lg-block">Colour </h6>
+                            <h6 class="sidebar-heading d-none d-lg-block">Colores </h6>
                             <div class="mt-4 mt-lg-0">
                                 <ul class="list-inline mb-0 colours-wrapper">
                                     <li class="list-inline-item">
                                         <label class="btn-colour" for="colour_sidebar_Blue"
-                                            style="background-color: #668cb9" data-allow-multiple> </label>
-                                        <input class="input-invisible" type="checkbox" name="colour"
-                                            value="value_sidebar_Blue" id="colour_sidebar_Blue">
+                                            style="background-color: #000000" v-on:click="selectedColor('Negro')">
+                                        </label>
+                                        <input class="input-invisible" type="radio" name="colour" value="Negro"
+                                            id="colour_sidebar_Negro">
                                     </li>
                                     <li class="list-inline-item">
                                         <label class="btn-colour" for="colour_sidebar_White"
-                                            style="background-color: #fff" data-allow-multiple> </label>
-                                        <input class="input-invisible" type="checkbox" name="colour"
-                                            value="value_sidebar_White" id="colour_sidebar_White">
+                                            style="background-color: #ff0000" v-on:click="selectedColor('Rojo')">
+                                        </label>
+                                        <input class="input-invisible" type="radio" name="colour" value="Rojo"
+                                            id="colour_sidebar_Rojo">
                                     </li>
                                     <li class="list-inline-item">
                                         <label class="btn-colour" for="colour_sidebar_Violet"
-                                            style="background-color: #8b6ea4" data-allow-multiple> </label>
-                                        <input class="input-invisible" type="checkbox" name="colour"
-                                            value="value_sidebar_Violet" id="colour_sidebar_Violet">
+                                            style="background-color: #ffffff" v-on:click="selectedColor('Blanco')">
+                                        </label>
+                                        <input class="input-invisible" type="radio" name="colour" value="Blanco"
+                                            id="colour_sidebar_Blanco">
                                     </li>
                                     <li class="list-inline-item">
                                         <label class="btn-colour" for="colour_sidebar_Red"
-                                            style="background-color: #dd6265" data-allow-multiple> </label>
-                                        <input class="input-invisible" type="checkbox" name="colour"
-                                            value="value_sidebar_Red" id="colour_sidebar_Red">
+                                            style="background-color: #008000" v-on:click="selectedColor('Verde')">
+                                        </label>
+                                        <input class="input-invisible" type="radio" name="colour" value="Verde"
+                                            id="colour_sidebar_Verde">
                                     </li>
                                 </ul>
                             </div>
@@ -416,18 +421,18 @@ export default {
                     'Content-Type': 'application/json'
                 }
             }).then((result) => {
-                     this.categorias = result.data;
-                   if(this.$route.query.subcategoria){
-                        this.categoria_activa = this.categorias.filter(item=>item.subcategorias.some(subcat=>subcat.titulo == this.$route.query.subcategoria))[0].categoria._id;
-                        this.subcategoria_activa = this.$route.query.subcategoria;
-                    }
-           
+                this.categorias = result.data;
+                if (this.$route.query.subcategoria) {
+                    this.categoria_activa = this.categorias.filter(item => item.subcategorias.some(subcat => subcat.titulo == this.$route.query.subcategoria))[0].categoria._id;
+                    this.subcategoria_activa = this.$route.query.subcategoria;
+                }
+
                 console.log(this.categorias)
             })
         },
         redirectSubcategoria(item, categoria) {
             this.categoria_activa = categoria;
-            this.subcategoria_activa= item;
+            this.subcategoria_activa = item;
             this.$router.push({ name: 'shop', query: { subcategoria: item } })
             this.init_productoSubcategoria();
         },
@@ -444,23 +449,27 @@ export default {
         init_productoCategoria() {
             this.productos = this.productos_const.filter(item => item.categoria == this.$route.query.categoria);
         },
-    }, 
+
+        selectedColor(value) {
+            this.productos = this.productos_const.filter(item => item.variedades.some(subitem => subitem.variedad == value));
+        }
+    },
     watch: {
-        $route(to, from){
-                if (!this.$route.query.subcategoria && !this.$route.query.categoria) {
-                    this.productos= this.productos_const;
-                    this.categoria_activa= ''; 
-                    this.subcategoria_activa='';
+        $route(to, from) {
+            if (!this.$route.query.subcategoria && !this.$route.query.categoria) {
+                this.productos = this.productos_const;
+                this.categoria_activa = '';
+                this.subcategoria_activa = '';
             }
         },
-        minRange: function(value){
-             this.productos = this.productos_const.filter(item=> item.precio >= value)
+        minRange: function (value) {
+            this.productos = this.productos_const.filter(item => item.precio >= value)
         },
-        maxRange: function(value){
-            this.productos = this.productos_const.filter(item=> item.precio <= value)
+        maxRange: function (value) {
+            this.productos = this.productos_const.filter(item => item.precio <= value)
         }
     }
-    
+
 
 }
 
@@ -499,7 +508,7 @@ export default {
     background-color: #005f96 !important;
 }
 
-.bg_subcat_activa{
+.bg_subcat_activa {
     background-color: #e5e5e5 !important;
 }
 </style>
