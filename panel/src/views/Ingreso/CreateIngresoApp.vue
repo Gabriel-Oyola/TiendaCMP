@@ -482,38 +482,7 @@ export default {
              
             } 
 
-             if (!this.detalle.producto) {
-                this.$notify({
-                    group: 'foo',
-                    title: 'ERROR',
-                    text: 'seleccione el producto',
-                    type: 'error'
-
-                });
-            }else if (!this.detalle.variedad) {
-                this.$notify({
-                    group: 'foo',
-                    title: 'ERROR',
-                    text: 'seleccione la variedad',
-                    type: 'error'
-
-                });
-            }else if (!this.detalle.precio_unidad) {
-                this.$notify({
-                    group: 'foo',
-                    title: 'ERROR',
-                    text: 'Ingrese el precio de la unidad',
-                    type: 'error'
-
-                });
-            }else if (!this.detalle.cantidad) {
-                this.$notify({
-                    group: 'foo',
-                    title: 'ERROR',
-                    text: 'Ingrese la cantidad del producto',
-                    type: 'error'
-
-                }); }
+           
              
             
             else {
