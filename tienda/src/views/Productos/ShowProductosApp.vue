@@ -40,53 +40,48 @@
                                 <div class="owl-carousel detail-slider owl-theme owl-dots-modern" data-slider-id="1">
                                     <div class="item" v-if="galeria[0]">
                                         <a class="glightbox"
-                                           :href="$url + '/obtener_galeria_producto/' + galeria[0].imagen"
-                                            data-title="Modern Jacket 1 - Caption text"
-                                            data-gallery="product-gallery">
+                                            :href="$url + '/obtener_galeria_producto/' + galeria[0].imagen"
+                                            data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[0].imagen"
                                                 alt="Modern Jacket 1">
-                                         </a>
+                                        </a>
                                     </div>
-                                     <div class="item" v-if="galeria[1]">
+                                    <div class="item" v-if="galeria[1]">
                                         <a class="glightbox"
-                                           :href="$url + '/obtener_galeria_producto/' + galeria[1].imagen"
-                                            data-title="Modern Jacket 1 - Caption text"
-                                            data-gallery="product-gallery">
+                                            :href="$url + '/obtener_galeria_producto/' + galeria[1].imagen"
+                                            data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[1].imagen"
                                                 alt="Modern Jacket 1">
-                                         </a>
+                                        </a>
                                     </div>
-                                     <div class="item" v-if="galeria[2]">
+                                    <div class="item" v-if="galeria[2]">
                                         <a class="glightbox"
-                                           :href="$url + '/obtener_galeria_producto/' + galeria[2].imagen"
-                                            data-title="Modern Jacket 1 - Caption text"
-                                            data-gallery="product-gallery">
+                                            :href="$url + '/obtener_galeria_producto/' + galeria[2].imagen"
+                                            data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[2].imagen"
                                                 alt="Modern Jacket 1">
-                                         </a>
+                                        </a>
                                     </div>
-                                     <div class="item" v-if="galeria[3]">
+                                    <div class="item" v-if="galeria[3]">
                                         <a class="glightbox"
-                                           :href="$url + '/obtener_galeria_producto/' + galeria[3].imagen"
-                                            data-title="Modern Jacket 1 - Caption text"
-                                            data-gallery="product-gallery">
+                                            :href="$url + '/obtener_galeria_producto/' + galeria[3].imagen"
+                                            data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[3].imagen"
                                                 alt="Modern Jacket 1">
-                                         </a>
+                                        </a>
                                     </div>
-                                     <div class="item" v-if="galeria[4]">
+                                    <div class="item" v-if="galeria[4]">
                                         <a class="glightbox"
-                                           :href="$url + '/obtener_galeria_producto/' + galeria[4].imagen"
-                                            data-title="Modern Jacket 1 - Caption text"
-                                            data-gallery="product-gallery">
+                                            :href="$url + '/obtener_galeria_producto/' + galeria[4].imagen"
+                                            data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[4].imagen"
                                                 alt="Modern Jacket 1">
-                                         </a>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -94,16 +89,20 @@
                     </div>
                     <div class="col-lg-5 ps-lg-4 order-1 order-lg-2">
                         <ul class="breadcrumb undefined">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item"><a href="category.html">Tops and Jackets</a></li>
-                            <li class="breadcrumb-item active">Modern Jacket </li>
+                            <li class="breadcrumb-item"><router-link to="/">Inicio</router-link></li>
+                            <li class="breadcrumb-item"><router-link to="/shop">Tienda</router-link></li>
+                            <li class="breadcrumb-item"><router-link
+                                    :to="{ name: 'shop', query: { categoria: producto.categoria } }">{{
+                                        producto.categoria
+                                    }}</router-link></li>
                         </ul>
-                        <h1 class="mb-4">Modern Jacket</h1>
+                        <h4 class="mb-4">{{ producto.titulo }}</h4>
                         <div
                             class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-4">
                             <ul class="list-inline mb-2 mb-sm-0">
-                                <li class="list-inline-item h4 fw-light mb-0">$65.00</li>
-                                <li class="list-inline-item text-muted fw-light">
+                                <li class="list-inline-item h4 fw-light mb-0">{{ convertCurrency(producto.precio) }}
+                                </li>
+                                <li class="list-inline-item text-muted fw-light" v-if="producto.descuento">
                                     <del>$90.00</del>
                                 </li>
                             </ul>
@@ -122,28 +121,17 @@
                                 </ul><span class="text-muted text-uppercase text-sm">25 reviews</span>
                             </div>
                         </div>
-                        <p class="mb-4 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco</p>
+                        <p class="mb-4 text-muted">{{ producto.descripcion }}</p>
                         <form action="#">
                             <div class="row">
                                 <div class="col-sm-6 col-lg-12 detail-option mb-3">
-                                    <h6 class="detail-option-heading">Size <span>(required)</span></h6>
+                                    <h6 class="detail-option-heading">{{ producto.str_variedad }} <span></span></h6>
                                     <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"
-                                        for="size_0"> Small
+                                        :for="'variedad_' + item._id" v-for="item in variedades"> {{ item.variedad }}
                                         <input class="input-invisible" type="radio" name="size" value="value_0"
-                                            id="size_0" required>
+                                            :id="'variedad_' + item._id" required>
                                     </label>
-                                    <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"
-                                        for="size_1"> Medium
-                                        <input class="input-invisible" type="radio" name="size" value="value_1"
-                                            id="size_1" required>
-                                    </label>
-                                    <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"
-                                        for="size_2"> Large
-                                        <input class="input-invisible" type="radio" name="size" value="value_2"
-                                            id="size_2" required>
-                                    </label>
+
                                 </div>
 
                                 <!-- <div class="col-12 detail-option mb-3">
@@ -176,14 +164,13 @@
                                     </ul>
                                 </div> -->
                                 <div class="col-12 col-lg-6 detail-option mb-5">
-                                    <label class="detail-option-heading fw-bold">Items <span>(required)</span></label>
+                                    <label class="detail-option-heading fw-bold">Cantidad</label>
                                     <input class="form-control detail-quantity" name="items" type="number" value="1">
                                 </div>
                             </div>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <button class="btn btn-dark btn-lg mb-1" type="submit"> <i
-                                            class="fa fa-shopping-cart me-2"></i>Add to Cart</button>
+                                    <button class="btn btn-dark btn-lg mb-1" type="submit">Agregar al carrito</button>
                                 </li>
                                 <!-- <li class="list-inline-item"><a class="btn btn-outline-secondary mb-1" href="#"> <i
                                             class="far fa-heart me-2"></i>Add to wishlist</a></li> -->
@@ -196,49 +183,33 @@
         <section class="mt-5">
             <div class="container">
                 <ul class="nav nav-tabs flex-column flex-sm-row" role="tablist">
+
                     <li class="nav-item"><a class="nav-link detail-nav-link active" data-bs-toggle="tab"
-                            href="#description" role="tab">Description</a></li>
-                    <li class="nav-item"><a class="nav-link detail-nav-link" data-bs-toggle="tab"
-                            href="#additional-information" role="tab">Additional Information</a></li>
+                            href="#additional-information" role="tab">Informacion adiccional</a></li>
                     <li class="nav-item"><a class="nav-link detail-nav-link" data-bs-toggle="tab" href="#reviews"
                             role="tab">Reviews</a></li>
                 </ul>
                 <div class="tab-content py-4">
-                    <div class="tab-pane active px-3" id="description" role="tabpanel">
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. LOLUt enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. LOLDuis aute irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum.</p>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. LOLUt enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. LOLDuis aute irure
-                            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                            anim id est laborum.</p>
-                    </div>
-                    <div class="tab-pane" id="additional-information" role="tabpanel">
+
+                    <div class="tab-pane active" id="additional-information" role="tabpanel">
                         <div class="row">
                             <div class="col-lg-6">
                                 <table class="table text-sm">
                                     <tbody>
                                         <tr>
-                                            <th class="text-uppercase fw-normal border-0">Product #</th>
-                                            <td class="text-muted border-0">Lorem ipsum dolor sit amet</td>
+                                            <th class="text-uppercase fw-normal border-0"><b>Producto</b></th>
+                                            <td class="text-muted border-0" v-if="producto.titulo">{{
+                                                producto.titulo.substr(0, 30) }}...</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-uppercase fw-normal ">Available packaging</th>
-                                            <td class="text-muted ">LOLDuis aute irure dolor in reprehenderit</td>
+                                            <th class="text-uppercase fw-normal "><b>Categoria</b></th>
+                                            <td class="text-muted ">{{ producto.categoria }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-uppercase fw-normal ">Weight</th>
-                                            <td class="text-muted ">dolor sit amet</td>
+                                            <th class="text-uppercase fw-normal "><b>Subcategoria</b></th>
+                                            <td class="text-muted ">{{ producto.subcategoria }}</td>
                                         </tr>
-                                        <tr>
-                                            <th class="text-uppercase fw-normal ">Sunt in culpa qui</th>
-                                            <td class="text-muted ">Lorem ipsum dolor sit amet</td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -246,21 +217,18 @@
                                 <table class="table text-sm">
                                     <tbody>
                                         <tr>
-                                            <th class="text-uppercase fw-normal border-0">Weight</th>
-                                            <td class="text-muted border-0">dolor sit amet </td>
+                                            <th class="text-uppercase fw-normal "><b>Variedad</b></th>
+                                            <td class="text-muted ">{{ producto.str_variedad }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="text-uppercase fw-normal ">Sunt in culpa qui</th>
-                                            <td class="text-muted ">Lorem ipsum dolor sit amet </td>
+                                            <th class="text-uppercase fw-normal border-0"><b>Codigo</b></th>
+                                            <td class="text-muted border-0">{{ producto._id }} </td>
                                         </tr>
                                         <tr>
-                                            <th class="text-uppercase fw-normal ">Product #</th>
-                                            <td class="text-muted ">Lorem ipsum dolor sit amet </td>
+                                            <th class="text-uppercase fw-normal "><b>Fecha</b></th>
+                                            <td class="text-muted ">{{ convertDate(producto.createAT) }} </td>
                                         </tr>
-                                        <tr>
-                                            <th class="text-uppercase fw-normal ">Available packaging</th>
-                                            <td class="text-muted ">LOLDuis aute irure dolor in reprehenderit </td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -398,138 +366,45 @@
                 </header>
                 <div class="row">
                     <!-- product-->
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="product">
+                    <div class="col-lg-2 col-md-4 col-6" v-for="item in productos_relacionados">
+                        <!-- <router-link :to="{ name: 'show-producto', params: { slug: item.slug } }">
+                            <div class="product">
                             <div class="product-image">
-                                <div class="ribbon ribbon-info">Fresh</div><img class="img-fluid"
-                                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494312-unsplash.jpg"
+                                <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
+                                    class="img-fluid" :src="$url + '/obtener_portada_producto/' + item.portada"
                                     alt="product" />
                                 <div class="product-hover-overlay"><a class="product-hover-overlay-link"
                                         href="detail.html"></a>
-                                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy"
-                                            href="detail.html"><i class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="py-2">
-                                <p class="text-muted text-sm mb-1">Jackets</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">White Tee</a>
-                                </h3><span class="text-muted">$40.00</span>
+                                <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
+                                <h3 class="h6 text-uppercase mb-1" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" :title="item.titulo"><a class="text-dark" href="detail.html">{{
+                                        item.titulo }}</a></h3>
+                                <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
                             </div>
                         </div>
-                    </div>
-                    <!-- /product-->
-                    <!-- product-->
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="product">
-                            <div class="product-image"><img class="img-fluid"
-                                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-590881-unsplash.jpg"
-                                    alt="product" />
-                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
-                                        href="detail.html"></a>
-                                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy"
-                                            href="detail.html"><i class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
+                        </router-link> -->
+                        <router-link :to="{ name: 'show-producto', params: { slug: item.slug } }">
+                            <div class="product">
+                                <div class="product-image">
+                                    <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
+                                        class="img-fluid" :src="$url + '/obtener_portada_producto/' + item.portada"
+                                        alt="product" />
+                                    <div class="product-hover-overlay"><a class="product-hover-overlay-link"
+                                            href="detail.html"></a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="py-2">
-                                <p class="text-muted text-sm mb-1">Denim</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Black
-                                        blouse</a></h3><span class="text-muted">$40.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product-->
-                    <!-- product-->
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="product">
-                            <div class="product-image">
-                                <div class="ribbon ribbon-primary">Sale</div><img class="img-fluid"
-                                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/kyle-loftus-596319-unsplash.jpg"
-                                    alt="product" />
-                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
-                                        href="detail.html"></a>
-                                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy"
-                                            href="detail.html"><i class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
-                                    </div>
+                                <div class="py-2">
+                                    <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
+                                    <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">{{
+                                        item.titulo }}</a></h3>
+                                    <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
                                 </div>
                             </div>
-                            <div class="py-2">
-                                <p class="text-muted text-sm mb-1">Accessories</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">College
-                                        jacket</a></h3><span class="text-muted">$40.00</span>
-                            </div>
-                        </div>
+                        </router-link>
                     </div>
-                    <!-- /product-->
-                    <!-- product-->
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="product">
-                            <div class="product-image"><img class="img-fluid"
-                                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/ethan-haddox-484912-unsplash.jpg"
-                                    alt="product" />
-                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
-                                        href="detail.html"></a>
-                                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy"
-                                            href="detail.html"><i class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="py-2">
-                                <p class="text-muted text-sm mb-1">Denim</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Carrot-fit
-                                        jeans</a></h3><span class="text-muted">$40.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product-->
-                    <!-- product-->
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="product">
-                            <div class="product-image"><img class="img-fluid"
-                                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/serrah-galos-494231-unsplash.jpg"
-                                    alt="product" />
-                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
-                                        href="detail.html"></a>
-                                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy"
-                                            href="detail.html"><i class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="py-2">
-                                <p class="text-muted text-sm mb-1">Jackets</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Striped
-                                        T-Shirt</a></h3><span class="text-muted">$40.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product-->
-                    <!-- product-->
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="product">
-                            <div class="product-image"><img class="img-fluid"
-                                    src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/averie-woodard-319832-unsplash.jpg"
-                                    alt="product" />
-                                <div class="product-hover-overlay"><a class="product-hover-overlay-link"
-                                        href="detail.html"></a>
-                                    <div class="product-hover-overlay-buttons"><a class="btn btn-dark btn-buy"
-                                            href="detail.html"><i class="fa-search fa"></i><span
-                                                class="btn-buy-label ms-2">View</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="py-2">
-                                <p class="text-muted text-sm mb-1">Shirts</p>
-                                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">Short top</a>
-                                </h3><span class="text-muted">$40.00</span>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- /product-->
                 </div>
             </div>
@@ -537,18 +412,59 @@
     </div>
 </template>
 
+<style>
+.detail-nav-link.nav-link.active,
+.detail-nav-link.nav-link:hover,
+.detail-nav-link.nav-link:focus {
+    color: #ffffff !important;
+    border-color: #fff #fff #343a40 !important;
+    background: #005f96 !important;
+}
+
+.product-image {
+    display: block !important;
+    overflow: hidden !important;
+
+}
+
+.img-fluid {
+    height: auto !important;
+    display: auto !important;
+    vertical-align: middle !important;
+}
+</style>
 <script>
 
 import { init_carrusel } from '../../../public/assets/js/theme.d7b4a888';
-import axios from 'axios'
+import currency_formatter from 'currency-formatter';
+import axios from 'axios';
+import moment from 'moment'
 export default {
     name: 'ShowProductosApp',
     data() {
         return {
             galeria: [],
+            producto: [],
+            variedades: [],
+            productos_relacionados: [],
+            yaRecargado: false,
+
+        }
+    },
+    watch: {
+        '$route.params.slug': {
+            immediate: true, // Ejecuta también al cargar por primera vez
+            handler(newSlug) {
+                this.fetchProducto(newSlug); // Reemplaza con tu función real
+            }
         }
     },
     methods: {
+
+        convertCurrency(number) {
+            return currency_formatter.format(number, { code: 'USD' });
+            // => '$1,000,000.00'
+        },
         init_data() {
             axios.get(this.$url + '/obtener_producto_slug/' + this.$route.params.slug, {
                 headers: {
@@ -556,8 +472,44 @@ export default {
                 }
             }).then((result) => {
                 console.log(result);
+                this.producto = result.data.producto;
                 this.galeria = result.data.galeria;
+                this.variedades = result.data.variedades;
+                this.init_productos_relacionados(this.producto.categoria)
             })
+        },
+
+        init_productos_relacionados(categoria) {
+            axios.get(this.$url + '/obtener_producto_categoria/' + categoria, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((result) => {
+                console.log(result);
+                this.productos_relacionados = result.data.productos
+
+            })
+        },
+        convertDate(date) {
+            return moment(date).format('YYYY-MM-DD')
+        },
+        fetchProducto(slug) {
+            axios.get(this.$url + '/obtener_producto_slug/' + this.$route.params.slug, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((result) => {
+                console.log(result);
+                this.producto = result.data.producto;
+                this.galeria = result.data.galeria;
+                this.variedades = result.data.variedades;
+                this.init_productos_relacionados(this.producto.categoria);
+            
+            })
+        },
+        reloadPage() {
+            // Fuerza un reload de la página
+            this.$router.go(); // recarga la ruta actual
         }
     }
     ,

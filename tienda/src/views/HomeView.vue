@@ -38,19 +38,22 @@
         <div class="row">
           <!-- product-->
           <div class="col-lg-3 col-md-4 col-6" v-for="item in nuevos_productos">
-            <div class="product">
-              <div class="product-image">
-                <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img class="img-fluid"
-                  :src="$url + '/obtener_portada_producto/' + item.portada" alt="product" />
-                <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
+            <router-link :to="{ name: 'show-producto', params: { slug: item.slug } }">
+              <div class="product">
+                <div class="product-image">
+                  <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img class="img-fluid"
+                    :src="$url + '/obtener_portada_producto/' + item.portada" alt="product" />
+                  <div class="product-hover-overlay"><a class="product-hover-overlay-link" href="detail.html"></a>
+                  </div>
+                </div>
+                <div class="py-2">
+                  <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
+                  <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">{{ item.titulo }}</a></h3>
+                  <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
                 </div>
               </div>
-              <div class="py-2">
-                <p class="text-muted text-sm mb-1">{{ item.categoria }}</p>
-                <h3 class="h6 text-uppercase mb-1"><a class="text-dark" href="detail.html">{{ item.titulo }}</a></h3>
-                <span class="text-muted">{{ convertCurrency(item.precio) }}</span>
-              </div>
-            </div>
+            </router-link>
+
           </div>
           <!-- /product-->
           <!-- product-->
@@ -101,11 +104,13 @@
         </div>
       </div>
     </section>
-    <section class="py-6 position-relative light-overlay"><img class="bg-image" src="../../public/assets/img/air-force-one-portada-1200x572x80xX.jpg" alt="">
+    <section class="py-6 position-relative light-overlay"><img class="bg-image"
+        src="../../public/assets/img/air-force-one-portada-1200x572x80xX.jpg" alt="">
       <div class="container">
         <div class="overlay-content text-center text-dark">
           <p class="text-uppercase fw-bold mb-1 letter-spacing-5">NIKE AIR FORCE</p>
-          <h3 class="display-1 fw-bold text-serif mb-4">VISITA NUESTRO CATALOGO</h3><a class="btn btn-dark" href="category.html">COMPRAR AHORA</a>
+          <h3 class="display-1 fw-bold text-serif mb-4">VISITA NUESTRO CATALOGO</h3><a class="btn btn-dark"
+            href="category.html">COMPRAR AHORA</a>
         </div>
       </div>
     </section>
@@ -116,7 +121,7 @@
 .product-image {
   display: block !important;
   overflow: hidden !important;
-  height: 320px !important;
+
 }
 
 .img-fluid {

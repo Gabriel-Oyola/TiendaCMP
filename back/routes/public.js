@@ -17,6 +17,8 @@ api.get("/obtener_productos_shop", publicControllers.obtener_productos_shop );
 api.get('/listar_categorias_public', publicControllers.listar_categorias_public)
 
 api.get('/obtener_producto_slug/:slug', publicControllers.obtener_producto_slug)
+api.get('/obtener_producto_categoria/:categoria', publicControllers.obtener_producto_categoria)
+
 
 
 module.exports = api;
