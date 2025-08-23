@@ -2,6 +2,7 @@ var Producto = require("../models/Producto");
 var Categoria = require("../models/categoria");
 var Subcategoria = require("../models/subcategoria");
 var Variedad = require("../models/variedad");
+var Galeria = require("../models/galeria");
 
 const obtener_nuevos_productos = async function (req, res) {
   var productos = await Producto.find({ estado: true })
@@ -62,9 +63,20 @@ const listar_categorias_public = async function (req, res) {
   res.status(200).send(categorias);
 };
 
+
+const obtener_producto_slug = async function (req, res) {
+    var slug = req.params['slug'];
+    var producto = await Producto.findOne({slug: slug}); 
+    var variedades = await Variedad.find({producto:producto._id});
+    var galeria = await Galeria.find({producto:producto._id})
+
+    res.status(200).send({producto, variedades, galeria})
+};
+
 module.exports = {
   obtener_nuevos_productos,
   obtener_productos_recomendados,
   obtener_productos_shop,
   listar_categorias_public,
+  obtener_producto_slug
 };

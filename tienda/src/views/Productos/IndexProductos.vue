@@ -1,5 +1,5 @@
 <template>
-    <div style="background: #f3f3f3;">
+    <div style="background: #f3f3f3;" class="pb-5">
         <section class="hero" style="margin-top: 8rem !important;">
             <div class="container">
                 <!-- Breadcrumbs -->
