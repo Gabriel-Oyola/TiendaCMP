@@ -65,12 +65,28 @@ const listar_categorias_public = async function (req, res) {
 
 
 const obtener_producto_slug = async function (req, res) {
-    var slug = req.params['slug'];
-    var producto = await Producto.findOne({slug: slug}); 
-    var variedades = await Variedad.find({producto:producto._id});
-    var galeria = await Galeria.find({producto:producto._id})
+     try {
+        const slug = req.params['slug'];
 
-    res.status(200).send({producto, variedades, galeria})
+        // Buscar el producto por slug
+        const producto = await Producto.findOne({ slug: slug });
+
+        // Validar si se encontró el producto
+        if (!producto) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        // Buscar variedades y galería solo si hay producto
+        const variedades = await Variedad.find({ producto: producto._id });
+        const galeria = await Galeria.find({ producto: producto._id });
+
+        // Enviar respuesta
+        return res.status(200).json({ producto, variedades, galeria });
+
+    } catch (error) {
+        console.error('Error al obtener producto por slug:', error);
+        return res.status(500).json({ message: 'Error del servidor' });
+    }
 };
 
 const obtener_producto_categoria = async function (req, res) {

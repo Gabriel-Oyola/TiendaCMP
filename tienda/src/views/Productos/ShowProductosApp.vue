@@ -44,7 +44,8 @@
                                             data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[0].imagen"
-                                                alt="Modern Jacket 1">
+                                                alt="Modern Jacket 1" @click.prevent
+                                                style="touch-action: manipulation; cursor: default;">
                                         </a>
                                     </div>
                                     <div class="item" v-if="galeria[1]">
@@ -53,7 +54,8 @@
                                             data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[1].imagen"
-                                                alt="Modern Jacket 1">
+                                                alt="Modern Jacket 1" @click.prevent
+                                                style="touch-action: manipulation; cursor: default;">
                                         </a>
                                     </div>
                                     <div class="item" v-if="galeria[2]">
@@ -62,7 +64,8 @@
                                             data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[2].imagen"
-                                                alt="Modern Jacket 1">
+                                                alt="Modern Jacket 1" @click.prevent
+                                                style="touch-action: manipulation; cursor: default;">
                                         </a>
                                     </div>
                                     <div class="item" v-if="galeria[3]">
@@ -71,7 +74,8 @@
                                             data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[3].imagen"
-                                                alt="Modern Jacket 1">
+                                                alt="Modern Jacket 1" @click.prevent
+                                                style="touch-action: manipulation; cursor: default;">
                                         </a>
                                     </div>
                                     <div class="item" v-if="galeria[4]">
@@ -80,7 +84,8 @@
                                             data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
                                             <img class="img-fluid"
                                                 :src="$url + '/obtener_galeria_producto/' + galeria[4].imagen"
-                                                alt="Modern Jacket 1">
+                                                alt="Modern Jacket 1" @click.prevent
+                                                style="touch-action: manipulation; cursor: default;">
                                         </a>
                                     </div>
                                 </div>
@@ -362,7 +367,7 @@
         <section class="my-5">
             <div class="container">
                 <header class="text-center">
-                    <h6 class="text-uppercase mb-5">You might also like</h6>
+                    <h6 class="text-uppercase mb-5">Productos similares</h6>
                 </header>
                 <div class="row">
                     <!-- product-->
@@ -439,15 +444,17 @@ import { init_carrusel } from '../../../public/assets/js/theme.d7b4a888';
 import currency_formatter from 'currency-formatter';
 import axios from 'axios';
 import moment from 'moment'
+
 export default {
     name: 'ShowProductosApp',
+
     data() {
         return {
             galeria: [],
             producto: [],
             variedades: [],
             productos_relacionados: [],
-            yaRecargado: false,
+
 
         }
     },
@@ -494,6 +501,11 @@ export default {
             return moment(date).format('YYYY-MM-DD')
         },
         fetchProducto(slug) {
+
+            this.producto = null;
+            this.galeria = [];
+            this.variedades = [];
+
             axios.get(this.$url + '/obtener_producto_slug/' + this.$route.params.slug, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -504,18 +516,15 @@ export default {
                 this.galeria = result.data.galeria;
                 this.variedades = result.data.variedades;
                 this.init_productos_relacionados(this.producto.categoria);
-            
+
             })
         },
-        reloadPage() {
-            // Fuerza un reload de la página
-            this.$router.go(); // recarga la ruta actual
-        }
+
     }
     ,
     beforeMount() {
         init_carrusel.init_galeria();
-        init_carrusel.init_zoom();
+        // init_carrusel.init_zoom();
         this.init_data();
     }
 }

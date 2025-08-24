@@ -6,7 +6,7 @@
 
                 <!-- Hero Content-->
                 <div class="hero-content pb-5 text-center">
-                    <h1 class="hero-heading mb-0">Customer zone</h1>
+                    <h1 class="hero-heading mb-0">Zona de clientes</h1>
                 </div>
             </div>
         </section>
@@ -129,6 +129,12 @@ export default {
                         this.msn_error = result.data.message
                     } else {
                         console.log(result)
+                          this.$notify({
+                        group: 'foo',
+                        title: 'Exito',
+                        text: 'Te registraste correctamente',
+                        type: 'success'
+                    });
                     }
 
                 })

@@ -58,7 +58,7 @@
                     <div class="row" id="my-table">
                         <!-- product-->
                         <div class="col-xl-4 col-6" v-for="item in itemsForList">
-                            <router-link :to="{name: 'show-producto', params:{slug: item.slug}}">
+                            <router-link :to="{name: 'show-producto', params:{slug: item.slug} }">
                                 <div class="product">
                                     <div class="product-image">
                                         <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
