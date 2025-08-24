@@ -466,6 +466,7 @@ export default {
             }
         }
     },
+  
     methods: {
 
         convertCurrency(number) {

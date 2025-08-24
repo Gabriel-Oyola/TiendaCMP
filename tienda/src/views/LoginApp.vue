@@ -106,6 +106,11 @@ export default {
             msn_error_login: '',
         }
     },
+    beforeMount(){
+         if (this.$store.state.token) {
+            this.$router.push({name: 'home'})
+        }
+    },
     methods: {
         validar_registro() {
             console.log(this.cliente)
@@ -164,7 +169,9 @@ export default {
                     if(result.data.message){
                         this.msn_error_login = result.data.message;
                     }else{
-                        this.$store.dispatch('saveToken', result.data.token)
+                        this.$store.dispatch('saveToken', result.data.token),
+                        this.$store.dispatch('saveUser', JSON.stringify(result.data.cliente)
+                        )
                         this.$router.push({ name: 'home' })
                     }
 
@@ -175,7 +182,8 @@ export default {
             }
 
 
-        }
+        }, 
+      
     }
 }
 
