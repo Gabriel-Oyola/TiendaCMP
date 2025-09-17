@@ -25,8 +25,10 @@ const crear_producto_carrito = async function(req, res){
 
 const obtener_carrito_cliente = async function(req, res){
     if(req.user){
-       let carrito = await Carrito.find({ cliente: req.user.sub}).populate('producto').populate('variedad').sort({createAt: -1}).limit(5)
-        res.status(200).send(carrito)
+       let carrito = await Carrito.find({ cliente: req.user.sub}).populate('producto').populate('variedad').sort({createAt: -1}).limit(5);
+
+           let carrito_general = await Carrito.find({ cliente: req.user.sub}).populate('producto').populate('variedad').sort({createAt: -1});
+        res.status(200).send({carrito, carrito_general})
     }else{
         res.status(500).send({data:undefined, message: 'errorToken'})
     }

@@ -304,7 +304,7 @@
                 <a class="navbar-icon-link" id="cartdetails" href="cart.html" data-bs-target="#"
                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <img src="/assets/icons/cart.png" style="width: 25px;" />
-                  <div class="navbar-icon-link-badge">3</div>
+                  <div class="navbar-icon-link-badge">{{carrito_lenght}}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end p-4" aria-labelledby="cartdetails" style="max-width: 350px !important;">
                   <div class="navbar-cart-product-wrapper" style="overflow-x: hidden; max-height: 340px !important;">
@@ -326,7 +326,7 @@
                               <small
                               class="d-block text-muted">Cantidad: {{item.cantidad}} 
                             </small>
-                              <strong class="d-block text-sm">{{ convertCurrency( item.producto.precio )}}
+                              <strong class="d-block text-sm">{{ convertCurrency( item.producto.precio * item.cantidad )}}
                             </strong></div>
                         </div>
                       </div>
@@ -336,7 +336,7 @@
                   </div>
                   <!-- total price-->
                   <div class="navbar-cart-total"><span class="text-uppercase text-muted">Total</span><strong
-                      class="text-uppercase">$75.00</strong></div>
+                      class="text-uppercase">{{ convertCurrency(total) }}</strong></div>
                   <!-- buttons-->
                   <div class="d-flex justify-content-between">
                     <a class="btn btn-link text-dark me-3" href="cart.html">View Cart
@@ -395,6 +395,8 @@ export default {
     return {
       user: JSON.parse(this.$store.state.user), 
       carrito: [], 
+      total: 0,
+      carrito_lenght: 0,
     }
   },
 
@@ -414,8 +416,12 @@ export default {
           'Authorization': this.$store.state.token
         }
       }).then((result) => {
-        console.log(result);
-        this.carrito = result.data
+        this.carrito_lenght =  result.data.carrito_general.length ;
+        for (var item of result.data.carrito_general) {
+            let subtotal = item.producto.precio * item.cantidad; 
+          this.total = this.total + subtotal;
+        }
+        this.carrito = result.data.carrito;
 
       })
     }
