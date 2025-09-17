@@ -12,6 +12,7 @@ var clienteRouter = require("./routes/cliente");
 var usuarioRouter = require("./routes/usuario");
 var productoRouter = require("./routes/producto");
 var publicRouter = require("./routes/public");
+var customerRouter = require("./routes/customer");
 
 app.listen(port, function () {
   console.log("escuchando el puerto + " + port);
@@ -41,5 +42,6 @@ app.use("/api", clienteRouter);
 app.use("/api", usuarioRouter);
 app.use("/api", productoRouter);
 app.use("/api", publicRouter);
+app.use("/api", customerRouter);
 ConexionBD();
 module.exports = app;

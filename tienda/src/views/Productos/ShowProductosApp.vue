@@ -511,7 +511,16 @@ export default {
                 this.msn_error= 'ingrese una cantidad valida'
             }else {
                 this.msn_error = ''; 
-                console.log(this.obj_carrito)
+                 axios.post(this.$url + '/crear_producto_carrito', this.obj_carrito, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+                console.log(result);
+                
+
+            })
             }
         }
 
