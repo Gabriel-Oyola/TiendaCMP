@@ -127,60 +127,35 @@
                             </div>
                         </div>
                         <p class="mb-4 text-muted">{{ producto.descripcion }}</p>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-sm-6 col-lg-12 detail-option mb-3">
-                                    <h6 class="detail-option-heading">{{ producto.str_variedad }} <span></span></h6>
-                                    <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"
-                                        :for="'variedad_' + item._id" v-for="item in variedades"> {{ item.variedad }}
-                                        <input class="input-invisible" type="radio" name="size" value="value_0"
-                                            :id="'variedad_' + item._id" required>
-                                    </label>
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-12 detail-option mb-3">
+                                <h6 class="detail-option-heading">{{ producto.str_variedad }}</h6>
+                                <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"  v-for="item in variedades" :key="item._id" 
+                                    :class="{ active: selectedVariedad === item._id }">
+                                    <input type="radio" class="d-none" name="variedad" :value="item._id"
+                                        v-model="selectedVariedad" @change="getVariedad(item._id)">
+                                    {{ item.variedad }}
+                                </label>
 
-                                </div>
-
-                                <!-- <div class="col-12 detail-option mb-3">
-                                    <h6 class="detail-option-heading">Colour <span>(required)</span></h6>
-                                    <ul class="list-inline mb-0 colours-wrapper">
-                                        <li class="list-inline-item">
-                                            <label class="btn-colour" for="colour_Blue"
-                                                style="background-color: #668cb9"> </label>
-                                            <input class="input-invisible" type="radio" name="colour" value="value_Blue"
-                                                id="colour_Blue" required>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <label class="btn-colour" for="colour_White" style="background-color: #fff">
-                                            </label>
-                                            <input class="input-invisible" type="radio" name="colour"
-                                                value="value_White" id="colour_White" required>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <label class="btn-colour" for="colour_Violet"
-                                                style="background-color: #8b6ea4"> </label>
-                                            <input class="input-invisible" type="radio" name="colour"
-                                                value="value_Violet" id="colour_Violet" required>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <label class="btn-colour" for="colour_Red"
-                                                style="background-color: #dd6265"> </label>
-                                            <input class="input-invisible" type="radio" name="colour" value="value_Red"
-                                                id="colour_Red" required>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                                <div class="col-12 col-lg-6 detail-option mb-5">
-                                    <label class="detail-option-heading fw-bold">Cantidad</label>
-                                    <input class="form-control detail-quantity" name="items" type="number" value="1">
-                                </div>
                             </div>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <button class="btn btn-dark btn-lg mb-1" type="submit">Agregar al carrito</button>
-                                </li>
-                                <!-- <li class="list-inline-item"><a class="btn btn-outline-secondary mb-1" href="#"> <i
+                        </div>
+
+                        <div class="col-12 col-lg-6 detail-option mb-5">
+                            <label class="detail-option-heading fw-bold">Cantidad</label>
+                            <input class="form-control detail-quantity" name="items" type="number"
+                                v-model="obj_carrito.cantidad">
+                        </div>
+                          
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <button class="btn btn-dark btn-lg mb-1" type="button" v-on:click="add_cart()">Agregar al
+                                    carrito</button>
+                            </li>
+                            <!-- <li class="list-inline-item"><a class="btn btn-outline-secondary mb-1" href="#"> <i
                                             class="far fa-heart me-2"></i>Add to wishlist</a></li> -->
-                            </ul>
-                        </form>
+                        </ul>
+
+                        <span class="text-danger" v-if="msn_error">{{ msn_error }}</span>
                     </div>
                 </div>
             </div>
@@ -437,6 +412,14 @@
     display: auto !important;
     vertical-align: middle !important;
 }
+
+.input-invisible {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
 </style>
 <script>
 
@@ -451,23 +434,36 @@ export default {
     data() {
         return {
             galeria: [],
-            producto: [],
+            producto: {},
             variedades: [],
             productos_relacionados: [],
+            obj_carrito: {
+                cantidad: 1, 
+            },
+            user_data: JSON.parse(this.$store.state.user),
+            selectedVariedad: null, 
+            msn_error: ''
 
 
         }
     },
-    watch: {
-        '$route.params.slug': {
-            immediate: true, // Ejecuta también al cargar por primera vez
-            handler(newSlug) {
-                this.fetchProducto(newSlug); // Reemplaza con tu función real
-            }
-        }
-    },
-  
+    // watch: {
+    //     '$route.params.slug': {
+    //         immediate: true, // Ejecuta también al cargar por primera vez
+    //         handler(newSlug) {
+    //             this.fetchProducto(newSlug); // Reemplaza con tu función real
+    //         }
+    //     }
+    // },
+
     methods: {
+
+        getVariedad(value) {
+          
+             this.obj_carrito.variedad = value; 
+           
+            // Puedes hacer más cosas aquí
+        },
 
         convertCurrency(number) {
             return currency_formatter.format(number, { code: 'USD' });
@@ -481,6 +477,10 @@ export default {
             }).then((result) => {
                 console.log(result);
                 this.producto = result.data.producto;
+
+                this.obj_carrito.producto = this.producto._id;
+                this.obj_carrito.cliente = this.user_data._id;
+
                 this.galeria = result.data.galeria;
                 this.variedades = result.data.variedades;
                 this.init_productos_relacionados(this.producto.categoria)
@@ -501,25 +501,40 @@ export default {
         convertDate(date) {
             return moment(date).format('YYYY-MM-DD')
         },
-        fetchProducto(slug) {
+        add_cart(){
+           
+            if(!this.obj_carrito.variedad){
+                this.msn_error= 'ingrese una variedad'
+            }else if (!this.obj_carrito.cantidad){
+                this.msn_error= 'ingrese una cantidad'
+            }else if ( this.obj_carrito.cantidad <= 0){
+                this.msn_error= 'ingrese una cantidad valida'
+            }else {
+                this.msn_error = ''; 
+                console.log(this.obj_carrito)
+            }
+        }
 
-            this.producto = null;
-            this.galeria = [];
-            this.variedades = [];
+        // fetchProducto(slug) {
 
-            axios.get(this.$url + '/obtener_producto_slug/' + this.$route.params.slug, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then((result) => {
-                console.log(result);
-                this.producto = result.data.producto;
-                this.galeria = result.data.galeria;
-                this.variedades = result.data.variedades;
-                this.init_productos_relacionados(this.producto.categoria);
+        //     this.producto = null;
+        //     this.galeria = [];
+        //     this.variedades = [];
 
-            })
-        },
+
+        //     axios.get(this.$url + '/obtener_producto_slug/' + this.$route.params.slug, {
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         }
+        //     }).then((result) => {
+        //         console.log(result);
+        //         this.producto = result.data.producto;
+        //         this.galeria = result.data.galeria;
+        //         this.variedades = result.data.variedades;
+        //         this.init_productos_relacionados(this.producto.categoria);
+
+        //     })
+        // },
 
     }
     ,
