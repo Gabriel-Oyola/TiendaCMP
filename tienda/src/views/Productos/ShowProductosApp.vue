@@ -130,7 +130,8 @@
                         <div class="row">
                             <div class="col-sm-6 col-lg-12 detail-option mb-3">
                                 <h6 class="detail-option-heading">{{ producto.str_variedad }}</h6>
-                                <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"  v-for="item in variedades" :key="item._id" 
+                                <label class="btn btn-sm btn-outline-secondary detail-option-btn-label"
+                                    v-for="item in variedades" :key="item._id"
                                     :class="{ active: selectedVariedad === item._id }">
                                     <input type="radio" class="d-none" name="variedad" :value="item._id"
                                         v-model="selectedVariedad" @change="getVariedad(item._id)">
@@ -145,10 +146,11 @@
                             <input class="form-control detail-quantity" name="items" type="number"
                                 v-model="obj_carrito.cantidad">
                         </div>
-                          
+
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <button class="btn btn-dark btn-lg mb-1" type="button" v-on:click="add_cart()">Agregar al
+                                <button class="btn btn-dark btn-lg mb-1" type="button" v-on:click="add_cart()">Agregar
+                                    al
                                     carrito</button>
                             </li>
                             <!-- <li class="list-inline-item"><a class="btn btn-outline-secondary mb-1" href="#"> <i
@@ -438,10 +440,10 @@ export default {
             variedades: [],
             productos_relacionados: [],
             obj_carrito: {
-                cantidad: 1, 
+                cantidad: 1,
             },
             user_data: JSON.parse(this.$store.state.user),
-            selectedVariedad: null, 
+            selectedVariedad: null,
             msn_error: ''
 
 
@@ -459,9 +461,9 @@ export default {
     methods: {
 
         getVariedad(value) {
-          
-             this.obj_carrito.variedad = value; 
-           
+
+            this.obj_carrito.variedad = value;
+
             // Puedes hacer más cosas aquí
         },
 
@@ -501,26 +503,26 @@ export default {
         convertDate(date) {
             return moment(date).format('YYYY-MM-DD')
         },
-        add_cart(){
-           
-            if(!this.obj_carrito.variedad){
-                this.msn_error= 'ingrese una variedad'
-            }else if (!this.obj_carrito.cantidad){
-                this.msn_error= 'ingrese una cantidad'
-            }else if ( this.obj_carrito.cantidad <= 0){
-                this.msn_error= 'ingrese una cantidad valida'
-            }else {
-                this.msn_error = ''; 
-                 axios.post(this.$url + '/crear_producto_carrito', this.obj_carrito, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': this.$store.state.token
-                }
-            }).then((result) => {
-                console.log(result);
-                
+        add_cart() {
 
-            })
+            if (!this.obj_carrito.variedad) {
+                this.msn_error = 'ingrese una variedad'
+            } else if (!this.obj_carrito.cantidad) {
+                this.msn_error = 'ingrese una cantidad'
+            } else if (this.obj_carrito.cantidad <= 0) {
+                this.msn_error = 'ingrese una cantidad valida'
+            } else {
+                this.msn_error = '';
+                axios.post(this.$url + '/crear_producto_carrito', this.obj_carrito, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': this.$store.state.token
+                    }
+                }).then((result) => {
+                    console.log(result);
+
+
+                })
             }
         }
 

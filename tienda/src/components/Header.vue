@@ -286,7 +286,7 @@
                 <span class="text-sm ms-2 ms-lg-0 text-uppercase text-sm fw-bold d-none d-sm-inline d-lg-none">Log in
                 </span>
               </router-link>
-              <router-link v-if="$store.state.token" class="navbar-icon-link" to="login" >
+              <router-link v-if="$store.state.token" class="navbar-icon-link" to="login">
                 <img src="/assets/icons/user.png" style="width: 25px;" />
                 <span class="text-sm ms-2 ms-lg-0 text-uppercase text-sm fw-bold d-none d-sm-inline ">&nbsp; {{
                   user.nombre.split(' ')[0] }}
@@ -306,56 +306,33 @@
                   <img src="/assets/icons/cart.png" style="width: 25px;" />
                   <div class="navbar-icon-link-badge">3</div>
                 </a>
-                <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end p-4" aria-labelledby="cartdetails">
-                  <div class="navbar-cart-product-wrapper">
+                <div class="dropdown-menu dropdown-menu-animated dropdown-menu-end p-4" aria-labelledby="cartdetails" style="max-width: 350px !important;">
+                  <div class="navbar-cart-product-wrapper" style="overflow-x: hidden; max-height: 340px !important;">
                     <!-- cart item-->
-                    <div class="navbar-cart-product">
+                    <div class="navbar-cart-product" v-for="item in carrito">
                       <div class="d-flex align-items-center">
                         <a href="detail.html"><img class="img-fluid navbar-cart-product-image"
-                            src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/product-square-ian-dooley-347968-unsplash.jpg"
+                           :src="$url + '/obtener_portada_producto/' + item.producto.portada"
                             alt="..." /></a>
                         <div class="w-100">
                           <a class="navbar-cart-product-close" href="#">
                             <img src="/assets/icons/close.png" style="width: 15px;" />
                           </a>
-                          <div class="ps-3"><a class="navbar-cart-product-link" href="detail.html">Skull Tee</a><small
-                              class="d-block text-muted">Quantity: 1 </small><strong class="d-block text-sm">$75.00
+                          <div class="ps-3">
+                            <router-link :to="{name: 'show-producto', params:{slug: item.producto.slug}}"  class="navbar-cart-product-link"  style="text-overflow:ellipsis;overflow: hidden;white-space: nowrap;">{{ item.producto.titulo }}</router-link>
+                            <small
+                              class="d-block text-muted">{{item.producto.str_variedad}}: {{item.variedad.variedad}} 
+                            </small>
+                              <small
+                              class="d-block text-muted">Cantidad: {{item.cantidad}} 
+                            </small>
+                              <strong class="d-block text-sm">{{ convertCurrency( item.producto.precio )}}
                             </strong></div>
                         </div>
                       </div>
                     </div>
                     <!-- cart item-->
-                    <div class="navbar-cart-product">
-                      <div class="d-flex align-items-center">
-                        <a href="detail.html"><img class="img-fluid navbar-cart-product-image"
-                            src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/product-square-kyle-loftus-596319-unsplash.jpg"
-                            alt="..." /></a>
-                        <div class="w-100">
-                          <a class="navbar-cart-product-close" href="#">
-                            <img src="/assets/icons/close.png" style="width: 15px;" />
-                          </a>
-                          <div class="ps-3"><a class="navbar-cart-product-link" href="detail.html">Transparent
-                              Blouse</a><small class="d-block text-muted">Quantity: 1 </small><strong
-                              class="d-block text-sm">$75.00 </strong></div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- cart item-->
-                    <div class="navbar-cart-product">
-                      <div class="d-flex align-items-center">
-                        <a href="detail.html"><img class="img-fluid navbar-cart-product-image"
-                            src="https://d19m59y37dris4.cloudfront.net/sell/2-0/img/product/product-square-serrah-galos-494312-unsplash.jpg"
-                            alt="..." /></a>
-                        <div class="w-100">
-                          <a class="navbar-cart-product-close" href="#">
-                            <img src="/assets/icons/close.png" style="width: 15px;" />
-                          </a>
-                          <div class="ps-3"><a class="navbar-cart-product-link" href="detail.html">White Tee</a><small
-                              class="d-block text-muted">Quantity: 1 </small><strong class="d-block text-sm">$75.00
-                            </strong></div>
-                        </div>
-                      </div>
-                    </div>
+                 
                   </div>
                   <!-- total price-->
                   <div class="navbar-cart-total"><span class="text-uppercase text-muted">Total</span><strong
@@ -408,22 +385,44 @@
 }
 </style>
 <script>
+import axios from 'axios' 
+import currency_formatter from 'currency-formatter';
 export default {
   name: 'Header',
-  
+
 
   data() {
-      return {
-        user: JSON.parse(this.$store.state.user)
-      }
-    },
-
-    methods:{
-        logout(){
-            this.$store.dispatch('logout')
-            this.$router.push({name: 'home'})
-        }
+    return {
+      user: JSON.parse(this.$store.state.user), 
+      carrito: [], 
     }
+  },
+
+  methods: {
+     convertCurrency(number) {
+            return currency_formatter.format(number, { code: 'USD' });
+            // => '$1,000,000.00'
+        },
+    logout() {
+      this.$store.dispatch('logout')
+      this.$router.push({ name: 'home' })
+    },
+    init_carrito() {
+      axios.get(this.$url + '/obtener_carrito_cliente',  {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.$store.state.token
+        }
+      }).then((result) => {
+        console.log(result);
+        this.carrito = result.data
+
+      })
+    }
+  }, 
+  beforeMount(){
+    this.init_carrito();
+  }
 
 }
 </script>

@@ -7,3 +7,5 @@ var api = express.Router();
 
 api.post('/crear_producto_carrito',cauthenticate.decodeToken, customerControllers.crear_producto_carrito)
 module.exports = api;
+
+api.get('/obtener_carrito_cliente', cauthenticate.decodeToken, customerControllers.obtener_carrito_cliente)
