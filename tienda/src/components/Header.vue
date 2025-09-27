@@ -428,6 +428,7 @@ export default {
         }
       }).then((result) => {
         this.carrito_lenght =  result.data.carrito_general.length ;
+        this.total = 0 ;
         for (var item of result.data.carrito_general) {
             let subtotal = item.producto.precio * item.cantidad; 
           this.total = this.total + subtotal;
