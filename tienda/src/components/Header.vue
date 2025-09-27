@@ -344,9 +344,9 @@
                       class="text-uppercase">{{ convertCurrency(total) }}</strong></div>
                   <!-- buttons-->
                   <div class="d-flex justify-content-between">
-                    <a class="btn btn-link text-dark me-3" href="cart.html">View Cart
+                    <router-link class="btn btn-link text-dark me-3" to="/cart">Carrito
                       <img src="/assets/icons/shopping-bag.png" style="width: 15px;">
-                    </a>
+                    </router-link>
                     <a class="btn btn-outline-dark" href="checkout1.html">Checkout</a>
                   </div>
                 </div>
@@ -417,7 +417,7 @@ export default {
       throw err;
     }})
 
-      window.location.reload();
+      window.location.reload()
     },
     init_carrito() {
       if(this.$store.state.token != null){

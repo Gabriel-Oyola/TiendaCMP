@@ -9,3 +9,5 @@ api.post('/crear_producto_carrito',cauthenticate.decodeToken, customerController
 module.exports = api;
 
 api.get('/obtener_carrito_cliente', cauthenticate.decodeToken, customerControllers.obtener_carrito_cliente)
+
+api.delete('/eliminar_producto_carrito/:id', cauthenticate.decodeToken, customerControllers.eliminar_producto_carrito)

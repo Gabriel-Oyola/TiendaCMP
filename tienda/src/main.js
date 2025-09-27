@@ -13,7 +13,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.config.productionTip = false
 
 
-
+Vue.prototype.$envio = 10000
 Vue.prototype.$url = "http://localhost:6007/api";
 Vue.prototype.$token = localStorage.getItem("token");
 Vue.use(BootstrapVue)

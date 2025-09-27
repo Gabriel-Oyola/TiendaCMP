@@ -367,7 +367,7 @@
                             </div>
                         </div>
                         </router-link> -->
-                        <router-link :to="{ name: 'show-producto', params: { slug: item.slug } }">
+                        <router-link :to="{ name: 'show-producto', params: { slug: item.slug } }" >
                             <div class="product">
                                 <div class="product-image">
                                     <div class="ribbon ribbon-danger" v-if="item.descuento">oferta</div><img
@@ -524,7 +524,8 @@ export default {
 
                 })
             }
-        }
+        },
+      
 
         // fetchProducto(slug) {
 
