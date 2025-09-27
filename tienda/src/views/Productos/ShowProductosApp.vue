@@ -520,7 +520,7 @@ export default {
                     }
                 }).then((result) => {
                     console.log(result);
-
+                    this.$socket.emit('send_cart', true)
 
                 })
             }

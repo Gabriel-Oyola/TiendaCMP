@@ -15,10 +15,10 @@
             </ul>
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
-
-            <a style="cursor: pointer;" v-if="$store.state.token" v-on:click="logout()">
+              <button v-on:click="click_event()">Click</button>
+            <!-- <a style="cursor: pointer;" v-if="$store.state.token" v-on:click="logout()">
               <span><b>Cerrar sesion</b></span>
-            </a>
+            </a> -->
             <!-- Language Dropdown-->
             <div class="dropdown border-end px-3"><a class="dropdown-toggle topbar-link" id="langsDropdown" href="#"
                 data-bs-toggle="dropdown" data-bs-display="static" aria-haspopup="true" aria-expanded="false"><img
@@ -412,10 +412,16 @@ export default {
         },
     logout() {
       this.$store.dispatch('logout')
-      this.$router.push({ name: 'home' })
+      this.$router.push({ name: 'home' }).catch(err => {
+    if (err.name !== 'NavigationDuplicated') {
+      throw err;
+    }})
+
+      window.location.reload();
     },
     init_carrito() {
-      axios.get(this.$url + '/obtener_carrito_cliente',  {
+      if(this.$store.state.token != null){
+          axios.get(this.$url + '/obtener_carrito_cliente',  {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': this.$store.state.token
@@ -429,11 +435,21 @@ export default {
         this.carrito = result.data.carrito;
 
       })
+      }
+    },
+    click_event(){
+      this.$socket.emit('emit_method', 'Hola socket');
     }
   }, 
   beforeMount(){
     this.init_carrito();
-  }
+  }, 
+    created() {
+    this.sockets.subscribe('listen_cart', (data) => {
+       this.init_carrito();
+        this.user= JSON.parse(this.$store.state.user)
+    });
+  },  
 
 }
 </script>

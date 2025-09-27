@@ -173,6 +173,7 @@ export default {
                         this.$store.dispatch('saveUser', JSON.stringify(result.data.cliente)
                         )
                         this.$router.push({ name: 'home' })
+                           this.$socket.emit('send_cart', true)
                     }
 
 

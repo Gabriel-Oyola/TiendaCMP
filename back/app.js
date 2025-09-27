@@ -2,8 +2,23 @@ var express = require("express");
 var mongoose = require("mongoose");
 var port = process.env.port || 6007;
 var bodyparser = require("body-parser");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
 var app = express();
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+    cors: { origin: '*'}
+});
+
+io.on("connection", (socket) => {
+  // ...
+  socket.on('send_cart',function(data){
+    io.emit('listen_cart',data);
+    console.log(data);
+  });
+});
 
 app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyparser.json({ limit: "50mb", extended: true }));
@@ -14,7 +29,7 @@ var productoRouter = require("./routes/producto");
 var publicRouter = require("./routes/public");
 var customerRouter = require("./routes/customer");
 
-app.listen(port, function () {
+httpServer.listen(port, function () {
   console.log("escuchando el puerto + " + port);
 });
 
