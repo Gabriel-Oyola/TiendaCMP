@@ -15,7 +15,7 @@
             </ul>
           </div>
           <div class="col-sm-5 d-flex justify-content-end">
-              <button v-on:click="click_event()">Click</button>
+            
             <!-- <a style="cursor: pointer;" v-if="$store.state.token" v-on:click="logout()">
               <span><b>Cerrar sesion</b></span>
             </a> -->
@@ -293,7 +293,7 @@
                         </span>
                         <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="categoryDropdownMenuLink" style="    left: -50px !important;">
                             <a class="dropdown-item" href="category.html">Category - left sidebar   </a>
-                            <a class="dropdown-item" href="category-right.html">Category - right sidebar   </a>
+                            <router-link class="dropdown-item" to="/cuenta/direcciones">Direcciones </router-link>
                             <a class="dropdown-item" v-on:click="logout()">Cerrar sesión   </a>
                         </div>
                     </a>

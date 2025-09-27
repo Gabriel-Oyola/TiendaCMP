@@ -5,6 +5,7 @@ import LoginApp from '@/views/LoginApp.vue'
 import IndexProductos from '@/views/Productos/IndexProductos.vue'
 import ShowProductosApp from '@/views/Productos/ShowProductosApp.vue'
 import Cart from '@/views/Productos/Cart.vue'
+import DireccionesApp from '@/views/cuenta/DireccionesApp.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,12 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
+   
+  },
+  {
+    path: "/cuenta/direcciones",
+    name: "direcciones",
+    component: DireccionesApp,
    
   },
 ]
