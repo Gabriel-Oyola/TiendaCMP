@@ -68,10 +68,22 @@ const obtener_direccion = async function(req, res){
 }
 
 
+const eliminar_direccion = async function(req, res){
+    if(req.user){
+        let id  = req.params['id'];
+        let reg = await Direccion.findByIdAndDelete({_id: id})
+        res.status(200).send(reg)
+    }else{
+        res.status(500).send({data:undefined, message: 'errorToken'})
+    }
+}
+
+
 module.exports={
     crear_producto_carrito, 
     obtener_carrito_cliente,
     eliminar_producto_carrito,
     crear_direccion,
-    obtener_direccion
+    obtener_direccion, 
+    eliminar_direccion
 }

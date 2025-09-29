@@ -16,3 +16,5 @@ api.post('/crear_direccion',cauthenticate.decodeToken, customerControllers.crear
 
 api.get('/obtener_direccion',cauthenticate.decodeToken, customerControllers.obtener_direccion)
 module.exports = api;
+
+api.delete('/eliminar_direccion/:id', cauthenticate.decodeToken, customerControllers.eliminar_direccion)

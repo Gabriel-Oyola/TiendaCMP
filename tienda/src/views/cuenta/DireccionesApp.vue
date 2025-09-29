@@ -99,7 +99,7 @@
                                             }}</small></th>
                                     <td><small>{{ item.pais }} {{ item.ciudad }} <br> {{ item.cp }}</small></td>
                                     <td><small>{{ item.direccion }}</small></td>
-                                    <td class="btn btn-danger btn-sm" style="background-color: red; margin-top: 10px;">
+                                    <td class="btn btn-danger btn-sm" style="background-color: red; margin-top: 10px;" v-on:click="eliminar_direccion(item._id)">
                                         Eliminar</td>
                                 </tr>
 
@@ -232,6 +232,19 @@ export default {
                 })
             }
 
+        }, 
+
+        eliminar_direccion(id){
+               axios.delete(this.$url + '/eliminar_direccion/' + id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': this.$store.state.token
+                }
+            }).then((result) => {
+                console.log(result); 
+                this.init_direcciones(); 
+                this.direccion = ''
+            })
         }
     }
 
