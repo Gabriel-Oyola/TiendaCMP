@@ -400,7 +400,7 @@
 .detail-nav-link.nav-link:focus {
     color: #ffffff !important;
     border-color: #fff #fff #343a40 !important;
-    background: #005f96 !important;
+    background: #499493 !important;
 }
 
 .product-image {

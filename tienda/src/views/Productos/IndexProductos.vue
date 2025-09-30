@@ -491,7 +491,7 @@ export default {
 
 <style>
 .noUi-horizontal .noUi-handle {
-    background: #005f96 !important;
+    background: #499493 !important;
     border-radius: 5px !important;
 }
 
@@ -515,7 +515,7 @@ export default {
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #ffffff !important;
-    background-color: #005f96 !important;
+    background-color: #499493 !important;
 }
 
 .bg_subcat_activa {

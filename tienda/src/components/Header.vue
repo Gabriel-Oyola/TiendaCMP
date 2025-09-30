@@ -49,7 +49,7 @@
     <!-- Top Bar End-->
     <!-- Navbar-->
     <nav class="navbar navbar-expand-lg navbar-sticky navbar-airy navbar-dark bg-fixed-white navbar-fixed-light"
-      style="background: #005f96 !important;">
+      style="background: #499493 !important;">
       <div class="container-fluid">
         <!-- Navbar Header  -->
         <a class="navbar-brand" style="color: white !important; font-weight: bold; font-size: 1.25rem;"
@@ -347,7 +347,7 @@
                     <router-link class="btn btn-link text-dark me-3" to="/cart">Carrito
                       <img src="/assets/icons/shopping-bag.png" style="width: 15px;">
                     </router-link>
-                    <a class="btn btn-outline-dark" href="checkout1.html">Checkout</a>
+                    <router-link class="btn btn-outline-dark" to="/checkout">Checkout</router-link>
                   </div>
                 </div>
               </div>

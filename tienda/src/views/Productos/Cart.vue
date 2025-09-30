@@ -25,7 +25,7 @@
                     <div class="col-lg-8">
                         <div class="cart">
                             <div class="cart-wrapper">
-                                <div class="cart-header text-center" style="    background: #005f96 !important;">
+                                <div class="cart-header text-center" style="    background: #499493 !important;">
                                     <div class="row">
                                         <div class="col-5 text-white">Producto</div>
                                         <div class="col-2 text-white">Precio</div>
@@ -88,8 +88,8 @@
                             <router-link class="btn btn-link text-muted" to="/shop">
                                 <img src="/assets/img/shop.png" alt="" style="width: 18px;">
                                 continuar comprando</router-link>
-                            <a class="btn btn-dark" href="checkout1.html">Ir a pagar
-                                <img src="/assets/img/money.png" alt="" style="width: 25px;"> </a>
+                            <router-link class="btn btn-dark" to="/checkout">Ir a pagar
+                                <img src="/assets/img/money.png" alt="" style="width: 25px;"> </router-link>
                         </div>
                     </div>
                     <div class="col-lg-4">
