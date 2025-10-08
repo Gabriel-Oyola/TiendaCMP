@@ -1,0 +1,50 @@
+# 🛒 eCommerce Full-Stack tipo MercadoLibre
+
+Este proyecto es una plataforma de comercio electrónico inspirada en el modelo de **MercadoLibre**, desarrollada como parte de mi proceso de aprendizaje en tecnologías modernas como **Vue.js**, **Node.js** y **MongoDB**. 
+
+La aplicación cuenta con un panel de administración para gestionar productos, personal, stock, precios y más, así como una tienda accesible para clientes, con integración de **MercadoPago** para pagos seguros.
+
+---
+
+## 🚀 Objetivo del Proyecto
+
+El principal propósito de este proyecto es **profundizar y consolidar mis conocimientos en desarrollo full-stack**, construyendo una aplicación realista con múltiples funcionalidades, roles de usuario y consumo de APIs externas, siguiendo buenas prácticas de arquitectura, seguridad y escalabilidad.
+
+---
+
+## ⚙️ Tecnologías Utilizadas
+
+| Tecnología         | Descripción                          |
+|--------------------|--------------------------------------|
+| Vue.js             | Framework frontend                   |
+| Node.js + Express  | Backend y APIs RESTful               |
+| MongoDB + Mongoose | Base de datos NoSQL                  |
+| JWT                | Autenticación y autorización         |
+| MercadoPago API    | Integración de pagos                 |
+| Docker             | Contenedores y despliegue (opcional) |
+| Vercel / Render / Railway | Hosting y despliegue         |
+
+---
+
+## 🎛️ Funcionalidades del Panel de Administración
+
+- ✅ Gestión del personal (crear, editar, eliminar)
+- ✅ Gestión de productos (CRUD completo)
+- ✅ Control de stock en tiempo real
+- ✅ Administración de precios y promociones
+- ✅ Vista de pedidos y ventas (en desarrollo)
+
+---
+
+## 🛍️ Funcionalidades para Clientes
+
+- ✅ Navegación por categorías y productos
+- ✅ Vista detallada del producto
+- ✅ Carrito de compras dinámico
+- ✅ Checkout con integración a MercadoPago
+- ✅ Confirmación y registro de compra
+
+---
+
+## 📁 Estructura del Proyecto
+
