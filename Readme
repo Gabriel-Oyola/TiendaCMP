@@ -48,3 +48,26 @@ El principal propósito de este proyecto es **profundizar y consolidar mis conoc
 
 ## 📁 Estructura del Proyecto
 
+
+---
+
+## 🔐 Autenticación
+
+- Implementación con **JSON Web Tokens (JWT)**.
+- Diferenciación de roles: **Administrador** y **Cliente**.
+- Rutas protegidas para panel de administración.
+
+---
+
+## 🧪 Estado del Proyecto
+
+> Proyecto en desarrollo activo. Actualmente se están integrando mejoras en el dashboard administrativo, historial de compras para usuarios, y estadísticas de ventas.
+
+---
+
+## 🧭 Cómo Ejecutar el Proyecto Localmente
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/gabrieloyola/ecommerce-mercadolibre-clone.git
